@@ -28,7 +28,7 @@ using std::localtime;
 #elif defined macintosh || defined Macintosh || defined __APPLE__ && __MACH__
 	void openLog() {system("open -t log.txt");}
 #elif defined __GNU__ || defined __gnu_linux__ || defined __linux__ || defined linux || defined __linux__
-	void openLog() {system("open -t log.txt");}
+	void openLog() {system("xdg-open log.txt");}
 #endif
 
 /****************GET DATE AND TIME*****************/
@@ -152,7 +152,7 @@ const string removeBadPrograms()
 		for(int i = 0; i < removedPrograms.size(); i++)
 		{
 			if(i == removedPrograms.size()-1 && removedPrograms.size() != 1) _badPrograms += ("and " + removedPrograms[i] + ".\n");
-			else if(removedPrograms.size() == 1) _badPrograms += removedPrograms[0];
+			else if(removedPrograms.size() == 1) _badPrograms += (removedPrograms[0] + '\n');
 			else _badPrograms += removedPrograms[i] + ", ";
 		}
 	}
