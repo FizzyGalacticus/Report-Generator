@@ -27,7 +27,6 @@ log.txt
 lastdate
 
 #QT Files
-Qt/*
 build*
 *.user
 *.user*
