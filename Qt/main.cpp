@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include "io.cpp"
+#include <QStringList>
 
 int main(int argc, char *argv[])
 {
