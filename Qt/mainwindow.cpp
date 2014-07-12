@@ -1,18 +1,13 @@
+#ifndef MAINWINDOW_CPP
+#define MAINWINDOW_CPP
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "io.cpp"
 #include <QDebug>
 #include <QPushButton>
 #include <QRect>
 #include <QDesktopWidget>
-#include <QInputDialog>
-#include <QString>
-#include <string>
-using std::string;
-
-const QString getUserInput(QWidget *parent, const QString windowName, const QString prompt)
-{
-    return QInputDialog::getText(parent, windowName,prompt, QLineEdit::Normal,"", 0);
-}
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -38,3 +33,5 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+#endif
