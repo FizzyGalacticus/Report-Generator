@@ -13,10 +13,19 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    _initialsListView(new QListWidget(this))
 {
     ui->setupUi(this);
     this->setWindowTitle("Report Generator");
+
+    connect
+                (
+                    _initialsListView,
+                    SIGNAL(itemClicked(QListWidgetItem*)),
+                    this,
+                    SLOT(_initialsListItemHasBeenClicked(QListWidgetItem*))
+                );
 
     /*const QString initials = getUserInputString(this, "Initials", "Initials:");
 
@@ -30,6 +39,30 @@ MainWindow::MainWindow(QWidget *parent) :
     myButton->show();
     wdg->show();*/
 
+    _setupUsers();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
+{
+    if(item != _initialsListView->item(_initialsListView->count()-1))
+    {
+            _currentUser = item->text();
+    }
+    else
+    {
+        string userInitials = getUserInputString(this,"Initials","Initials:").toStdString();
+        appendLineToFile(tr("users"),tr(userInitials.c_str()));
+    }
+    qDebug() << item->text().toStdString().c_str() << "Clicked!" << '\n';
+}
+
+void MainWindow::_setupUsers()
+{
     vector<string> myList = getStringListFromFile("users");
 
     if( myList.empty())
@@ -39,20 +72,14 @@ MainWindow::MainWindow(QWidget *parent) :
         appendLineToFile(tr("users"),tr(userInitials.c_str()));
     }
 
-    QListWidget * initials = new QListWidget(this);
     for(unsigned int i = 0; i < myList.size(); i++)
     {
-        initials->addItem(QString(myList[i].c_str()));
-        initials->item(i)->setTextColor("Black");
+        _initialsListView->addItem(QString(myList[i].c_str()));
+        _initialsListView->item(i)->setTextColor("Black");
     }
-    initials->addItem("Add new...");
-    initials->setGeometry(0,0,width(),height());
-    initials->show();
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
+    _initialsListView->addItem("Add new...");
+    _initialsListView->setGeometry(20,11,100,50);
+    _initialsListView->show();
 }
 
 #endif

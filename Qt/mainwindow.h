@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
+#include <QString>
 
 namespace Ui {
 class MainWindow;
@@ -15,8 +17,16 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void _initialsListItemHasBeenClicked(QListWidgetItem *);
+
 private:
     Ui::MainWindow *ui;
+
+    /*****USERS*******/
+    QListWidget * _initialsListView;
+    void _setupUsers();
+    QString _currentUser;
 };
 
 #endif // MAINWINDOW_H
