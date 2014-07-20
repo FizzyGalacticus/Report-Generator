@@ -24,6 +24,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    /*****SETUP**********/
+    void _setup();
+
     /*****INITIALS*******/
     QListWidget * _initialsListView;
     QLabel * _initials;

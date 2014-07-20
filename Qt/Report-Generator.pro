@@ -15,7 +15,8 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     io.cpp \
-    initials.cpp
+    initials.cpp \
+    checkboxes.cpp
 
 HEADERS  += mainwindow.h
 

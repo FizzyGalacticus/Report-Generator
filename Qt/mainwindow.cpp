@@ -30,17 +30,24 @@ MainWindow::MainWindow(QWidget *parent) :
     myButton->show();
     wdg->show();*/
 
-    _setupInitials();
+    _setup();
 
 //    QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
 //    QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
 
     if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << "Windows 7!" << '\n';
+
+//    _initialsListView->setItemSelected(_initialsListView->item(0),1);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::_setup()
+{
+    _setupInitials();
 }
 
 #endif

@@ -6,6 +6,7 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
     if(item != _initialsListView->item(_initialsListView->count()-1))
     {
             _currentUser = item->text();
+            qDebug() << _currentUser.toStdString().c_str() << "Clicked!" << '\n';
     }
     else
     {
@@ -14,11 +15,21 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
         {
             appendLineToFile(tr("users"),tr(userInitials.c_str()));
             _initialsListView->item(_initialsListView->count()-1)->setText(QString(userInitials.c_str()));
+
+            _initialsListView->sortItems();
+            _initialsListView->show();
+
+            for(int i = 0; i < _initialsListView->count(); i++)
+                if(_initialsListView->item(i)->text() == QString(userInitials.c_str()))
+                    _initialsListView->setItemSelected(_initialsListView->item(i), true);
+            _currentUser = userInitials.c_str();
+
             _initialsListView->addItem(QString("Add New..."));
             _initialsListView->item(_initialsListView->count()-1)->setTextColor("Black");
+
+            qDebug() << _currentUser.toStdString().c_str() << "Clicked!" << '\n';
         }
     }
-    qDebug() << _currentUser.toStdString().c_str() << "Clicked!" << '\n';
 }
 
 void MainWindow::_setupInitials()
