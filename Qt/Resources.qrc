@@ -1,1 +1,8 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/Ninite/Ninite-AV.exe</file>
+        <file>Resources/Ninite/Ninite-NoAV.exe</file>
+        <file>Resources/Ninite/Ninite-Win8-AV.exe</file>
+        <file>Resources/Ninite/Ninite-Win8-NoAV.exe</file>
+    </qresource>
+</RCC>
