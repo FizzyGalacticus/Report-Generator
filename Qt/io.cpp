@@ -12,10 +12,16 @@ using std::ofstream;
 using std::string;
 #include <vector>
 using std::vector;
+#include <algorithm>
+using std::sort;
 
 inline const QString getUserInputString(QWidget *parent, const QString windowName, const QString prompt)
 {
-    return QInputDialog::getText(parent, windowName,prompt, QLineEdit::Normal,"", 0);
+    bool ok = false;
+    const QString input = QInputDialog::getText(parent, windowName,prompt, QLineEdit::Normal,"", &ok);
+
+    if(ok) return input;
+    else return "";
 }
 
 inline vector<string> getStringListFromFile(const QString & filename)
@@ -32,10 +38,15 @@ inline vector<string> getStringListFromFile(const QString & filename)
         while(!in.eof())
         {
             getline(in,temp);
-            myList.push_back(temp);
+            if(temp != "")
+                myList.push_back(temp);
         }
         in.close();
     }
+
+    std::sort(myList.begin(),myList.end());
+
+    for(unsigned int i = 0; i < myList.size(); i++) qDebug() << myList[i].c_str() << '\n';
 
     return myList;
 }

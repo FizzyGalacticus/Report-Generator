@@ -13,11 +13,14 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    _initialsListView(new QListWidget(this))
+    ui(new Ui::MainWindow)
+    //_initialsListView(new QListWidget(this))
 {
     ui->setupUi(this);
     this->setWindowTitle("Report Generator");
+
+    _initialsListView = new QListWidget(this);
+    _initialsListView->setParent(this);
 
     connect
                 (
@@ -56,9 +59,15 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
     else
     {
         string userInitials = getUserInputString(this,"Initials","Initials:").toStdString();
-        appendLineToFile(tr("users"),tr(userInitials.c_str()));
+        if(userInitials.size())
+        {
+            appendLineToFile(tr("users"),tr(userInitials.c_str()));
+            _initialsListView->item(_initialsListView->count()-1)->setText(QString(userInitials.c_str()));
+            _initialsListView->addItem(QString("Add New..."));
+            _initialsListView->item(_initialsListView->count()-1)->setTextColor("Black");
+        }
     }
-    qDebug() << item->text().toStdString().c_str() << "Clicked!" << '\n';
+    qDebug() << _currentUser.toStdString().c_str() << "Clicked!" << '\n';
 }
 
 void MainWindow::_setupUsers()
