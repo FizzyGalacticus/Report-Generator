@@ -23,6 +23,9 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
 
 void MainWindow::_setupInitials()
 {
+    _initials->setGeometry(25,11,30,11);
+    _initials->show();
+
     _initialsListView = new QListWidget(this);
     _initialsListView->setParent(this);
 
@@ -49,7 +52,7 @@ void MainWindow::_setupInitials()
         _initialsListView->item(i)->setTextColor("Black");
     }
     _initialsListView->addItem("Add new...");
-    _initialsListView->setGeometry(20,11,100,100);
+    _initialsListView->setGeometry(0,_initials->geometry().height()+11,100,100);
     _initialsListView->show();
 }
 

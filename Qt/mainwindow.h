@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QListWidgetItem>
 #include <QString>
+#include <QLabel>
 
 namespace Ui {
 class MainWindow;
@@ -23,8 +24,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    /*****USERS*******/
+    /*****INITIALS*******/
     QListWidget * _initialsListView;
+    QLabel * _initials;
     void _setupInitials();
     QString _currentUser;
 };

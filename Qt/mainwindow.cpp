@@ -9,11 +9,12 @@
 #include <QDesktopWidget>
 #include <QProcess>
 #include <QFile>
+#include <QSysInfo>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
-    //_initialsListView(new QListWidget(this))
+    ui(new Ui::MainWindow),
+    _initials(new QLabel("Initials",this))
 {
     ui->setupUi(this);
     this->setWindowTitle("Report Generator");
@@ -32,7 +33,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _setupInitials();
 
 //    QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
-//    QProcess::startDetached("Ninite-NoAV.exe");
+//    QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
+
+    if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << "Windows 7!" << '\n';
 }
 
 MainWindow::~MainWindow()
