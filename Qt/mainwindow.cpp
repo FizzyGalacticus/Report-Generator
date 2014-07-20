@@ -4,12 +4,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "io.cpp"
-#include <QDebug>
+#include "initials.cpp"
 #include <QPushButton>
-#include <QRect>
 #include <QDesktopWidget>
-#include <QStringList>
-#include <QListWidget>
+#include <QProcess>
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -19,19 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("Report Generator");
 
-    _initialsListView = new QListWidget(this);
-    _initialsListView->setParent(this);
-
-    connect
-                (
-                    _initialsListView,
-                    SIGNAL(itemClicked(QListWidgetItem*)),
-                    this,
-                    SLOT(_initialsListItemHasBeenClicked(QListWidgetItem*))
-                );
-
-    /*const QString initials = getUserInputString(this, "Initials", "Initials:");
-
+    /*
     QDesktopWidget desktop;
     QWidget *wdg = new QWidget;
     wdg->setWindowTitle("Pop-up");
@@ -42,53 +29,15 @@ MainWindow::MainWindow(QWidget *parent) :
     myButton->show();
     wdg->show();*/
 
-    _setupUsers();
+    _setupInitials();
+
+//    QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
+//    QProcess::startDetached("Ninite-NoAV.exe");
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
-{
-    if(item != _initialsListView->item(_initialsListView->count()-1))
-    {
-            _currentUser = item->text();
-    }
-    else
-    {
-        string userInitials = getUserInputString(this,"Initials","Initials:").toStdString();
-        if(userInitials.size())
-        {
-            appendLineToFile(tr("users"),tr(userInitials.c_str()));
-            _initialsListView->item(_initialsListView->count()-1)->setText(QString(userInitials.c_str()));
-            _initialsListView->addItem(QString("Add New..."));
-            _initialsListView->item(_initialsListView->count()-1)->setTextColor("Black");
-        }
-    }
-    qDebug() << _currentUser.toStdString().c_str() << "Clicked!" << '\n';
-}
-
-void MainWindow::_setupUsers()
-{
-    vector<string> myList = getStringListFromFile("users");
-
-    if( myList.empty())
-    {
-        string userInitials = getUserInputString(this,"Initials","Initials:").toStdString();
-        myList.push_back(userInitials);
-        appendLineToFile(tr("users"),tr(userInitials.c_str()));
-    }
-
-    for(unsigned int i = 0; i < myList.size(); i++)
-    {
-        _initialsListView->addItem(QString(myList[i].c_str()));
-        _initialsListView->item(i)->setTextColor("Black");
-    }
-    _initialsListView->addItem("Add new...");
-    _initialsListView->setGeometry(20,11,100,50);
-    _initialsListView->show();
 }
 
 #endif

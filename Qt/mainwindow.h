@@ -25,7 +25,7 @@ private:
 
     /*****USERS*******/
     QListWidget * _initialsListView;
-    void _setupUsers();
+    void _setupInitials();
     QString _currentUser;
 };
 
