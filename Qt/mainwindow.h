@@ -6,6 +6,7 @@
 #include <QString>
 #include <QLabel>
 #include <QCheckBox>
+#include <QIcon>
 
 namespace Ui {
 class MainWindow;
@@ -27,6 +28,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    /*****MAIN ICON******/
+    QIcon _mainWindowIcon;
 
     /*****SETUP**********/
     void _setup();

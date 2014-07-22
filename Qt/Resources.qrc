@@ -4,5 +4,6 @@
         <file>Resources/Ninite/Ninite-NoAV.exe</file>
         <file>Resources/Ninite/Ninite-Win8-AV.exe</file>
         <file>Resources/Ninite/Ninite-Win8-NoAV.exe</file>
+        <file>Resources/Icons/CWILogo.bmp</file>
     </qresource>
 </RCC>

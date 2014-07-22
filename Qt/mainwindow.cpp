@@ -15,13 +15,15 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    _mainWindowIcon(":/Resources/Icons/CWILogo.bmp"),
     _initials(new QLabel("Initials",this))
     //_hddscan(new QCheckBox(this)),
     //_hddpass(new QCheckBox(this)),
     //_hddfail(new QCheckBox(this))
 {
     ui->setupUi(this);
-    this->setWindowTitle("Report Generator");
+    this->setWindowTitle("ComputerWerks Inc. - Report Generator");
+    this->setWindowIcon(_mainWindowIcon);
 
     /*
     QDesktopWidget desktop;
