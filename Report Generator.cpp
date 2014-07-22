@@ -186,7 +186,7 @@ const string virusRemoval()
 	
 	if(_input == "N" || _input == "n") return "";
 	
-	return (cleanup() + removeBadPrograms() + runMalwareScans());
+	return (removeBadPrograms() + runMalwareScans());
 }
 
 /*************SYSTEM FILE CHECKER******************/
@@ -281,6 +281,7 @@ const string runEverything()
 	retStr += sfc();
 	retStr += hddScan();
 	retStr += installGoodPrograms();
+	retStr += cleanup();
 	
 	return retStr;
 }
