@@ -7,6 +7,7 @@
 #include <QLabel>
 #include <QCheckBox>
 #include <QIcon>
+#include <QTextEdit>
 
 namespace Ui {
 class MainWindow;
@@ -59,6 +60,10 @@ private:
     QCheckBox * _sfcpass;
     QCheckBox * _sfcfail;
     void _setupSFCCheckboxes();
+
+    /*****TEXT BOX*******/
+    QTextEdit * _textbox;
+    void _setupTextbox();
 };
 
 #endif // MAINWINDOW_H

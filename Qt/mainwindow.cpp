@@ -37,10 +37,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _setup();
 
-    QTextEdit * textbox = new QTextEdit("Default Text",this);
-    textbox->setGeometry(_initialsListView->width()+3,_initialsListView->geometry().y(),width()-_initialsListView->width()-3,_initialsListView->height());
-    textbox->show();
-
 //    QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
 //    QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
 
@@ -178,12 +174,20 @@ void MainWindow::_setupSFCCheckboxes()
     connect(_sfcfail,SIGNAL(stateChanged(int)),this,SLOT(_sfcfailStateHasChanged(int)));
 }
 
+void MainWindow::_setupTextbox()
+{
+    _textbox = new QTextEdit("Default Text",this);
+    _textbox->setGeometry(_initialsListView->width()+3,_initialsListView->geometry().y(),width()-_initialsListView->width()-3,_initialsListView->height());
+    _textbox->show();
+}
+
 void MainWindow::_setup()
 {
     _setupInitials();
     _setupCheckoutCheckbox();
     _setupHDDCheckboxes();
     _setupSFCCheckboxes();
+    _setupTextbox();
 }
 
 #endif
