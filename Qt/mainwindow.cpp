@@ -11,6 +11,7 @@
 #include <QProcess>
 #include <QFile>
 #include <QSysInfo>
+#include <QTextEdit>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -25,18 +26,20 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
     this->setWindowIcon(_mainWindowIcon);
 
-    /*
-    QDesktopWidget desktop;
-    QWidget *wdg = new QWidget;
-    wdg->setWindowTitle("Pop-up");
-    wdg->setFixedSize(50,40);
+//    QDesktopWidget desktop;
+//    QWidget *wdg = new QWidget;
+//    wdg->setWindowTitle("Pop-up");
+//    wdg->setFixedSize(200,40);
 
-    QPushButton *myButton = new QPushButton(wdg);
-    myButton->setText("Push me!");
-    myButton->show();
-    wdg->show();*/
+//    QPushButton *myButton = new QPushButton(wdg);
+//    myButton->setText("Push me!");
+//    wdg->show();
 
     _setup();
+
+    QTextEdit * textbox = new QTextEdit("Default Text",this);
+    textbox->setGeometry(_initialsListView->width()+3,_initialsListView->geometry().y(),width()-_initialsListView->width()-3,_initialsListView->height());
+    textbox->show();
 
 //    QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
 //    QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
