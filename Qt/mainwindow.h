@@ -25,6 +25,9 @@ private slots:
     void _hddscanStateHasChanged(int);                          //HDDScan
     void _hddpassStateHasChanged(int);                          //HDDScan Passed
     void _hddfailStateHasChanged(int);                          //HDDScan Failed
+    void _sfcscanStateHasChanged(int);                          //SFCScan
+    void _sfcpassStateHasChanged(int);                          //SFCScan Passed
+    void _sfcfailStateHasChanged(int);                          //SFCScan Failed
 
 private:
     Ui::MainWindow *ui;
@@ -46,6 +49,12 @@ private:
     QCheckBox * _hddpass;
     QCheckBox * _hddfail;
     void _setupHDDCheckboxes();
+
+    /*****SFC SCAN*******/
+    QCheckBox * _sfcscan;
+    QCheckBox * _sfcpass;
+    QCheckBox * _sfcfail;
+    void _setupSFCCheckboxes();
 };
 
 #endif // MAINWINDOW_H
