@@ -71,6 +71,14 @@ void MainWindow::_hddscanStateHasChanged(int state)
     }
 }
 
+void MainWindow::_setupCheckoutCheckbox()
+{
+    _checkout = new QCheckBox(this);
+    _checkout->setText("Just Checked Out");
+    const int checkoutY = _initialsListView->geometry().y()+_initialsListView->height()+3;
+    _checkout->setGeometry(0,checkoutY,_initialsListView->width(),_initials->height()+2);
+}
+
 void MainWindow::_hddpassStateHasChanged(int state)
 {
   if(state) _hddfail->setChecked(false);
@@ -86,7 +94,7 @@ void MainWindow::_setupHDDCheckboxes()
     //     Main HDD Scan Checkbox
     _hddscan = new QCheckBox(this);
     _hddscan->setText("HDD Scan");
-    const int hddscanY = _initialsListView->geometry().y()+_initialsListView->height()+3;
+    const int hddscanY = _checkout->geometry().y() + _checkout->height() + 3;
     _hddscan->setGeometry(0,hddscanY,_initialsListView->width(),_initials->height()+2);
     connect(_hddscan,SIGNAL(stateChanged(int)),this,SLOT(_hddscanStateHasChanged(int)));
 
@@ -170,6 +178,7 @@ void MainWindow::_setupSFCCheckboxes()
 void MainWindow::_setup()
 {
     _setupInitials();
+    _setupCheckoutCheckbox();
     _setupHDDCheckboxes();
     _setupSFCCheckboxes();
 }

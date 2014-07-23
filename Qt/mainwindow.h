@@ -44,6 +44,10 @@ private:
     void _setupInitials();
     QString _currentUser;
 
+    /*****CHECKOUT*******/
+    QCheckBox * _checkout;
+    void _setupCheckoutCheckbox();
+
     /*****HDD SCAN*******/
     QCheckBox * _hddscan;
     QCheckBox * _hddpass;

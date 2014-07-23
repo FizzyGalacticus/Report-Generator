@@ -63,7 +63,7 @@ void MainWindow::_setupInitials()
         _initialsListView->item(i)->setTextColor("Black");
     }
     _initialsListView->addItem("Add new...");
-    _initialsListView->setGeometry(0,_initials->geometry().height()+11,100,100);
+    _initialsListView->setGeometry(0,_initials->geometry().height()+11,105,100);
     _initialsListView->show();
 }
 
