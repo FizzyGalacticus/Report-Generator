@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
     this->setWindowIcon(_mainWindowIcon);
+    this->setFixedSize(600,400);
 
 //    QDesktopWidget desktop;
 //    QWidget *wdg = new QWidget;
@@ -40,7 +41,9 @@ MainWindow::MainWindow(QWidget *parent) :
 //    QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
 //    QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
 
+#ifdef __WINDOWS__
     if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << "Windows 7!" << '\n';
+#endif
 
 //    _initialsListView->setItemSelected(_initialsListView->item(0),1);
 }
