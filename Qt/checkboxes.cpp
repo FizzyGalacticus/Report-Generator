@@ -102,6 +102,10 @@ void MainWindow::_setupDateAndTimeCheckboxes()
 
 void MainWindow::_checkoutStateHasChanged(int state)
 {
+    if(state)
+        qDebug() << "Just checked out!";
+    else qDebug() << "Actually, I didn't just check out!";
+
     _generateReport();
 }
 
@@ -174,16 +178,28 @@ void MainWindow::_sfcfailStateHasChanged(int state)
 
 void MainWindow::_addInitialsStateHasChanged(int state)
 {
+    if(state)
+        qDebug() << "I want to add initials!";
+    else qDebug() << "Actually, I don't want to add my initials!";
+
     if(_currentUser.length()) _generateReport();
 }
 
 void MainWindow::_addDateStateHasChanged(int state)
 {
+    if(state)
+        qDebug() << "I want to add the date!";
+    else qDebug() << "Actually, I don't want to add the date!";
+
     _generateReport();
 }
 
 void MainWindow::_addTimeStateHasChanged(int state)
 {
+    if(state)
+        qDebug() << "I want to add the time!";
+    else qDebug() << "Actually, I don't want to add the time!";
+
     _generateReport();
 }
 
