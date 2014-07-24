@@ -17,7 +17,7 @@ void MainWindow::_setupCheckoutCheckbox()
     _checkout = new QCheckBox(this);
     _checkout->setText("Just Checked Out");
     const int checkoutY = _initialsListView->geometry().y()+_initialsListView->height()+3;
-    _checkout->setGeometry(0,checkoutY,width()/3,_initials->height()+2);
+    _checkout->setGeometry(0,checkoutY,width()/3,_initials->height()+3);
     connect(_checkout, SIGNAL(stateChanged(int)),this,SLOT(_checkoutStateHasChanged(int)));
 }
 
@@ -27,14 +27,14 @@ void MainWindow::_setupHDDCheckboxes()
     _hddscan = new QCheckBox(this);
     _hddscan->setText("HDD Scan");
     const int hddscanY = _checkout->geometry().y() + _checkout->height() + 3;
-    _hddscan->setGeometry(0,hddscanY,_checkout->width(),_initials->height()+2);
+    _hddscan->setGeometry(0,hddscanY,_checkout->width(),_checkout->height());
     connect(_hddscan,SIGNAL(stateChanged(int)),this,SLOT(_hddscanStateHasChanged(int)));
 
     //     HDD Scan Pass Checkbox
     _hddpass = new QCheckBox(this);
     _hddpass->setText("Passed");
     const int hddpassY = _hddscan->geometry().y() + _hddscan->height() + 3;
-    _hddpass->setGeometry(15,hddpassY,_hddscan->width(),_hddscan->height());
+    _hddpass->setGeometry(15,hddpassY,_hddscan->width()-15,_hddscan->height());
     _hddpass->setCheckable(false);
     _hddpass->setVisible(false);
     connect(_hddpass,SIGNAL(stateChanged(int)),this,SLOT(_hddpassStateHasChanged(int)));
@@ -43,7 +43,7 @@ void MainWindow::_setupHDDCheckboxes()
     _hddfail = new QCheckBox(this);
     _hddfail->setText("Failed");
     const int hddfailY = _hddpass->geometry().y() + _hddscan->height() + 3;
-    _hddfail->setGeometry(15,hddfailY,_hddscan->width(),_hddscan->height());
+    _hddfail->setGeometry(15,hddfailY,_hddpass->width(),_hddscan->height());
     _hddfail->setCheckable(false);
     _hddfail->setVisible(false);
     connect(_hddfail,SIGNAL(stateChanged(int)),this,SLOT(_hddfailStateHasChanged(int)));
@@ -55,14 +55,14 @@ void MainWindow::_setupSFCCheckboxes()
     _sfcscan = new QCheckBox(this);
     _sfcscan->setText("SFC Scan");
     const int sfcscanY = _hddfail->geometry().y() + _hddfail->height() + 3;
-    _sfcscan->setGeometry(0,sfcscanY,_hddfail->width(),_initials->height()+2);
+    _sfcscan->setGeometry(0,sfcscanY,_hddfail->width(),_checkout->height());
     connect(_sfcscan,SIGNAL(stateChanged(int)),this,SLOT(_sfcscanStateHasChanged(int)));
 
     //     SFC Scan Pass Checkbox
     _sfcpass = new QCheckBox(this);
     _sfcpass->setText("Passed");
     const int sfcpassY = _sfcscan->geometry().y() + _sfcscan->height() + 3;
-    _sfcpass->setGeometry(15,sfcpassY,_sfcscan->width(),_sfcscan->height());
+    _sfcpass->setGeometry(15,sfcpassY,_hddpass->width(),_sfcscan->height());
     _sfcpass->setCheckable(false);
     _sfcpass->setVisible(false);
     connect(_sfcpass,SIGNAL(stateChanged(int)),this,SLOT(_sfcpassStateHasChanged(int)));
@@ -71,7 +71,7 @@ void MainWindow::_setupSFCCheckboxes()
     _sfcfail = new QCheckBox(this);
     _sfcfail->setText("Failed");
     const int sfcfailY = _sfcpass->geometry().y() + _sfcscan->height() + 3;
-    _sfcfail->setGeometry(15,sfcfailY,_sfcscan->width(),_sfcscan->height());
+    _sfcfail->setGeometry(15,sfcfailY,_hddpass->width(),_sfcscan->height());
     _sfcfail->setCheckable(false);
     _sfcfail->setVisible(false);
     connect(_sfcfail,SIGNAL(stateChanged(int)),this,SLOT(_sfcfailStateHasChanged(int)));
