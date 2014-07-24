@@ -96,11 +96,33 @@ void MainWindow::_generateReport()
     if(_textbox) _textbox->setText(report.c_str());
 }
 
+void MainWindow::_resetButtonHasBeenClicked()
+{
+    _addInitials->setChecked(false);
+    _addDate->setChecked(false);
+    _addTime->setChecked(false);
+    _checkout->setChecked(false);
+    _hddscan->setChecked(false);
+    _sfcscan->setChecked(false);
+    _textbox->setText("Reset report!");
+
+    qDebug() << "Reset options!";
+}
+
+void MainWindow::_setupResetButton()
+{
+    _resetButton = new QPushButton("Reset",this);
+    _resetButton->setGeometry(0,height()-30,50,30);
+    connect(_resetButton,SIGNAL(clicked()),this,SLOT(_resetButtonHasBeenClicked()));
+    _resetButton->show();
+}
+
 void MainWindow::_setup()
 {
     _setupInitials();
     _setupCheckboxes();
     _setupTextbox();
+    _setupResetButton();
 }
 
 #endif

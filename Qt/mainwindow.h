@@ -10,6 +10,7 @@
 #include <QTextEdit>
 #include <QDateTime>
 #include <QClipboard>
+#include <QPushButton>
 
 namespace Ui {
 class MainWindow;
@@ -36,6 +37,7 @@ private slots:
     void _addDateStateHasChanged(int);                          //Add Date
     void _addTimeStateHasChanged(int);                          //Add Time
     void _textInTextboxHasChanged();                            //Text change
+    void _resetButtonHasBeenClicked();
 
 private:
     Ui::MainWindow *ui;
@@ -86,6 +88,10 @@ private:
     QTextEdit * _textbox;
     void _setupTextbox();
     void _generateReport();
+
+    /****RESET BUTTON****/
+    QPushButton * _resetButton;
+    void _setupResetButton();
 };
 
 #endif // MAINWINDOW_H
