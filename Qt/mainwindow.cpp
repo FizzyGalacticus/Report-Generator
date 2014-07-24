@@ -76,7 +76,7 @@ void MainWindow::_generateReport()
     else if(_addDate->isChecked())
         report += _date.toStdString() + " - ";
     else if(_addTime->isChecked())
-        report += QTime::currentTime().toString("hh:mm:ss").toStdString() + " - ";
+        report += QTime::currentTime().toString("hh:mm AP").toStdString() + " - ";
 
     if(_checkout->isChecked())
         report += "Pulled system from shelf.\n";
