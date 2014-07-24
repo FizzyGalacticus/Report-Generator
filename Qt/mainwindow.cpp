@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     _mainWindowIcon(":/Resources/Icons/CWILogo.bmp"),
+    _clipboard(QApplication::clipboard()),
     _initials(new QLabel("Initials",this)),
     _date(QDate::currentDate().toString("MM/dd/yy"))
 {
@@ -99,6 +100,8 @@ void MainWindow::_generateReport()
     }
 
     if(_textbox) _textbox->setText(report.c_str());
+
+    _clipboard->setText(report.c_str());
 }
 
 void MainWindow::_setup()

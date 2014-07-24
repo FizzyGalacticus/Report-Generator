@@ -9,6 +9,7 @@
 #include <QIcon>
 #include <QTextEdit>
 #include <QDateTime>
+#include <QClipboard>
 
 namespace Ui {
 class MainWindow;
@@ -43,6 +44,9 @@ private:
 
     /*****SETUP**********/
     void _setup();
+
+    /*****CLIPBOARD******/
+    QClipboard * _clipboard;
 
     /*****INITIALS*******/
     QListWidget * _initialsListView;
