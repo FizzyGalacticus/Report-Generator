@@ -8,6 +8,7 @@
 #include <QCheckBox>
 #include <QIcon>
 #include <QTextEdit>
+#include <QDateTime>
 
 namespace Ui {
 class MainWindow;
@@ -23,13 +24,16 @@ public:
 
 private slots:
     void _initialsListItemHasBeenClicked(QListWidgetItem *);    //Initials
-    void _checkoutStateHasChanged(int);                         //HDDScan
+    void _checkoutStateHasChanged(int);                         //Checkout
     void _hddscanStateHasChanged(int);                          //HDDScan
     void _hddpassStateHasChanged(int);                          //HDDScan Passed
     void _hddfailStateHasChanged(int);                          //HDDScan Failed
     void _sfcscanStateHasChanged(int);                          //SFCScan
     void _sfcpassStateHasChanged(int);                          //SFCScan Passed
     void _sfcfailStateHasChanged(int);                          //SFCScan Failed
+    void _addInitialsStateHasChanged(int);                      //Add Initials
+    void _addDateStateHasChanged(int);                          //Add Date
+    void _addTimeStateHasChanged(int);                          //Add Time
 
 private:
     Ui::MainWindow *ui;
@@ -45,6 +49,11 @@ private:
     QLabel * _initials;
     void _setupInitials();
     QString _currentUser;
+    QCheckBox * _addInitials;
+    void _setupAddInitialsCheckbox();
+
+    /*****CHECKBOXES*****/
+    void _setupCheckboxes();
 
     /*****CHECKOUT*******/
     QCheckBox * _checkout;
@@ -61,6 +70,12 @@ private:
     QCheckBox * _sfcpass;
     QCheckBox * _sfcfail;
     void _setupSFCCheckboxes();
+
+    /****DATE AND TIME***/
+    QString _date;
+    QCheckBox * _addDate;
+    QCheckBox * _addTime;
+    void _setupDateAndTimeCheckboxes();
 
     /*****TEXT BOX*******/
     QTextEdit * _textbox;

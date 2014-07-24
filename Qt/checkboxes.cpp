@@ -3,12 +3,21 @@
 
 /**************     SETUP   ************************/
 
+void MainWindow::_setupCheckboxes()
+{
+    _setupCheckoutCheckbox();
+    _setupHDDCheckboxes();
+    _setupSFCCheckboxes();
+    _setupAddInitialsCheckbox();
+    _setupDateAndTimeCheckboxes();
+}
+
 void MainWindow::_setupCheckoutCheckbox()
 {
     _checkout = new QCheckBox(this);
     _checkout->setText("Just Checked Out");
     const int checkoutY = _initialsListView->geometry().y()+_initialsListView->height()+3;
-    _checkout->setGeometry(0,checkoutY,_initialsListView->width(),_initials->height()+2);
+    _checkout->setGeometry(0,checkoutY,width()/3,_initials->height()+2);
     connect(_checkout, SIGNAL(stateChanged(int)),this,SLOT(_checkoutStateHasChanged(int)));
 }
 
@@ -18,7 +27,7 @@ void MainWindow::_setupHDDCheckboxes()
     _hddscan = new QCheckBox(this);
     _hddscan->setText("HDD Scan");
     const int hddscanY = _checkout->geometry().y() + _checkout->height() + 3;
-    _hddscan->setGeometry(0,hddscanY,_initialsListView->width(),_initials->height()+2);
+    _hddscan->setGeometry(0,hddscanY,_checkout->width(),_initials->height()+2);
     connect(_hddscan,SIGNAL(stateChanged(int)),this,SLOT(_hddscanStateHasChanged(int)));
 
     //     HDD Scan Pass Checkbox
@@ -46,7 +55,7 @@ void MainWindow::_setupSFCCheckboxes()
     _sfcscan = new QCheckBox(this);
     _sfcscan->setText("SFC Scan");
     const int sfcscanY = _hddfail->geometry().y() + _hddfail->height() + 3;
-    _sfcscan->setGeometry(0,sfcscanY,_initialsListView->width(),_initials->height()+2);
+    _sfcscan->setGeometry(0,sfcscanY,_hddfail->width(),_initials->height()+2);
     connect(_sfcscan,SIGNAL(stateChanged(int)),this,SLOT(_sfcscanStateHasChanged(int)));
 
     //     SFC Scan Pass Checkbox
@@ -66,6 +75,27 @@ void MainWindow::_setupSFCCheckboxes()
     _sfcfail->setCheckable(false);
     _sfcfail->setVisible(false);
     connect(_sfcfail,SIGNAL(stateChanged(int)),this,SLOT(_sfcfailStateHasChanged(int)));
+}
+
+void MainWindow::_setupAddInitialsCheckbox()
+{
+    _addInitials = new QCheckBox(this);
+    _addInitials->setText("Add Initials");
+    _addInitials->setGeometry(_checkout->width()+3,_checkout->geometry().y(),_checkout->width(),_checkout->height());
+    connect(_addInitials, SIGNAL(stateChanged(int)),this,SLOT(_addInitialsStateHasChanged(int)));
+}
+
+void MainWindow::_setupDateAndTimeCheckboxes()
+{
+    _addDate = new QCheckBox(this);
+    _addDate->setText("Add Date");
+    _addDate->setGeometry(_addInitials->geometry().x(),_hddscan->geometry().y(),_checkout->width(),_checkout->height());
+    connect(_addDate, SIGNAL(stateChanged(int)),this,SLOT(_addDateStateHasChanged(int)));
+
+    _addTime = new QCheckBox(this);
+    _addTime->setText("Add Time");
+    _addTime->setGeometry(_addInitials->geometry().x(),_hddpass->geometry().y(),_checkout->width(),_checkout->height());
+    connect(_addTime, SIGNAL(stateChanged(int)),this,SLOT(_addTimeStateHasChanged(int)));
 }
 
 /**************     SLOTS   ************************/
@@ -139,6 +169,21 @@ void MainWindow::_sfcpassStateHasChanged(int state)
 void MainWindow::_sfcfailStateHasChanged(int state)
 {
     if(state) _sfcpass->setChecked(false);
+    _generateReport();
+}
+
+void MainWindow::_addInitialsStateHasChanged(int state)
+{
+    _generateReport();
+}
+
+void MainWindow::_addDateStateHasChanged(int state)
+{
+    _generateReport();
+}
+
+void MainWindow::_addTimeStateHasChanged(int state)
+{
     _generateReport();
 }
 

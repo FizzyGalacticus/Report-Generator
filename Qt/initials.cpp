@@ -7,6 +7,7 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
     {
             _currentUser = item->text();
             qDebug() << _currentUser.toStdString().c_str() << "Clicked!" << '\n';
+            if(_addInitials->isChecked()) _generateReport();
     }
     else
     {

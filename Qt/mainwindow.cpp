@@ -11,7 +11,6 @@
 #include <QProcess>
 #include <QFile>
 #include <QSysInfo>
-#include <QDateTime>
 #include <QTextEdit>
 #include <string>
 using std::string;
@@ -21,7 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     _mainWindowIcon(":/Resources/Icons/CWILogo.bmp"),
-    _initials(new QLabel("Initials",this))
+    _initials(new QLabel("Initials",this)),
+    _date(QDate::currentDate().toString("MM/dd/yy"))
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -46,9 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
     if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << "Windows 7!" << '\n';
 #endif
 
-    qDebug() << QDate::currentDate().toString("MM/dd/yy").toStdString().c_str() << QTime::currentTime().toString("hh:mm:ss").toStdString().c_str() << '\n';
+    qDebug() << _date.toStdString().c_str() << QTime::currentTime().toString("hh:mm:ss").toStdString().c_str() << '\n';
 
-//    _initialsListView->setItemSelected(_initialsListView->item(0),1);
 }
 
 MainWindow::~MainWindow()
@@ -66,6 +65,18 @@ void MainWindow::_setupTextbox()
 void MainWindow::_generateReport()
 {
     string report = "";
+
+    if(_addInitials->isChecked() && _currentUser.length())
+        report += _currentUser.toStdString() + " - ";
+
+    if(_addDate->isChecked() && _addTime->isChecked())
+        report += _date.toStdString() + " " +
+                QTime::currentTime().toString("hh:mm:ss").toStdString() + " - ";
+    else if(_addDate->isChecked())
+        report += _date.toStdString() + " - ";
+    else if(_addTime->isChecked())
+        report += QTime::currentTime().toString("hh:mm:ss").toStdString() + " - ";
+
     if(_checkout->isChecked())
         report += "Pulled system from shelf.\n";
 
@@ -93,9 +104,7 @@ void MainWindow::_generateReport()
 void MainWindow::_setup()
 {
     _setupInitials();
-    _setupCheckoutCheckbox();
-    _setupHDDCheckboxes();
-    _setupSFCCheckboxes();
+    _setupCheckboxes();
     _setupTextbox();
 }
 
