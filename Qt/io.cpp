@@ -46,8 +46,6 @@ inline vector<string> getStringListFromFile(const QString & filename)
 
     std::sort(myList.begin(),myList.end());
 
-    for(unsigned int i = 0; i < myList.size(); i++) qDebug() << myList[i].c_str() << '\n';
-
     return myList;
 }
 
