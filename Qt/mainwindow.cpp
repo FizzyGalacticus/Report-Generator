@@ -11,16 +11,17 @@
 #include <QProcess>
 #include <QFile>
 #include <QSysInfo>
+#include <QDateTime>
 #include <QTextEdit>
+#include <string>
+using std::string;
+#include <exception>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     _mainWindowIcon(":/Resources/Icons/CWILogo.bmp"),
     _initials(new QLabel("Initials",this))
-    //_hddscan(new QCheckBox(this)),
-    //_hddpass(new QCheckBox(this)),
-    //_hddfail(new QCheckBox(this))
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -45,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
     if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << "Windows 7!" << '\n';
 #endif
 
+    qDebug() << QDate::currentDate().toString("MM/dd/yy").toStdString().c_str() << QTime::currentTime().toString("hh:mm:ss").toStdString().c_str() << '\n';
+
 //    _initialsListView->setItemSelected(_initialsListView->item(0),1);
 }
 
@@ -55,9 +58,36 @@ MainWindow::~MainWindow()
 
 void MainWindow::_setupTextbox()
 {
-    _textbox = new QTextEdit("Default Text",this);
+    _textbox = new QTextEdit("Report is generated here. Start customizing!",this);
     _textbox->setGeometry(_initialsListView->width()+3,_initialsListView->geometry().y(),width()-_initialsListView->width()-3,_initialsListView->height());
     _textbox->show();
+}
+
+void MainWindow::_generateReport()
+{
+    string report = "";
+    if(_checkout->isChecked())
+        report += "Pulled system from shelf.\n";
+
+    if(_hddscan && _hddscan->isChecked())
+    {
+        report += "Ran a surface scan on HDD - ";
+        if(_hddpass && _hddpass->isChecked())
+            report += "passed.\n";
+        else if(_hddfail && _hddfail->isChecked())
+            report += "failed.\n";
+    }
+
+    if(_sfcscan && _sfcscan->isChecked())
+    {
+        report += "Ran System File Checker - ";
+        if(_sfcpass && _sfcpass->isChecked())
+            report += "passed.\n";
+        else if(_sfcfail && _sfcfail->isChecked())
+            report += "failed.\n";
+    }
+
+    if(_textbox) _textbox->setText(report.c_str());
 }
 
 void MainWindow::_setup()

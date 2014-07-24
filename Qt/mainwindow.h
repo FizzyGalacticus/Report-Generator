@@ -23,6 +23,7 @@ public:
 
 private slots:
     void _initialsListItemHasBeenClicked(QListWidgetItem *);    //Initials
+    void _checkoutStateHasChanged(int);                         //HDDScan
     void _hddscanStateHasChanged(int);                          //HDDScan
     void _hddpassStateHasChanged(int);                          //HDDScan Passed
     void _hddfailStateHasChanged(int);                          //HDDScan Failed
@@ -64,6 +65,7 @@ private:
     /*****TEXT BOX*******/
     QTextEdit * _textbox;
     void _setupTextbox();
+    void _generateReport();
 };
 
 #endif // MAINWINDOW_H

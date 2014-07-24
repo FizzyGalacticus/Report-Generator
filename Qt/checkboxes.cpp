@@ -3,6 +3,15 @@
 
 /**************     SETUP   ************************/
 
+void MainWindow::_setupCheckoutCheckbox()
+{
+    _checkout = new QCheckBox(this);
+    _checkout->setText("Just Checked Out");
+    const int checkoutY = _initialsListView->geometry().y()+_initialsListView->height()+3;
+    _checkout->setGeometry(0,checkoutY,_initialsListView->width(),_initials->height()+2);
+    connect(_checkout, SIGNAL(stateChanged(int)),this,SLOT(_checkoutStateHasChanged(int)));
+}
+
 void MainWindow::_setupHDDCheckboxes()
 {
     //     Main HDD Scan Checkbox
@@ -61,6 +70,11 @@ void MainWindow::_setupSFCCheckboxes()
 
 /**************     SLOTS   ************************/
 
+void MainWindow::_checkoutStateHasChanged(int state)
+{
+    _generateReport();
+}
+
 void MainWindow::_hddscanStateHasChanged(int state)
 {
     if(state)
@@ -79,24 +93,20 @@ void MainWindow::_hddscanStateHasChanged(int state)
         _hddfail->setChecked(false);
         _hddfail->setVisible(false);
     }
-}
 
-void MainWindow::_setupCheckoutCheckbox()
-{
-    _checkout = new QCheckBox(this);
-    _checkout->setText("Just Checked Out");
-    const int checkoutY = _initialsListView->geometry().y()+_initialsListView->height()+3;
-    _checkout->setGeometry(0,checkoutY,_initialsListView->width(),_initials->height()+2);
+    _generateReport();
 }
 
 void MainWindow::_hddpassStateHasChanged(int state)
 {
   if(state) _hddfail->setChecked(false);
+  _generateReport();
 }
 
 void MainWindow::_hddfailStateHasChanged(int state)
 {
     if(state) _hddpass->setChecked(false);
+    _generateReport();
 }
 
 void MainWindow::_sfcscanStateHasChanged(int state)
@@ -117,16 +127,19 @@ void MainWindow::_sfcscanStateHasChanged(int state)
         _sfcfail->setChecked(false);
         _sfcfail->setVisible(false);
     }
+    _generateReport();
 }
 
 void MainWindow::_sfcpassStateHasChanged(int state)
 {
   if(state) _sfcfail->setChecked(false);
+  _generateReport();
 }
 
 void MainWindow::_sfcfailStateHasChanged(int state)
 {
     if(state) _sfcpass->setChecked(false);
+    _generateReport();
 }
 
 #endif
