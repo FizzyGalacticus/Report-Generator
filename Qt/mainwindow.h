@@ -35,6 +35,7 @@ private slots:
     void _addInitialsStateHasChanged(int);                      //Add Initials
     void _addDateStateHasChanged(int);                          //Add Date
     void _addTimeStateHasChanged(int);                          //Add Time
+    void _textInTextboxHasChanged();                            //Text change
 
 private:
     Ui::MainWindow *ui;

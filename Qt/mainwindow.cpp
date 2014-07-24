@@ -6,6 +6,7 @@
 #include "io.cpp"
 #include "initials.cpp"
 #include "checkboxes.cpp"
+#include "textbox.cpp"
 #include <QPushButton>
 #include <QDesktopWidget>
 #include <QProcess>
@@ -56,13 +57,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::_setupTextbox()
-{
-    _textbox = new QTextEdit("Report is generated here. Start customizing!",this);
-    _textbox->setGeometry(_initialsListView->width()+3,_initialsListView->geometry().y(),width()-_initialsListView->width()-3,_initialsListView->height());
-    _textbox->show();
-}
-
 void MainWindow::_generateReport()
 {
     string report = "";
@@ -100,8 +94,6 @@ void MainWindow::_generateReport()
     }
 
     if(_textbox) _textbox->setText(report.c_str());
-
-    _clipboard->setText(report.c_str());
 }
 
 void MainWindow::_setup()

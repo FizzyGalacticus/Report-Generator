@@ -16,7 +16,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     io.cpp \
     initials.cpp \
-    checkboxes.cpp
+    checkboxes.cpp \
+    textbox.cpp
 
 HEADERS  += mainwindow.h
 
