@@ -174,7 +174,7 @@ void MainWindow::_sfcfailStateHasChanged(int state)
 
 void MainWindow::_addInitialsStateHasChanged(int state)
 {
-    _generateReport();
+    if(_currentUser.length()) _generateReport();
 }
 
 void MainWindow::_addDateStateHasChanged(int state)
