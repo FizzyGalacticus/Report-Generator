@@ -10,6 +10,7 @@ void MainWindow::_setupCheckboxes()
     _setupCheckoutCheckbox();
     _setupHDDCheckboxes();
     _setupSFCCheckboxes();
+    _setupUpgradeInPlaceCheckbox();
 }
 
 void MainWindow::_setupAddInitialsCheckbox()

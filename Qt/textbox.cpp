@@ -1,6 +1,8 @@
 #ifndef TEXTBOX_CPP
 #define TEXTBOX_CPP
 
+#include <QString>
+
 void MainWindow::_setupTextbox()
 {
     _textbox = new QTextEdit("Report is generated here. Start customizing!",this);
@@ -11,7 +13,11 @@ void MainWindow::_setupTextbox()
 
 void MainWindow::_textInTextboxHasChanged()
 {
-    _clipboard->setText(_textbox->toPlainText());
+    QString text = _textbox->toPlainText();
+
+    if(text.length())
+        _clipboard->setText(text);
+    else _textbox->setText("No text =(");
 }
 
 #endif

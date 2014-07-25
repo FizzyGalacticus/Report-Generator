@@ -26,6 +26,9 @@ public:
 
 private slots:
     void _initialsListItemHasBeenClicked(QListWidgetItem *);    //Initials
+    void _addInitialsStateHasChanged(int);                      //Add Initials
+    void _addDateStateHasChanged(int);                          //Add Date
+    void _addTimeStateHasChanged(int);                          //Add Time
     void _checkoutStateHasChanged(int);                         //Checkout
     void _hddscanStateHasChanged(int);                          //HDDScan
     void _hddpassStateHasChanged(int);                          //HDDScan Passed
@@ -33,11 +36,9 @@ private slots:
     void _sfcscanStateHasChanged(int);                          //SFCScan
     void _sfcpassStateHasChanged(int);                          //SFCScan Passed
     void _sfcfailStateHasChanged(int);                          //SFCScan Failed
-    void _addInitialsStateHasChanged(int);                      //Add Initials
-    void _addDateStateHasChanged(int);                          //Add Date
-    void _addTimeStateHasChanged(int);                          //Add Time
+    void _upgradeInPlaceStateHasChanged(int);                   //Upgrade-In-Place
     void _textInTextboxHasChanged();                            //Text change
-    void _resetButtonHasBeenClicked();
+    void _resetButtonHasBeenClicked();                          //Reset button
 
 private:
     Ui::MainWindow *ui;
@@ -56,11 +57,19 @@ private:
     QLabel * _initials;
     void _setupInitials();
     QString _currentUser;
+
+    /***************************CHECKBOXES***************************/
+    void _setupCheckboxes();
+
+    /*****INITIALS*******/
     QCheckBox * _addInitials;
     void _setupAddInitialsCheckbox();
 
-    /*****CHECKBOXES*****/
-    void _setupCheckboxes();
+    /****DATE AND TIME***/
+    QString _date;
+    QCheckBox * _addDate;
+    QCheckBox * _addTime;
+    void _setupDateAndTimeCheckboxes();
 
     /*****CHECKOUT*******/
     QCheckBox * _checkout;
@@ -78,11 +87,9 @@ private:
     QCheckBox * _sfcfail;
     void _setupSFCCheckboxes();
 
-    /****DATE AND TIME***/
-    QString _date;
-    QCheckBox * _addDate;
-    QCheckBox * _addTime;
-    void _setupDateAndTimeCheckboxes();
+    /**UPGRADE-IN-PLACE**/
+    QCheckBox * _upgradeInPlace;
+    void _setupUpgradeInPlaceCheckbox();
 
     /*****TEXT BOX*******/
     QTextEdit * _textbox;
