@@ -13,6 +13,7 @@ void MainWindow::_setupCheckboxes()
     _setupUpgradeInPlaceCheckbox();
     _setupResetBrowsersCheckbox();
     _setupWindowsUpdatesCheckbox();
+    _setupRestorePointsCheckbox();
 }
 
 void MainWindow::_setupAddInitialsCheckbox()
@@ -126,6 +127,15 @@ void MainWindow::_setupWindowsUpdatesCheckbox()
     const int windowsUpdateY = _resetBrowsers->geometry().y()+_addInitials->height()+3;
     _windowsUpdates->setGeometry(_checkout->geometry().x(),windowsUpdateY,_addInitials->width(),_addInitials->height());
     connect(_windowsUpdates, SIGNAL(stateChanged(int)),this,SLOT(_windowsUpdatesStateHasChanged(int)));
+}
+
+void MainWindow::_setupRestorePointsCheckbox()
+{
+    _restorePoints = new QCheckBox(this);
+    _restorePoints->setText("Reset Restore Points");
+    const int restorePointsY = _windowsUpdates->geometry().y()+_addInitials->height()+3;
+    _restorePoints->setGeometry(_checkout->geometry().x(),restorePointsY,_addInitials->width(),_addInitials->height());
+    connect(_restorePoints, SIGNAL(stateChanged(int)),this,SLOT(_restorePointsStateHasChanged(int)));
 }
 
 /**************     SLOTS   ************************/
@@ -255,6 +265,14 @@ void MainWindow::_windowsUpdatesStateHasChanged(int state)
 {
     if(state) qDebug() << "Installed updates!";
     else qDebug() << "Actually, updates weren't installed.";
+
+    _generateReport();
+}
+
+void MainWindow::_restorePointsStateHasChanged(int state)
+{
+    if(state) qDebug() << "Reset restore points!";
+    else qDebug() << "Didn't actually reset restore points.";
 
     _generateReport();
 }

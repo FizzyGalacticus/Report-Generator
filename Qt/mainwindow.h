@@ -39,6 +39,7 @@ private slots:
     void _upgradeInPlaceStateHasChanged(int);                   //Upgrade-In-Place
     void _resetBrowsersStateHasChanged(int);                    //Reset Browsers
     void _windowsUpdatesStateHasChanged(int);                   //Windows Updates
+    void _restorePointsStateHasChanged(int);                    //Restore Points
     void _textInTextboxHasChanged();                            //Text change
     void _resetButtonHasBeenClicked();                          //Reset button
 
@@ -100,6 +101,10 @@ private:
     /***WINDOWS UPDATES**/
     QCheckBox * _windowsUpdates;
     void _setupWindowsUpdatesCheckbox();
+
+    /***RESTORE POINTS**/
+    QCheckBox * _restorePoints;
+    void _setupRestorePointsCheckbox();
 
     /*****TEXT BOX*******/
     QTextEdit * _textbox;
