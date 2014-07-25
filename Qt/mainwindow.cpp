@@ -99,6 +99,9 @@ void MainWindow::_generateReport()
     if(_resetBrowsers->isChecked())
         report += "Reset all web browser settings to default and disabled all add-on/extensions.\n";
 
+    if(_windowsUpdates->isChecked())
+        report += "Installed the latest Windows updates from Microsoft.\n";
+
     if(_textbox) _textbox->setText(report.c_str());
 }
 
@@ -112,6 +115,7 @@ void MainWindow::_resetButtonHasBeenClicked()
     _sfcscan->setChecked(false);
     _upgradeInPlace->setChecked(false);
     _resetBrowsers->setChecked(false);
+    _windowsUpdates->setChecked(false);
     _textbox->setText("Report has been reset!");
 
     qDebug() << "Report has been reset!";

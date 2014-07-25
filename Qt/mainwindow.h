@@ -38,6 +38,7 @@ private slots:
     void _sfcfailStateHasChanged(int);                          //SFCScan Failed
     void _upgradeInPlaceStateHasChanged(int);                   //Upgrade-In-Place
     void _resetBrowsersStateHasChanged(int);                    //Reset Browsers
+    void _windowsUpdatesStateHasChanged(int);                   //Windows Updates
     void _textInTextboxHasChanged();                            //Text change
     void _resetButtonHasBeenClicked();                          //Reset button
 
@@ -95,6 +96,10 @@ private:
     /***RESET BROWSERS***/
     QCheckBox * _resetBrowsers;
     void _setupResetBrowsersCheckbox();
+
+    /***WINDOWS UPDATES**/
+    QCheckBox * _windowsUpdates;
+    void _setupWindowsUpdatesCheckbox();
 
     /*****TEXT BOX*******/
     QTextEdit * _textbox;

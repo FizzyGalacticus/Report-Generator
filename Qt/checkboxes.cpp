@@ -12,6 +12,7 @@ void MainWindow::_setupCheckboxes()
     _setupSFCCheckboxes();
     _setupUpgradeInPlaceCheckbox();
     _setupResetBrowsersCheckbox();
+    _setupWindowsUpdatesCheckbox();
 }
 
 void MainWindow::_setupAddInitialsCheckbox()
@@ -116,6 +117,15 @@ void MainWindow::_setupResetBrowsersCheckbox()
     const int resetBrowsersY = _upgradeInPlace->geometry().y()+_addInitials->height()+3;
     _resetBrowsers->setGeometry(_checkout->geometry().x(),resetBrowsersY,_addInitials->width(),_addInitials->height());
     connect(_resetBrowsers, SIGNAL(stateChanged(int)),this,SLOT(_resetBrowsersStateHasChanged(int)));
+}
+
+void MainWindow::_setupWindowsUpdatesCheckbox()
+{
+    _windowsUpdates = new QCheckBox(this);
+    _windowsUpdates->setText("Windows Updates");
+    const int windowsUpdateY = _resetBrowsers->geometry().y()+_addInitials->height()+3;
+    _windowsUpdates->setGeometry(_checkout->geometry().x(),windowsUpdateY,_addInitials->width(),_addInitials->height());
+    connect(_windowsUpdates, SIGNAL(stateChanged(int)),this,SLOT(_windowsUpdatesStateHasChanged(int)));
 }
 
 /**************     SLOTS   ************************/
@@ -237,6 +247,14 @@ void MainWindow::_resetBrowsersStateHasChanged(int state)
     if(state)
         qDebug() << "Reset browsers!";
     else qDebug() << "I didn't actually reset the browsers";
+
+    _generateReport();
+}
+
+void MainWindow::_windowsUpdatesStateHasChanged(int state)
+{
+    if(state) qDebug() << "Installed updates!";
+    else qDebug() << "Actually, updates weren't installed.";
 
     _generateReport();
 }
