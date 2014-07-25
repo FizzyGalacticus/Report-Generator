@@ -11,6 +11,7 @@ void MainWindow::_setupCheckboxes()
     _setupHDDCheckboxes();
     _setupSFCCheckboxes();
     _setupUpgradeInPlaceCheckbox();
+    _setupResetBrowsersCheckbox();
 }
 
 void MainWindow::_setupAddInitialsCheckbox()
@@ -99,7 +100,52 @@ void MainWindow::_setupSFCCheckboxes()
     connect(_sfcfail,SIGNAL(stateChanged(int)),this,SLOT(_sfcfailStateHasChanged(int)));
 }
 
+void MainWindow::_setupUpgradeInPlaceCheckbox()
+{
+    _upgradeInPlace = new QCheckBox(this);
+    _upgradeInPlace->setText("Upgrade-In-Place");
+    const int UIPY = _sfcfail->geometry().y()+_sfcscan->height()+3;
+    _upgradeInPlace->setGeometry(_sfcscan->geometry().x(),UIPY,_addInitials->width(),_addInitials->height());
+    connect(_upgradeInPlace, SIGNAL(stateChanged(int)),this,SLOT(_upgradeInPlaceStateHasChanged(int)));
+}
+
+void MainWindow::_setupResetBrowsersCheckbox()
+{
+    _resetBrowsers = new QCheckBox(this);
+    _resetBrowsers->setText("Reset Browsers");
+    const int resetBrowsersY = _upgradeInPlace->geometry().y()+_addInitials->height()+3;
+    _resetBrowsers->setGeometry(_checkout->geometry().x(),resetBrowsersY,_addInitials->width(),_addInitials->height());
+    connect(_resetBrowsers, SIGNAL(stateChanged(int)),this,SLOT(_resetBrowsersStateHasChanged(int)));
+}
+
 /**************     SLOTS   ************************/
+
+void MainWindow::_addInitialsStateHasChanged(int state)
+{
+    if(state)
+        qDebug() << "I want to add initials!";
+    else qDebug() << "Actually, I don't want to add my initials!";
+
+    if(_currentUser.length()) _generateReport();
+}
+
+void MainWindow::_addDateStateHasChanged(int state)
+{
+    if(state)
+        qDebug() << "I want to add the date!";
+    else qDebug() << "Actually, I don't want to add the date!";
+
+    _generateReport();
+}
+
+void MainWindow::_addTimeStateHasChanged(int state)
+{
+    if(state)
+        qDebug() << "I want to add the time!";
+    else qDebug() << "Actually, I don't want to add the time!";
+
+    _generateReport();
+}
 
 void MainWindow::_checkoutStateHasChanged(int state)
 {
@@ -177,29 +223,20 @@ void MainWindow::_sfcfailStateHasChanged(int state)
     _generateReport();
 }
 
-void MainWindow::_addInitialsStateHasChanged(int state)
+void MainWindow::_upgradeInPlaceStateHasChanged(int state)
 {
     if(state)
-        qDebug() << "I want to add initials!";
-    else qDebug() << "Actually, I don't want to add my initials!";
-
-    if(_currentUser.length()) _generateReport();
-}
-
-void MainWindow::_addDateStateHasChanged(int state)
-{
-    if(state)
-        qDebug() << "I want to add the date!";
-    else qDebug() << "Actually, I don't want to add the date!";
+        qDebug() << "Performed Windows Upgrade-In-Place!";
+    else qDebug() << "Actually I didn't perform the Upgrade-In-Place...";
 
     _generateReport();
 }
 
-void MainWindow::_addTimeStateHasChanged(int state)
+void MainWindow::_resetBrowsersStateHasChanged(int state)
 {
     if(state)
-        qDebug() << "I want to add the time!";
-    else qDebug() << "Actually, I don't want to add the time!";
+        qDebug() << "Reset browsers!";
+    else qDebug() << "I didn't actually reset the browsers";
 
     _generateReport();
 }

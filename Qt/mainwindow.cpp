@@ -96,6 +96,9 @@ void MainWindow::_generateReport()
     if(_upgradeInPlace->isChecked())
         report += "Performed Windows Upgrade-In-Place to repair operating system.\n";
 
+    if(_resetBrowsers->isChecked())
+        report += "Reset all web browser settings to default and disabled all add-on/extensions.\n";
+
     if(_textbox) _textbox->setText(report.c_str());
 }
 
@@ -108,6 +111,7 @@ void MainWindow::_resetButtonHasBeenClicked()
     _hddscan->setChecked(false);
     _sfcscan->setChecked(false);
     _upgradeInPlace->setChecked(false);
+    _resetBrowsers->setChecked(false);
     _textbox->setText("Report has been reset!");
 
     qDebug() << "Report has been reset!";
@@ -127,24 +131,6 @@ void MainWindow::_setup()
     _setupCheckboxes();
     _setupTextbox();
     _setupResetButton();
-}
-
-void MainWindow::_setupUpgradeInPlaceCheckbox()
-{
-    _upgradeInPlace = new QCheckBox(this);
-    _upgradeInPlace->setText("Upgrade-In-Place");
-    const int UIPY = _sfcfail->geometry().y()+_sfcscan->height()+3;
-    _upgradeInPlace->setGeometry(_sfcscan->geometry().x(),UIPY,_addInitials->width(),_addInitials->height());
-    connect(_upgradeInPlace, SIGNAL(stateChanged(int)),this,SLOT(_upgradeInPlaceStateHasChanged(int)));
-}
-
-void MainWindow::_upgradeInPlaceStateHasChanged(int state)
-{
-    if(state)
-        qDebug() << "Performed Windows Upgrade-In-Place!";
-    else qDebug() << "Actually I didn't perform the Upgrade-In-Place...";
-
-    _generateReport();
 }
 
 #endif
