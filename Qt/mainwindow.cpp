@@ -66,7 +66,7 @@ void MainWindow::_generateReport()
 
     if(_addDate->isChecked() && _addTime->isChecked())
         report += _date.toStdString() + " " +
-                QTime::currentTime().toString("hh:mm:ss").toStdString() + " - ";
+                QTime::currentTime().toString("hh:mm AP").toStdString() + " - ";
     else if(_addDate->isChecked())
         report += _date.toStdString() + " - ";
     else if(_addTime->isChecked())
