@@ -145,13 +145,22 @@ void MainWindow::_setupMalwareButton()
 
 void MainWindow::_setupMalwareWindow()
 {
+    //Main Malware Window
     _malwareWindow = new QDialog(this);
     _malwareWindow->setWindowTitle("Malware");
+    _malwareWindow->setFixedSize(this->geometry().size());
 
+    //Malware List View
+    _setupMalwareListView();
+
+    //Accept Button
     _malwareWindowAcceptButton = new QPushButton(_malwareWindow);
     _malwareWindowAcceptButton->setText("Accept");
+    _malwareWindowAcceptButton->setGeometry(
+                _malwareWindow->width()-50,_malwareWindow->height()-40,
+                50,40);
     connect(_malwareWindowAcceptButton,SIGNAL(clicked()),this,SLOT(_malwareWindowAcceptButtonHasBeenClicked()));
-    _malwareWindow->setFixedSize(this->geometry().size());
+
     _malwareWindow->show();
 }
 
@@ -165,6 +174,51 @@ void MainWindow::_malwareWindowAcceptButtonHasBeenClicked()
 {
     delete _malwareWindow;
     this->show();
+}
+
+void MainWindow::_setupMalwareListView()
+{
+    _malwareListView = new QListWidget(_malwareWindow);
+    _malwareListView->setGeometry(0,0,_malwareWindow->width()/2,_malwareWindow->height()/2);
+
+    vector<string> malwarelist = getStringListFromFile("malware");
+
+    for(unsigned int i = 0; i < malwarelist.size(); i++)
+    {
+        _malwareListView->addItem(QString(malwarelist[i].c_str()));
+        _malwareListView->item(_malwareListView->count()-1)->setTextColor("black");
+    }
+    _malwareListView->addItem("Add Item");
+    connect(_malwareListView,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(_malwareListViewItemHasBeenDoubleClicked(QListWidgetItem*)));
+
+    _malwareListView->show();
+}
+
+void MainWindow::_malwareListViewItemHasBeenDoubleClicked(QListWidgetItem *item)
+{
+    if(item != _malwareListView->item(_malwareListView->count()-1))
+    {
+
+    }
+    else
+    {
+        string malware = getUserInputString(_malwareWindow,"Removed Malware","Removed Malware:").toStdString();
+        if(malware.size())
+        {
+            appendLineToFile(tr("malware"),tr(malware.c_str()));
+            _malwareListView->item(_malwareListView->count()-1)->setText(QString(malware.c_str()));
+
+            _malwareListView->sortItems();
+            _malwareListView->show();
+
+            for(int i = 0; i < _malwareListView->count(); i++)
+                if(_malwareListView->item(i)->text() == QString(malware.c_str()))
+                    _malwareListView->setItemSelected(_malwareListView->item(i), true);
+
+            _malwareListView->addItem(QString("Add Item"));
+            _malwareListView->item(_malwareListView->count()-1)->setTextColor("Black");
+        }
+    }
 }
 
 #endif

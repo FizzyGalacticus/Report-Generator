@@ -44,6 +44,7 @@ private slots:
     void _textInTextboxHasChanged();                            //Text change
     void _resetButtonHasBeenClicked();                          //Reset button
     void _malwareButtonHasBeenClicked();                        //Malware Button
+    void _malwareListViewItemHasBeenDoubleClicked(QListWidgetItem *);//Malware List Item
     void _malwareWindowAcceptButtonHasBeenClicked();            //Malware Accept
 
 private:
@@ -119,11 +120,13 @@ private:
     void _setupResetButton();
 
     /***MALWARE WINDOW***/
+    QDialog * _malwareWindow;
+    QListWidget * _malwareListView;
     QPushButton * _malwareButton;
     QPushButton * _malwareWindowAcceptButton;
-    void _setupMalwareButton();
-    QDialog * _malwareWindow;
     void _setupMalwareWindow();
+    void _setupMalwareListView();
+    void _setupMalwareButton();
 };
 
 #endif // MAINWINDOW_H
