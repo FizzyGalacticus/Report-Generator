@@ -200,8 +200,14 @@ void MainWindow::_setupMalwareListView()
     for(unsigned int i = 0; i < malwarelist.size(); i++)
     {
         _malwareListView->addItem(QString(malwarelist[i].c_str()));
-        _malwareListView->item(_malwareListView->count()-1)->setTextColor("black");
+        _malwareListView->item(i)->setTextColor("Black");
     }
+
+    for(int i = 0; i < _currentlySelectedMalware->count(); i++)
+        for(int j = 0; j < _malwareListView->count(); j++)
+            if(_currentlySelectedMalware->at(i) == _malwareListView->item(j)->text())
+                _malwareListView->item(j)->setTextColor("Red");
+
     _malwareListView->addItem("Add Item");
     connect(_malwareListView,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(_malwareListViewItemHasBeenDoubleClicked(QListWidgetItem*)));
 
@@ -213,8 +219,15 @@ void MainWindow::_malwareListViewItemHasBeenDoubleClicked(QListWidgetItem *item)
     if(item != _malwareListView->item(_malwareListView->count()-1))
     {
         if(_currentlySelectedMalware->contains(item->text()))
+        {
+            item->setTextColor("Black");
             _currentlySelectedMalware->removeAt(_currentlySelectedMalware->indexOf(item->text()));
-        else _currentlySelectedMalware->append(item->text().toStdString().c_str());
+        }
+        else
+        {
+            item->setTextColor("Red");
+            _currentlySelectedMalware->append(item->text().toStdString().c_str());
+        }
 
         _currentlySelectedMalware->sort();
     }
