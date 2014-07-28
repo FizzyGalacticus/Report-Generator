@@ -124,6 +124,7 @@ private:
     QListWidget * _malwareListView;
     QPushButton * _malwareButton;
     QPushButton * _malwareWindowAcceptButton;
+    QStringList * _currentlySelectedMalware;
     void _setupMalwareWindow();
     void _setupMalwareListView();
     void _setupMalwareButton();

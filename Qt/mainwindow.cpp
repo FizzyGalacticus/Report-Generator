@@ -25,7 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _mainWindowIcon(":/Resources/Icons/CWILogo.bmp"),
     _clipboard(QApplication::clipboard()),
     _initials(new QLabel("Initials",this)),
-    _date(QDate::currentDate().toString("MM/dd/yy"))
+    _date(QDate::currentDate().toString("MM/dd/yy")),
+    _currentlySelectedMalware(new QStringList)
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -77,6 +78,17 @@ void MainWindow::_generateReport()
             report += "failed.\n";
     }
 
+    if(_currentlySelectedMalware->count())
+    {
+        report += "Removed the following program(s): ";
+        for(int i = 0; i < _currentlySelectedMalware->count(); i++)
+        {
+            if(i == _currentlySelectedMalware->count()-1 && _currentlySelectedMalware->count() != 1) report += ("and " + _currentlySelectedMalware->at(i).toStdString() + ".\n");
+            else if(_currentlySelectedMalware->count() == 1) report += (_currentlySelectedMalware->at(0).toStdString() + '\n');
+            else report += _currentlySelectedMalware->at(i).toStdString() + ", ";
+        }
+    }
+
     if(_sfcscan && _sfcscan->isChecked())
     {
         report += "Ran System File Checker - ";
@@ -113,6 +125,7 @@ void MainWindow::_resetButtonHasBeenClicked()
     _resetBrowsers->setChecked(false);
     _windowsUpdates->setChecked(false);
     _restorePoints->setChecked(false);
+    _currentlySelectedMalware->clear();
     _textbox->setText("Report has been reset!");
 
     qDebug() << "Report has been reset!";
@@ -173,6 +186,7 @@ void MainWindow::_malwareButtonHasBeenClicked()
 void MainWindow::_malwareWindowAcceptButtonHasBeenClicked()
 {
     delete _malwareWindow;
+    _generateReport();
     this->show();
 }
 
@@ -198,7 +212,11 @@ void MainWindow::_malwareListViewItemHasBeenDoubleClicked(QListWidgetItem *item)
 {
     if(item != _malwareListView->item(_malwareListView->count()-1))
     {
+        if(_currentlySelectedMalware->contains(item->text()))
+            _currentlySelectedMalware->removeAt(_currentlySelectedMalware->indexOf(item->text()));
+        else _currentlySelectedMalware->append(item->text().toStdString().c_str());
 
+        _currentlySelectedMalware->sort();
     }
     else
     {
