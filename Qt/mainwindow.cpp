@@ -16,6 +16,8 @@
 #include <string>
 using std::string;
 #include <exception>
+#include <QWindow>
+#include <QDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -29,15 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
     this->setWindowIcon(_mainWindowIcon);
     this->setFixedSize(600,400);
-
-//    QDesktopWidget desktop;
-//    QWidget *wdg = new QWidget;
-//    wdg->setWindowTitle("Pop-up");
-//    wdg->setFixedSize(200,40);
-
-//    QPushButton *myButton = new QPushButton(wdg);
-//    myButton->setText("Push me!");
-//    wdg->show();
 
     _setup();
 
@@ -139,6 +132,39 @@ void MainWindow::_setup()
     _setupCheckboxes();
     _setupTextbox();
     _setupResetButton();
+    _setupMalwareButton();
+}
+
+void MainWindow::_setupMalwareButton()
+{
+    _malwareButton = new QPushButton("Malware",this);
+    _malwareButton->setGeometry(width()-100,height()-30,100,30);
+    connect(_malwareButton,SIGNAL(clicked()),this,SLOT(_malwareButtonHasBeenClicked()));
+    _malwareButton->show();
+}
+
+void MainWindow::_setupMalwareWindow()
+{
+    _malwareWindow = new QDialog(this);
+    _malwareWindow->setWindowTitle("Malware");
+
+    _malwareWindowAcceptButton = new QPushButton(_malwareWindow);
+    _malwareWindowAcceptButton->setText("Accept");
+    connect(_malwareWindowAcceptButton,SIGNAL(clicked()),this,SLOT(_malwareWindowAcceptButtonHasBeenClicked()));
+    _malwareWindow->setFixedSize(this->geometry().size());
+    _malwareWindow->show();
+}
+
+void MainWindow::_malwareButtonHasBeenClicked()
+{
+    this->hide();
+    _setupMalwareWindow();
+}
+
+void MainWindow::_malwareWindowAcceptButtonHasBeenClicked()
+{
+    delete _malwareWindow;
+    this->show();
 }
 
 #endif

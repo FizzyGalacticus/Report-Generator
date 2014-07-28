@@ -11,6 +11,7 @@
 #include <QDateTime>
 #include <QClipboard>
 #include <QPushButton>
+#include <QDialog>
 
 namespace Ui {
 class MainWindow;
@@ -42,6 +43,8 @@ private slots:
     void _restorePointsStateHasChanged(int);                    //Restore Points
     void _textInTextboxHasChanged();                            //Text change
     void _resetButtonHasBeenClicked();                          //Reset button
+    void _malwareButtonHasBeenClicked();                        //Malware Button
+    void _malwareWindowAcceptButtonHasBeenClicked();            //Malware Accept
 
 private:
     Ui::MainWindow *ui;
@@ -114,6 +117,13 @@ private:
     /****RESET BUTTON****/
     QPushButton * _resetButton;
     void _setupResetButton();
+
+    /***MALWARE WINDOW***/
+    QPushButton * _malwareButton;
+    QPushButton * _malwareWindowAcceptButton;
+    void _setupMalwareButton();
+    QDialog * _malwareWindow;
+    void _setupMalwareWindow();
 };
 
 #endif // MAINWINDOW_H
