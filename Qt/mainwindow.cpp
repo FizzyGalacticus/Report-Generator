@@ -174,6 +174,14 @@ void MainWindow::_setupMalwareWindow()
                 50,40);
     connect(_malwareWindowAcceptButton,SIGNAL(clicked()),this,SLOT(_malwareWindowAcceptButtonHasBeenClicked()));
 
+    //Malwarebytes
+    _removedWithMalwarebytes = new QLineEdit(_malwareWindow);
+    _removedWithMalwarebytes->setValidator(new QIntValidator(_malwareWindow));
+    _removedWithMalwarebytes->setMaxLength(1000);
+    _removedWithMalwarebytes->setText("How many objects were removed with MalwareBytes?");
+    _removedWithMalwarebytes->setGeometry(_malwareWindow->width()-40,0,40,50);
+    _removedWithMalwarebytes->show();
+
     _malwareWindow->show();
 }
 

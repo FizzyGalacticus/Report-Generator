@@ -12,6 +12,7 @@
 #include <QClipboard>
 #include <QPushButton>
 #include <QDialog>
+#include <QLineEdit>
 
 namespace Ui {
 class MainWindow;
@@ -125,6 +126,7 @@ private:
     QPushButton * _malwareButton;
     QPushButton * _malwareWindowAcceptButton;
     QStringList * _currentlySelectedMalware;
+    QLineEdit * _removedWithMalwarebytes;
     void _setupMalwareWindow();
     void _setupMalwareListView();
     void _setupMalwareButton();
