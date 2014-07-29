@@ -139,7 +139,7 @@ void MainWindow::_resetButtonHasBeenClicked()
     _restorePoints->setChecked(false);
     _currentlySelectedMalware->clear();
     _removedWithMalwarebytes = -1;
-    _removedWithAvast = -1
+    _removedWithAvast = -1;
     _textbox->setText("Report has been reset!");
 
     qDebug() << "Report has been reset!";
