@@ -26,7 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _clipboard(QApplication::clipboard()),
     _initials(new QLabel("Initials",this)),
     _date(QDate::currentDate().toString("MM/dd/yy")),
-    _currentlySelectedMalware(new QStringList)
+    _currentlySelectedMalware(new QStringList),
+    _removedWithMalwarebytes(-1)
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -148,6 +149,18 @@ void MainWindow::_setup()
     _setupMalwareButton();
 }
 
+bool MainWindow::eventFilter(QObject *object, QEvent *event)
+{
+    if (event->type() == QEvent::FocusIn)
+    {
+        if (object == _removedWithMalwarebytesInput)
+        {
+            _removedWithMalwarebytesInput->selectAll();
+        }
+    }
+        return false;
+}
+
 void MainWindow::_setupMalwareButton()
 {
     _malwareButton = new QPushButton("Malware",this);
@@ -162,6 +175,7 @@ void MainWindow::_setupMalwareWindow()
     _malwareWindow = new QDialog(this);
     _malwareWindow->setWindowTitle("Malware");
     _malwareWindow->setFixedSize(this->geometry().size());
+    _malwareWindow->setFocusPolicy(Qt::StrongFocus);
 
     //Malware List View
     _setupMalwareListView();
@@ -175,14 +189,18 @@ void MainWindow::_setupMalwareWindow()
     connect(_malwareWindowAcceptButton,SIGNAL(clicked()),this,SLOT(_malwareWindowAcceptButtonHasBeenClicked()));
 
     //Malwarebytes
-    _removedWithMalwarebytes = new QLineEdit(_malwareWindow);
-    _removedWithMalwarebytes->setValidator(new QIntValidator(_malwareWindow));
-    _removedWithMalwarebytes->setMaxLength(1000);
-    _removedWithMalwarebytes->setText("How many objects were removed with MalwareBytes?");
-    _removedWithMalwarebytes->setGeometry(_malwareWindow->width()-40,0,40,50);
-    _removedWithMalwarebytes->show();
+    _removedWithMalwarebytesInput = new QLineEdit(_malwareWindow);
+    _removedWithMalwarebytesInput->setValidator(new QIntValidator(_malwareWindow));
+    _removedWithMalwarebytesInput->setText("How many objects were removed with MalwareBytes?");
+    _removedWithMalwarebytesInput->setGeometry(_malwareWindow->width()-_malwareListView->width(),0,_malwareWindow->width()-_malwareListView->width(),30);
+    _removedWithMalwarebytesInput->setCursorPosition(0);
+    _removedWithMalwarebytesInput->show();
 
     _malwareWindow->show();
+
+
+    _removedWithMalwarebytesInput->selectAll();
+    _removedWithMalwarebytesInput->setFocus();
 }
 
 void MainWindow::_malwareButtonHasBeenClicked()
@@ -193,6 +211,8 @@ void MainWindow::_malwareButtonHasBeenClicked()
 
 void MainWindow::_malwareWindowAcceptButtonHasBeenClicked()
 {
+    if(_removedWithMalwarebytesInput->text().size()) _removedWithMalwarebytes = _removedWithMalwarebytesInput->text().toInt();
+    qDebug() << _removedWithMalwarebytes;
     delete _malwareWindow;
     _generateReport();
     this->show();
