@@ -90,6 +90,11 @@ void MainWindow::_generateReport()
         }
     }
 
+    if(_removedWithMalwarebytes >= 0)
+        report += "Ran a scan with Malwarebytes' Anti-Malware and removed " +
+                QString::number(_removedWithMalwarebytes).toStdString() +
+                " found infected object(s).\n";
+
     if(_sfcscan && _sfcscan->isChecked())
     {
         report += "Ran System File Checker - ";
