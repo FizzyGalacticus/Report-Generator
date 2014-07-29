@@ -131,6 +131,8 @@ private:
     QStringList * _currentlySelectedMalware;
     int _removedWithMalwarebytes;
     QLineEdit * _removedWithMalwarebytesInput;
+    int _removedWithAvast;
+    QLineEdit * _removedWithAvastInput;
     void _setupMalwareWindow();
     void _setupMalwareListView();
     void _setupMalwareButton();

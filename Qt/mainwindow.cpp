@@ -27,7 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _initials(new QLabel("Initials",this)),
     _date(QDate::currentDate().toString("MM/dd/yy")),
     _currentlySelectedMalware(new QStringList),
-    _removedWithMalwarebytes(-1)
+    _removedWithMalwarebytes(-1),
+    _removedWithAvast(-1)
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -95,6 +96,11 @@ void MainWindow::_generateReport()
                 QString::number(_removedWithMalwarebytes).toStdString() +
                 " found infected object(s).\n";
 
+    if(_removedWithAvast >= 0)
+        report += "Ran a boot-time scan with Avast! Free Anti-Virus and removed " +
+                QString::number(_removedWithAvast).toStdString() +
+                " found infected object(s).\n";
+
     if(_sfcscan && _sfcscan->isChecked())
     {
         report += "Ran System File Checker - ";
@@ -132,6 +138,8 @@ void MainWindow::_resetButtonHasBeenClicked()
     _windowsUpdates->setChecked(false);
     _restorePoints->setChecked(false);
     _currentlySelectedMalware->clear();
+    _removedWithMalwarebytes = -1;
+    _removedWithAvast = -1
     _textbox->setText("Report has been reset!");
 
     qDebug() << "Report has been reset!";
@@ -201,6 +209,18 @@ void MainWindow::_setupMalwareWindow()
     _removedWithMalwarebytesInput->setCursorPosition(0);
     _removedWithMalwarebytesInput->show();
 
+    //Avast
+    _removedWithAvastInput = new QLineEdit(_malwareWindow);
+    _removedWithAvastInput->setValidator(new QIntValidator(_malwareWindow));
+    _removedWithAvastInput->setText("How many objects were removed with Avast?");
+    _removedWithAvastInput->setGeometry(
+                _removedWithMalwarebytesInput->geometry().x(),
+                _removedWithMalwarebytesInput->height()+3,
+                _removedWithMalwarebytesInput->width(),
+                _removedWithMalwarebytesInput->height());
+    _removedWithAvastInput->setCursorPosition(0);
+    _removedWithAvastInput->show();
+
     _malwareWindow->show();
 
 
@@ -217,7 +237,7 @@ void MainWindow::_malwareButtonHasBeenClicked()
 void MainWindow::_malwareWindowAcceptButtonHasBeenClicked()
 {
     if(_removedWithMalwarebytesInput->text().size()) _removedWithMalwarebytes = _removedWithMalwarebytesInput->text().toInt();
-    qDebug() << _removedWithMalwarebytes;
+    if(_removedWithAvastInput->text().size()) _removedWithAvast = _removedWithAvastInput->text().toInt();
     delete _malwareWindow;
     _generateReport();
     this->show();
