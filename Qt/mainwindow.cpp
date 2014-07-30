@@ -236,8 +236,8 @@ void MainWindow::_malwareButtonHasBeenClicked()
 
 void MainWindow::_malwareWindowAcceptButtonHasBeenClicked()
 {
-    if(_removedWithMalwarebytesInput->text().size()) _removedWithMalwarebytes = _removedWithMalwarebytesInput->text().toInt();
-    if(_removedWithAvastInput->text().size()) _removedWithAvast = _removedWithAvastInput->text().toInt();
+    if(_removedWithMalwarebytesInput->text() != "How many objects were removed with MalwareBytes?") _removedWithMalwarebytes = _removedWithMalwarebytesInput->text().toInt();
+    if(_removedWithAvastInput->text() != "How many objects were removed with Avast?") _removedWithAvast = _removedWithAvastInput->text().toInt();
     delete _malwareWindow;
     _generateReport();
     this->show();
