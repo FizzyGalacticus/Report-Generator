@@ -42,6 +42,8 @@ private slots:
     void _resetBrowsersStateHasChanged(int);                    //Reset Browsers
     void _windowsUpdatesStateHasChanged(int);                   //Windows Updates
     void _restorePointsStateHasChanged(int);                    //Restore Points
+    void _installedProgramsStateHasChanged(int);                //Installed Programs
+    void _installedAVStateHasChanged(int);                      //Installed AV
     void _textInTextboxHasChanged();                            //Text change
     void _resetButtonHasBeenClicked();                          //Reset button
     void _malwareButtonHasBeenClicked();                        //Malware Button
@@ -110,6 +112,11 @@ private:
     /***RESTORE POINTS**/
     QCheckBox * _restorePoints;
     void _setupRestorePointsCheckbox();
+
+    /*INSTALLED PROGRAMS*/
+    QCheckBox * _installedPrograms;
+    QCheckBox * _installedAV;
+    void _setupInstalledProgramsCheckbox();
 
     /***************************************************************/
 

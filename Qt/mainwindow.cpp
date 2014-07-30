@@ -171,4 +171,19 @@ void MainWindow::_setupMalwareButton()
     _malwareButton->show();
 }
 
+void MainWindow::_setupInstalledProgramsCheckbox()
+{
+
+}
+
+void MainWindow::_installedProgramsStateHasChanged(int)
+{
+
+}
+
+void MainWindow::_installedAVStateHasChanged(int)
+{
+
+}
+
 #endif
