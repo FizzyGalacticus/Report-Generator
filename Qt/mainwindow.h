@@ -111,6 +111,8 @@ private:
     QCheckBox * _restorePoints;
     void _setupRestorePointsCheckbox();
 
+    /***************************************************************/
+
     /*****TEXT BOX*******/
     QTextEdit * _textbox;
     void _setupTextbox();
@@ -120,7 +122,7 @@ private:
     QPushButton * _resetButton;
     void _setupResetButton();
 
-    /***MALWARE WINDOW***/
+    /***************************MALWARE WINDOW***************************/
     QDialog * _malwareWindow;
     QListWidget * _malwareListView;
     QPushButton * _malwareButton;
