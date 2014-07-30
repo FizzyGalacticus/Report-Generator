@@ -7,6 +7,7 @@
 #include "initials.cpp"
 #include "checkboxes.cpp"
 #include "textbox.cpp"
+#include "malwarewindow.cpp"
 #include <QPushButton>
 #include <QDesktopWidget>
 #include <QProcess>
@@ -162,147 +163,12 @@ void MainWindow::_setup()
     _setupMalwareButton();
 }
 
-bool MainWindow::eventFilter(QObject *object, QEvent *event)
-{
-    if (event->type() == QEvent::FocusIn)
-    {
-        if (object == _removedWithMalwarebytesInput)
-        {
-            _removedWithMalwarebytesInput->selectAll();
-        }
-    }
-        return false;
-}
-
 void MainWindow::_setupMalwareButton()
 {
     _malwareButton = new QPushButton("Malware",this);
     _malwareButton->setGeometry(width()-100,height()-30,100,30);
     connect(_malwareButton,SIGNAL(clicked()),this,SLOT(_malwareButtonHasBeenClicked()));
     _malwareButton->show();
-}
-
-void MainWindow::_setupMalwareWindow()
-{
-    //Main Malware Window
-    _malwareWindow = new QDialog(this);
-    _malwareWindow->setWindowTitle("Malware");
-    _malwareWindow->setFixedSize(this->geometry().size());
-    _malwareWindow->setFocusPolicy(Qt::StrongFocus);
-
-    //Malware List View
-    _setupMalwareListView();
-
-    //Accept Button
-    _malwareWindowAcceptButton = new QPushButton(_malwareWindow);
-    _malwareWindowAcceptButton->setText("Accept");
-    _malwareWindowAcceptButton->setGeometry(
-                _malwareWindow->width()-50,_malwareWindow->height()-40,
-                50,40);
-    connect(_malwareWindowAcceptButton,SIGNAL(clicked()),this,SLOT(_malwareWindowAcceptButtonHasBeenClicked()));
-
-    //Malwarebytes
-    _removedWithMalwarebytesInput = new QLineEdit(_malwareWindow);
-    _removedWithMalwarebytesInput->setValidator(new QIntValidator(_malwareWindow));
-    _removedWithMalwarebytesInput->setText("How many objects were removed with MalwareBytes?");
-    _removedWithMalwarebytesInput->setGeometry(_malwareWindow->width()-_malwareListView->width(),0,_malwareWindow->width()-_malwareListView->width(),30);
-    _removedWithMalwarebytesInput->setCursorPosition(0);
-    _removedWithMalwarebytesInput->show();
-
-    //Avast
-    _removedWithAvastInput = new QLineEdit(_malwareWindow);
-    _removedWithAvastInput->setValidator(new QIntValidator(_malwareWindow));
-    _removedWithAvastInput->setText("How many objects were removed with Avast?");
-    _removedWithAvastInput->setGeometry(
-                _removedWithMalwarebytesInput->geometry().x(),
-                _removedWithMalwarebytesInput->height()+3,
-                _removedWithMalwarebytesInput->width(),
-                _removedWithMalwarebytesInput->height());
-    _removedWithAvastInput->setCursorPosition(0);
-    _removedWithAvastInput->show();
-
-    _malwareWindow->show();
-
-
-    _removedWithMalwarebytesInput->selectAll();
-    _removedWithMalwarebytesInput->setFocus();
-}
-
-void MainWindow::_malwareButtonHasBeenClicked()
-{
-    this->hide();
-    _setupMalwareWindow();
-}
-
-void MainWindow::_malwareWindowAcceptButtonHasBeenClicked()
-{
-    if(_removedWithMalwarebytesInput->text() != "How many objects were removed with MalwareBytes?") _removedWithMalwarebytes = _removedWithMalwarebytesInput->text().toInt();
-    if(_removedWithAvastInput->text() != "How many objects were removed with Avast?") _removedWithAvast = _removedWithAvastInput->text().toInt();
-    delete _malwareWindow;
-    _generateReport();
-    this->show();
-}
-
-void MainWindow::_setupMalwareListView()
-{
-    _malwareListView = new QListWidget(_malwareWindow);
-    _malwareListView->setGeometry(0,0,_malwareWindow->width()/2,_malwareWindow->height()/2);
-
-    vector<string> malwarelist = getStringListFromFile("malware");
-
-    for(unsigned int i = 0; i < malwarelist.size(); i++)
-    {
-        _malwareListView->addItem(QString(malwarelist[i].c_str()));
-        _malwareListView->item(i)->setTextColor("Black");
-    }
-
-    for(int i = 0; i < _currentlySelectedMalware->count(); i++)
-        for(int j = 0; j < _malwareListView->count(); j++)
-            if(_currentlySelectedMalware->at(i) == _malwareListView->item(j)->text())
-                _malwareListView->item(j)->setTextColor("Red");
-
-    _malwareListView->addItem("Add Item");
-    connect(_malwareListView,SIGNAL(itemDoubleClicked(QListWidgetItem*)),this,SLOT(_malwareListViewItemHasBeenDoubleClicked(QListWidgetItem*)));
-
-    _malwareListView->show();
-}
-
-void MainWindow::_malwareListViewItemHasBeenDoubleClicked(QListWidgetItem *item)
-{
-    if(item != _malwareListView->item(_malwareListView->count()-1))
-    {
-        if(_currentlySelectedMalware->contains(item->text()))
-        {
-            item->setTextColor("Black");
-            _currentlySelectedMalware->removeAt(_currentlySelectedMalware->indexOf(item->text()));
-        }
-        else
-        {
-            item->setTextColor("Red");
-            _currentlySelectedMalware->append(item->text().toStdString().c_str());
-        }
-
-        _currentlySelectedMalware->sort();
-    }
-    else
-    {
-        string malware = getUserInputString(_malwareWindow,"Removed Malware","Removed Malware:").toStdString();
-        if(malware.size())
-        {
-            appendLineToFile(tr("malware"),tr(malware.c_str()));
-            _malwareListView->item(_malwareListView->count()-1)->setText(QString(malware.c_str()));
-
-            _malwareListView->sortItems();
-            _malwareListView->show();
-
-            for(int i = 0; i < _malwareListView->count(); i++)
-                if(_malwareListView->item(i)->text() == QString(malware.c_str()))
-                    _malwareListView->setItemSelected(_malwareListView->item(i), true);
-
-            _malwareListView->addItem(QString("Add Item"));
-            _malwareListView->item(_malwareListView->count()-1)->setTextColor("Black");
-        }
-    }
 }
 
 #endif

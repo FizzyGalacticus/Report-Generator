@@ -48,9 +48,6 @@ private slots:
     void _malwareListViewItemHasBeenDoubleClicked(QListWidgetItem *);//Malware List Item
     void _malwareWindowAcceptButtonHasBeenClicked();            //Malware Accept
 
-protected:
-    bool eventFilter(QObject *, QEvent *);
-
 private:
     Ui::MainWindow *ui;
 

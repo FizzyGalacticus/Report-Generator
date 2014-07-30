@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     io.cpp \
     initials.cpp \
     checkboxes.cpp \
-    textbox.cpp
+    textbox.cpp \
+    malwarewindow.cpp
 
 HEADERS  += mainwindow.h
 
