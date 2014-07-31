@@ -44,6 +44,7 @@ private slots:
     void _restorePointsStateHasChanged(int);                    //Restore Points
     void _installedProgramsStateHasChanged(int);                //Installed Programs
     void _installedAVStateHasChanged(int);                      //Installed AV
+    void _win8StateHasChanged(int);                             //Windows 8 Machine
     void _textInTextboxHasChanged();                            //Text change
     void _resetButtonHasBeenClicked();                          //Reset button
     void _malwareButtonHasBeenClicked();                        //Malware Button
@@ -115,6 +116,7 @@ private:
 
     /*INSTALLED PROGRAMS*/
     QCheckBox * _installedPrograms;
+    QCheckBox * _win8;
     QCheckBox * _installedAV;
     void _setupInstalledProgramsCheckbox();
 

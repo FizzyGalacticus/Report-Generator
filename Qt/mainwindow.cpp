@@ -120,11 +120,10 @@ void MainWindow::_generateReport()
     if(_installedPrograms->isChecked())
     {
         report += "Installed/updated the following program(s): ";
-        bool win8 = (QSysInfo::WindowsVersion == QSysInfo::WV_WINDOWS8 || QSysInfo::windowsVersion() == QSysInfo::WV_WINDOWS8_1);
 
-        if(!win8) report += "Adobe Flash Player, ";
+        if(!_win8->isChecked()) report += "Adobe Flash Player, ";
         report += "Adobe Shockwave, Adobe Reader, Java, Microsoft Silverlight, CCleaner";
-        if(win8) report += ", Classic Shell";
+        if(_win8->isChecked()) report += ", Classic Shell";
 
         if(_installedAV->isChecked()) report += ", Malwarebytes' Anti-Malware, and Avast! Free Anti-Virus.\n";
         else report += ", and Malwarebytes' Anti-Malware.\n";
@@ -151,6 +150,7 @@ void MainWindow::_resetButtonHasBeenClicked()
     _resetBrowsers->setChecked(false);
     _windowsUpdates->setChecked(false);
     _restorePoints->setChecked(false);
+    _installedPrograms->setChecked(false);
     _currentlySelectedMalware->clear();
     _removedWithMalwarebytes = -1;
     _removedWithAvast = -1;
@@ -182,6 +182,14 @@ void MainWindow::_setupMalwareButton()
     _malwareButton->setGeometry(width()-100,height()-30,100,30);
     connect(_malwareButton,SIGNAL(clicked()),this,SLOT(_malwareButtonHasBeenClicked()));
     _malwareButton->show();
+}
+
+void MainWindow::_win8StateHasChanged(int state)
+{
+    if(state) qDebug() << "System is running Windows 8!";
+    else qDebug() << "System is not actually running Windows 8!";
+
+    _generateReport();
 }
 
 #endif

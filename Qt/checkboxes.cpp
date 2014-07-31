@@ -143,14 +143,20 @@ void MainWindow::_setupInstalledProgramsCheckbox()
 {
     _installedPrograms = new QCheckBox(this);
     _installedPrograms->setText("Installed Programs");
-    _installedPrograms->setGeometry(_checkout->geometry().x()+_checkout->width(),_checkout->geometry().y(),_addInitials->width()-15,_addInitials->height());
+    _installedPrograms->setGeometry(_checkout->geometry().x()+_checkout->width(),_checkout->geometry().y(),_addInitials->width(),_addInitials->height());
     connect(_installedPrograms, SIGNAL(stateChanged(int)),this,SLOT(_installedProgramsStateHasChanged(int)));
 
     _installedAV = new QCheckBox(this);
     _installedAV->setText("Installed AV");
-    _installedAV->setGeometry(_installedPrograms->geometry().x()+15,_hddscan->geometry().y(),_addInitials->width(),_addInitials->height());
+    _installedAV->setGeometry(_installedPrograms->geometry().x()+15,_hddscan->geometry().y(),_addInitials->width()-15,_addInitials->height());
     connect(_installedAV, SIGNAL(stateChanged(int)),this,SLOT(_installedAVStateHasChanged(int)));
     _installedAV->setVisible(false);
+
+    _win8 = new QCheckBox(this);
+    _win8->setText("Windows 8");
+    _win8->setGeometry(_installedPrograms->geometry().x()+15,_hddpass->geometry().y(),_addInitials->width()-15,_addInitials->height());
+    connect(_win8, SIGNAL(stateChanged(int)),this,SLOT(_win8StateHasChanged(int)));
+    _win8->setVisible(false);
 }
 
 /**************     SLOTS   ************************/
@@ -297,6 +303,7 @@ void MainWindow::_installedProgramsStateHasChanged(int state)
     if(state)
     {
         _installedAV->setVisible(true);
+        _win8->setVisible(true);
         qDebug() << "Installed Programs!";
     }
     else
@@ -304,6 +311,8 @@ void MainWindow::_installedProgramsStateHasChanged(int state)
         qDebug() << "Didn't actually install programs!";
         _installedAV->setChecked(false);
         _installedAV->setVisible(false);
+        _win8->setChecked(false);
+        _win8->setVisible(false);
     }
 
     _generateReport();
