@@ -14,6 +14,7 @@ void MainWindow::_setupCheckboxes()
     _setupResetBrowsersCheckbox();
     _setupWindowsUpdatesCheckbox();
     _setupRestorePointsCheckbox();
+    _setupInstalledProgramsCheckbox();
 }
 
 void MainWindow::_setupAddInitialsCheckbox()
@@ -68,7 +69,7 @@ void MainWindow::_setupHDDCheckboxes()
     _hddfail = new QCheckBox(this);
     _hddfail->setText("Failed");
     const int hddfailY = _hddpass->geometry().y() + _hddscan->height() + 3;
-    _hddfail->setGeometry(_hddscan->geometry().x()+15,hddfailY,_hddpass->width(),_hddscan->height());
+    _hddfail->setGeometry(_hddscan->geometry().x()+15,hddfailY,_hddpass->width()-15,_hddscan->height());
     _hddfail->setCheckable(false);
     _hddfail->setVisible(false);
     connect(_hddfail,SIGNAL(stateChanged(int)),this,SLOT(_hddfailStateHasChanged(int)));
@@ -87,7 +88,7 @@ void MainWindow::_setupSFCCheckboxes()
     _sfcpass = new QCheckBox(this);
     _sfcpass->setText("Passed");
     const int sfcpassY = _sfcscan->geometry().y() + _sfcscan->height() + 3;
-    _sfcpass->setGeometry(_hddscan->geometry().x()+15,sfcpassY,_hddpass->width(),_sfcscan->height());
+    _sfcpass->setGeometry(_hddscan->geometry().x()+15,sfcpassY,_hddpass->width()-15,_sfcscan->height());
     _sfcpass->setCheckable(false);
     _sfcpass->setVisible(false);
     connect(_sfcpass,SIGNAL(stateChanged(int)),this,SLOT(_sfcpassStateHasChanged(int)));
@@ -96,7 +97,7 @@ void MainWindow::_setupSFCCheckboxes()
     _sfcfail = new QCheckBox(this);
     _sfcfail->setText("Failed");
     const int sfcfailY = _sfcpass->geometry().y() + _sfcscan->height() + 3;
-    _sfcfail->setGeometry(_hddscan->geometry().x()+15,sfcfailY,_hddpass->width(),_sfcscan->height());
+    _sfcfail->setGeometry(_hddscan->geometry().x()+15,sfcfailY,_hddpass->width()-15,_sfcscan->height());
     _sfcfail->setCheckable(false);
     _sfcfail->setVisible(false);
     connect(_sfcfail,SIGNAL(stateChanged(int)),this,SLOT(_sfcfailStateHasChanged(int)));
@@ -136,6 +137,20 @@ void MainWindow::_setupRestorePointsCheckbox()
     const int restorePointsY = _windowsUpdates->geometry().y()+_addInitials->height()+3;
     _restorePoints->setGeometry(_checkout->geometry().x(),restorePointsY,_addInitials->width(),_addInitials->height());
     connect(_restorePoints, SIGNAL(stateChanged(int)),this,SLOT(_restorePointsStateHasChanged(int)));
+}
+
+void MainWindow::_setupInstalledProgramsCheckbox()
+{
+    _installedPrograms = new QCheckBox(this);
+    _installedPrograms->setText("Installed Programs");
+    _installedPrograms->setGeometry(_checkout->geometry().x()+_checkout->width(),_checkout->geometry().y(),_addInitials->width()-15,_addInitials->height());
+    connect(_installedPrograms, SIGNAL(stateChanged(int)),this,SLOT(_installedProgramsStateHasChanged(int)));
+
+    _installedAV = new QCheckBox(this);
+    _installedAV->setText("Installed AV");
+    _installedAV->setGeometry(_installedPrograms->geometry().x()+15,_hddscan->geometry().y(),_addInitials->width(),_addInitials->height());
+    connect(_installedAV, SIGNAL(stateChanged(int)),this,SLOT(_installedAVStateHasChanged(int)));
+    _installedAV->setVisible(false);
 }
 
 /**************     SLOTS   ************************/
@@ -273,6 +288,31 @@ void MainWindow::_restorePointsStateHasChanged(int state)
 {
     if(state) qDebug() << "Reset restore points!";
     else qDebug() << "Didn't actually reset restore points.";
+
+    _generateReport();
+}
+
+void MainWindow::_installedProgramsStateHasChanged(int state)
+{
+    if(state)
+    {
+        _installedAV->setVisible(true);
+        qDebug() << "Installed Programs!";
+    }
+    else
+    {
+        qDebug() << "Didn't actually install programs!";
+        _installedAV->setChecked(false);
+        _installedAV->setVisible(false);
+    }
+
+    _generateReport();
+}
+
+void MainWindow::_installedAVStateHasChanged(int state)
+{
+    if(state) qDebug() << "Installed Anti-Virus software!";
+    else qDebug() << "Didn't actually install AV!";
 
     _generateReport();
 }

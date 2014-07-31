@@ -117,6 +117,19 @@ void MainWindow::_generateReport()
     if(_resetBrowsers->isChecked())
         report += "Reset all web browser settings to default and disabled all add-on/extensions.\n";
 
+    if(_installedPrograms->isChecked())
+    {
+        report += "Installed/updated the following program(s): ";
+        bool win8 = (QSysInfo::WindowsVersion == QSysInfo::WV_WINDOWS8 || QSysInfo::windowsVersion() == QSysInfo::WV_WINDOWS8_1);
+
+        if(!win8) report += "Adobe Flash Player, ";
+        report += "Adobe Shockwave, Adobe Reader, Java, Microsoft Silverlight, CCleaner";
+        if(win8) report += ", Classic Shell";
+
+        if(_installedAV->isChecked()) report += ", Malwarebytes' Anti-Malware, and Avast! Free Anti-Virus.\n";
+        else report += ", and Malwarebytes' Anti-Malware.\n";
+    }
+
     if(_windowsUpdates->isChecked())
         report += "Installed the latest Windows updates from Microsoft.\n";
 
@@ -169,21 +182,6 @@ void MainWindow::_setupMalwareButton()
     _malwareButton->setGeometry(width()-100,height()-30,100,30);
     connect(_malwareButton,SIGNAL(clicked()),this,SLOT(_malwareButtonHasBeenClicked()));
     _malwareButton->show();
-}
-
-void MainWindow::_setupInstalledProgramsCheckbox()
-{
-
-}
-
-void MainWindow::_installedProgramsStateHasChanged(int)
-{
-
-}
-
-void MainWindow::_installedAVStateHasChanged(int)
-{
-
 }
 
 #endif
