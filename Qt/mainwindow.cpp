@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     _mainWindowIcon(":/Resources/Icons/CWILogo.bmp"),
     _clipboard(QApplication::clipboard()),
-    _initials(new QLabel("Initials",this)),
+    _initials(new QLabel(tr("Initials"),this)),
     _date(QDate::currentDate().toString("MM/dd/yy")),
     _currentlySelectedMalware(new QStringList),
     _removedWithMalwarebytes(-1),
@@ -43,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
 
 #ifdef __WINDOWS__
-    if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << "Windows 7!" << '\n';
+    if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << tr("Windows 7!") << '\n';
 #endif
 
     qDebug() << _date.toStdString().c_str() << QTime::currentTime().toString("hh:mm:ss").toStdString().c_str() << '\n';
@@ -155,14 +155,14 @@ void MainWindow::_resetButtonHasBeenClicked()
     _currentlySelectedMalware->clear();
     _removedWithMalwarebytes = -1;
     _removedWithAvast = -1;
-    _textbox->setText("Report has been reset!");
+    _textbox->setText(tr("Report has been reset!"));
 
-    qDebug() << "Report has been reset!";
+    qDebug() << tr("Report has been reset!");
 }
 
 void MainWindow::_setupResetButton()
 {
-    _resetButton = new QPushButton("Reset",this);
+    _resetButton = new QPushButton(tr("Reset"),this);
     _resetButton->setGeometry(0,height()-30,50,30);
     connect(_resetButton,SIGNAL(clicked()),this,SLOT(_resetButtonHasBeenClicked()));
     _resetButton->show();
@@ -180,7 +180,7 @@ void MainWindow::_setup()
 
 void MainWindow::_setupMalwareButton()
 {
-    _malwareButton = new QPushButton("Malware",this);
+    _malwareButton = new QPushButton(tr("Malware"),this);
     _malwareButton->setGeometry(width()-100,height()-30,100,30);
     connect(_malwareButton,SIGNAL(clicked()),this,SLOT(_malwareButtonHasBeenClicked()));
     _malwareButton->show();
@@ -188,8 +188,8 @@ void MainWindow::_setupMalwareButton()
 
 void MainWindow::_win8StateHasChanged(int state)
 {
-    if(state) qDebug() << "System is running Windows 8!";
-    else qDebug() << "System is not actually running Windows 8!";
+    if(state) qDebug() << tr("System is running Windows 8!");
+    else qDebug() << tr("System is not actually running Windows 8!");
 
     _generateReport();
 }
