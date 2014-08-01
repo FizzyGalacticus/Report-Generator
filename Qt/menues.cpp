@@ -27,7 +27,7 @@ void MainWindow::_createActions()
 
     _aboutQtAct = new QAction(tr("About &Qt"), this);
     _aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
-    connect(_aboutQtAct, SIGNAL(triggered()), qApp, SLOT(_aboutQt()));
+    connect(_aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(_aboutQtAct, SIGNAL(triggered()), this, SLOT(_aboutQt()));
 
     _aboutAuthorAct = new QAction(tr("About &Author"), this);
