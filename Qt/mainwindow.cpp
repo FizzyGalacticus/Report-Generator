@@ -170,12 +170,12 @@ void MainWindow::_setupResetButton()
 
 void MainWindow::_setup()
 {
+    _setupMenus();
     _setupInitials();
     _setupCheckboxes();
     _setupTextbox();
     _setupResetButton();
     _setupMalwareButton();
-    _setupMenus();
 }
 
 void MainWindow::_setupMalwareButton()
