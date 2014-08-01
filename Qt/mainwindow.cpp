@@ -8,6 +8,7 @@
 #include "checkboxes.cpp"
 #include "textbox.cpp"
 #include "malwarewindow.cpp"
+#include "menues.cpp"
 #include <QPushButton>
 #include <QDesktopWidget>
 #include <QProcess>
@@ -174,6 +175,7 @@ void MainWindow::_setup()
     _setupTextbox();
     _setupResetButton();
     _setupMalwareButton();
+    _setupMenus();
 }
 
 void MainWindow::_setupMalwareButton()

@@ -13,6 +13,7 @@
 #include <QPushButton>
 #include <QDialog>
 #include <QLineEdit>
+#include <QMenu>
 
 namespace Ui {
 class MainWindow;
@@ -50,6 +51,9 @@ private slots:
     void _malwareButtonHasBeenClicked();                        //Malware Button
     void _malwareListViewItemHasBeenDoubleClicked(QListWidgetItem *);//Malware List Item
     void _malwareWindowAcceptButtonHasBeenClicked();            //Malware Accept
+    void _about();                                               //About Menu
+    void _aboutQt();                                             //About Qt Menu
+    void _aboutAuthor();                                         //About Author Menu
 
 private:
     Ui::MainWindow *ui;
@@ -131,7 +135,7 @@ private:
     QPushButton * _resetButton;
     void _setupResetButton();
 
-    /***************************MALWARE WINDOW***************************/
+    /**********************MALWARE WINDOW***************************/
     QDialog * _malwareWindow;
     QListWidget * _malwareListView;
     QPushButton * _malwareButton;
@@ -144,6 +148,18 @@ private:
     void _setupMalwareWindow();
     void _setupMalwareListView();
     void _setupMalwareButton();
+
+    /***************************MENUES******************************/
+    QMenu * _fileMenu;
+    QMenu * _helpMenu;
+    QAction *_openAct;
+    QAction *_exitAct;
+    QAction *_aboutAct;
+    QAction *_aboutQtAct;
+    QAction *_aboutAuthorAct;
+    void _createMenus();
+    void _createActions();
+    void _setupMenus();
 };
 
 #endif // MAINWINDOW_H
