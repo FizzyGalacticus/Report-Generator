@@ -36,7 +36,7 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
 
 void MainWindow::_setupInitials()
 {
-    _initials->setGeometry(25,_fileMenu->geometry().y()+_fileMenu->height()/2+9,73,11);
+    _initials->setGeometry(25,menuBar()->height(),73,11);
     _initials->show();
 
     _initialsListView = new QListWidget(this);

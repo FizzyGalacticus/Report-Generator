@@ -326,4 +326,12 @@ void MainWindow::_installedAVStateHasChanged(int state)
     _generateReport();
 }
 
+void MainWindow::_win8StateHasChanged(int state)
+{
+    if(state) qDebug() << tr("System is running Windows 8!");
+    else qDebug() << tr("System is not actually running Windows 8!");
+
+    _generateReport();
+}
+
 #endif
