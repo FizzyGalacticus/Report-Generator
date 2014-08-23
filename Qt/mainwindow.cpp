@@ -39,8 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _setup();
 
-//    QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
-//    QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
+    QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
+    QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
 
 #ifdef __WINDOWS__
     if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << tr("Windows 7!") << '\n';
