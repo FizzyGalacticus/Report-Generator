@@ -1,5 +1,6 @@
 #ifndef INITIALS_CPP
 #define INITIALS_CPP
+#include "mainwindow.h"
 
 void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
 {
@@ -36,7 +37,8 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
 
 void MainWindow::_setupInitials()
 {
-    _initials->setGeometry(25,menuBar()->height(),73,11);
+    _initials->setGeometry(0,menuBar()->height(),146,11);
+    _initials->setAlignment(Qt::AlignCenter);
     _initials->show();
 
     _initialsListView = new QListWidget(this);

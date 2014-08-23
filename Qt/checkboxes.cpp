@@ -1,5 +1,6 @@
 #ifndef CHECKBOXES_CPP
 #define CHECKBOXES_CPP
+#include "mainwindow.h"
 
 /**************     SETUP   ************************/
 

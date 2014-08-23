@@ -1,6 +1,6 @@
 #ifndef IO_CPP
 #define IO_CPP
-
+#include "mainwindow.h"
 #include <QInputDialog>
 #include <QString>
 #include <QStringList>

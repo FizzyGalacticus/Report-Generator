@@ -1,6 +1,6 @@
 #ifndef TEXTBOX_CPP
 #define TEXTBOX_CPP
-
+#include "mainwindow.h"
 #include <QString>
 
 void MainWindow::_setupTextbox()

@@ -1,7 +1,7 @@
 
 #ifndef _MENUES_CPP
 #define _MENUES_CPP
-
+#include "mainwindow.h"
 #include <QMessageBox>
 
 void MainWindow::_createMenus()
