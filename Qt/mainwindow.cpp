@@ -32,7 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _currentlySelectedMalware(new QStringList),
     _removedWithMalwarebytes(-1),
     _removedWithAvast(-1),
-    _db(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE")))
+    _db(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"))),
+    _dbquery(new QSqlQuery(NULL))
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -49,23 +50,6 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     qDebug() << _date.toStdString().c_str() << QTime::currentTime().toString("hh:mm:ss").toStdString().c_str() << '\n';
-
-    _db->setHostName("CWI");
-    _db->setDatabaseName("CWIDB");
-    bool ok = _db->open();
-
-    if(ok)
-    {
-        qDebug() << "Database opened!";
-
-        QSqlQuery * query = new QSqlQuery(*_db);
-        query->exec("CREATE TABLE removedprograms(TITLE TEXT)");
-        query->exec("INSERT INTO removedprograms VALUES (\"Search Protect\")");
-        query->exec("SELECT * FROM removedprograms");
-
-        while(query->next()) qDebug() << query->value(0).toString();
-    }
-    else qDebug() << "Database failed to open.";
 }
 
 MainWindow::~MainWindow()
@@ -189,6 +173,7 @@ void MainWindow::_setupResetButton()
 
 void MainWindow::_setup()
 {
+    _setupSQLiteDatabase();
     _setupMenus();
     _setupInitials();
     _setupCheckboxes();

@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     checkboxes.cpp \
     textbox.cpp \
     malwarewindow.cpp \
-    menues.cpp
+    menues.cpp \
+    sqlite.cpp
 
 HEADERS  += mainwindow.h
 

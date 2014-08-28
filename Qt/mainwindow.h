@@ -164,6 +164,8 @@ private:
 
     /*************************SQL DATABASE**************************/
     QSqlDatabase * _db;
+    QSqlQuery * _dbquery;
+    void _setupSQLiteDatabase();
 };
 
 #endif // MAINWINDOW_H
