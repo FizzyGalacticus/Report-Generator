@@ -11,24 +11,24 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
     }
     else
     {
-        string userInitials = getUserInputString(this,tr("Initials"),tr("Initials:")).toStdString();
+        QString userInitials = getUserInputString(this,tr("Initials"),tr("Initials:"));
         if(userInitials.size())
         {
-            appendLineToFile(tr("users"),tr(userInitials.c_str()));
-            _initialsListView->item(_initialsListView->count()-1)->setText(QString(userInitials.c_str()));
+            addTextToDatabase(userInitials,"initials");
+            _initialsListView->item(_initialsListView->count()-1)->setText(userInitials);
 
             _initialsListView->sortItems();
             _initialsListView->show();
 
             for(int i = 0; i < _initialsListView->count(); i++)
-                if(_initialsListView->item(i)->text() == QString(userInitials.c_str()))
+                if(_initialsListView->item(i)->text() == userInitials)
                     _initialsListView->setItemSelected(_initialsListView->item(i), true);
-            _currentUser = userInitials.c_str();
+            _currentUser = userInitials;
 
             _initialsListView->addItem(QString(tr("Add New...")));
             _initialsListView->item(_initialsListView->count()-1)->setTextColor("Black");
 
-            qDebug() << _currentUser.toStdString().c_str() << tr("Clicked!") << '\n';
+            qDebug() << _currentUser << QString(tr("Clicked!")) << '\n';
         }
     }
 
@@ -52,18 +52,18 @@ void MainWindow::_setupInitials()
                     SLOT(_initialsListItemHasBeenClicked(QListWidgetItem*))
                 );
 
-    vector<string> myList = getStringListFromFile(tr("users"));
+    QVector<QString> * myList = getTextFromDatabase("initials");
 
-    if( myList.empty())
+    if( myList->empty())
     {
-        string userInitials = getUserInputString(this,tr("Initials"),tr("Initials:")).toStdString();
-        myList.push_back(userInitials);
-        appendLineToFile(tr("users"),tr(userInitials.c_str()));
+        QString userInitials = getUserInputString(this,tr("Initials"),tr("Initials:"));
+        myList->push_back(userInitials);
+        addTextToDatabase(userInitials,"initials");
     }
 
-    for(unsigned int i = 0; i < myList.size(); i++)
+    for(int i = 0; i < myList->size(); i++)
     {
-        _initialsListView->addItem(QString(myList[i].c_str()));
+        _initialsListView->addItem(myList->at(i));
         _initialsListView->item(i)->setTextColor("Black");
     }
     _initialsListView->addItem(tr("Add new..."));

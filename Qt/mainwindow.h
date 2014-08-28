@@ -15,6 +15,7 @@
 #include <QLineEdit>
 #include <QMenu>
 #include <QtSql/QSqlDatabase>
+#include <QVector>
 
 namespace Ui {
 class MainWindow;
@@ -166,6 +167,8 @@ private:
     QSqlDatabase * _db;
     QSqlQuery * _dbquery;
     void _setupSQLiteDatabase();
+    QVector<QString> * getTextFromDatabase(const QString &);
+    void addTextToDatabase(const QString &, const QString &);
 };
 
 #endif // MAINWINDOW_H
