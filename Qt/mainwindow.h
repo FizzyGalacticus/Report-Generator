@@ -14,6 +14,7 @@
 #include <QDialog>
 #include <QLineEdit>
 #include <QMenu>
+#include <QtSql/QSqlDatabase>
 
 namespace Ui {
 class MainWindow;
@@ -160,6 +161,9 @@ private:
     void _createMenus();
     void _createActions();
     void _setupMenus();
+
+    /*************************SQL DATABASE**************************/
+    QSqlDatabase * _db;
 };
 
 #endif // MAINWINDOW_H

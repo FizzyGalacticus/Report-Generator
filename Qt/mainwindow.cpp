@@ -20,6 +20,7 @@ using std::string;
 #include <exception>
 #include <QWindow>
 #include <QDialog>
+#include <QSqlQuery>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,7 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _date(QDate::currentDate().toString("MM/dd/yy")),
     _currentlySelectedMalware(new QStringList),
     _removedWithMalwarebytes(-1),
-    _removedWithAvast(-1)
+    _removedWithAvast(-1),
+    _db(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE")))
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -39,8 +41,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _setup();
 
-    QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
-    QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
+    //QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
+    //QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
 
 #ifdef __WINDOWS__
     if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << tr("Windows 7!") << '\n';
@@ -48,11 +50,28 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qDebug() << _date.toStdString().c_str() << QTime::currentTime().toString("hh:mm:ss").toStdString().c_str() << '\n';
 
+    _db->setHostName("CWI");
+    _db->setDatabaseName("CWIDB");
+    bool ok = _db->open();
+
+    if(ok)
+    {
+        qDebug() << "Database opened!";
+
+        QSqlQuery * query = new QSqlQuery(*_db);
+        query->exec("CREATE TABLE removedprograms(TITLE TEXT)");
+        query->exec("INSERT INTO removedprograms VALUES (\"Search Protect\")");
+        query->exec("SELECT * FROM removedprograms");
+
+        while(query->next()) qDebug() << query->value(0).toString();
+    }
+    else qDebug() << "Database failed to open.";
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    _db->close();
 }
 
 void MainWindow::_generateReport()
