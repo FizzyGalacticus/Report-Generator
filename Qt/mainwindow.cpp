@@ -25,7 +25,7 @@ using std::string;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    _mainWindowIcon(":/Resources/Icons/CWILogo.bmp"),
+    _mainWindowIcon(":/Resources/Icons/CWILogo.ico"),
     _clipboard(QApplication::clipboard()),
     _initials(new QLabel(tr("Initials"),this)),
     _date(QDate::currentDate().toString("MM/dd/yy")),

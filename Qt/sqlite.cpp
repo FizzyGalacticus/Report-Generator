@@ -25,7 +25,6 @@ void MainWindow::_setupSQLiteDatabase()
 QVector<QString> * MainWindow::getTextFromDatabase(const QString & tableName)
 {
     QVector<QString> * tableEntries = new QVector<QString>;
-
     if(_dbquery)
     {
         QString query = "SELECT * FROM " + tableName;
