@@ -25,6 +25,7 @@ using std::string;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    _centralWidget(new QWidget),
     _mainWindowIcon(":/Resources/Icons/CWILogo.ico"),
     _clipboard(QApplication::clipboard()),
     _initials(new QLabel(tr("Initials"),this)),
@@ -38,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
     this->setWindowIcon(_mainWindowIcon);
-    this->setFixedSize(600,400);
+    this->setCentralWidget(_centralWidget);
 
     _setup();
 
