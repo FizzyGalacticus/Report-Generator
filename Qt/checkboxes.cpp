@@ -1,13 +1,14 @@
 #ifndef CHECKBOXES_CPP
 #define CHECKBOXES_CPP
 #include "mainwindow.h"
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 /**************     SETUP   ************************/
 
 void MainWindow::_setupCheckboxes()
 {
     _setupAddInitialsCheckbox();
-    _setupDateAndTimeCheckboxes();
     _setupCheckoutCheckbox();
     _setupHDDCheckboxes();
     _setupSFCCheckboxes();
@@ -20,32 +21,51 @@ void MainWindow::_setupCheckboxes()
 
 void MainWindow::_setupAddInitialsCheckbox()
 {
-    _addInitials = new QCheckBox(this);
+    QVBoxLayout * initialsDateTimeLayout = new QVBoxLayout;
+    QVBoxLayout * mainServicesLayout = new QVBoxLayout;
+    QVBoxLayout * installedAndUpdatedLayout = new QVBoxLayout;
+    QHBoxLayout * checkboxesLayout = new QHBoxLayout;
+
+    /****************INITIALS, TIME, AND DATE CHECKBOXES*********************/
     _addInitials->setText(tr("Add Initials"));
-    const int addinitialsY = _initialsListView->geometry().y()+_initialsListView->height()+3;
-    _addInitials->setGeometry(0,addinitialsY,width()/3,_initials->height()+3);
+    _addDate->setText(tr("Add Date"));
+    _addTime->setText(tr("Add Time"));
+
     connect(_addInitials, SIGNAL(stateChanged(int)),this,SLOT(_addInitialsStateHasChanged(int)));
+    connect(_addDate, SIGNAL(stateChanged(int)),this,SLOT(_addDateStateHasChanged(int)));
+    connect(_addTime, SIGNAL(stateChanged(int)),this,SLOT(_addTimeStateHasChanged(int)));
+
+    initialsDateTimeLayout->addWidget(_addInitials);
+    initialsDateTimeLayout->addWidget(_addDate);
+    initialsDateTimeLayout->addWidget(_addTime);
+
+    checkboxesLayout->addLayout(initialsDateTimeLayout);
+
+    /****************MAIN SERVICE CHECKBOXES********************************/
+    _checkout->setText(tr("Just Checked Out"));
+
+    connect(_checkout, SIGNAL(stateChanged(int)),this,SLOT(_checkoutStateHasChanged(int)));
+
+    mainServicesLayout->addWidget(_checkout);
+
+    checkboxesLayout->addLayout(mainServicesLayout);
+
+    /*******************INSTALLED AND UPDATED PROGRAMS CHECKBOXES***********/
+
+
+    _centralWidgetLayout->addLayout(checkboxesLayout);
 }
 
 void MainWindow::_setupDateAndTimeCheckboxes()
 {
-    _addDate = new QCheckBox(this);
-    _addDate->setText(tr("Add Date"));
-    _addDate->setGeometry(_addInitials->geometry().x(),_addInitials->geometry().y()+_addInitials->height()+3,_addInitials->width(),_addInitials->height());
-    connect(_addDate, SIGNAL(stateChanged(int)),this,SLOT(_addDateStateHasChanged(int)));
 
-    _addTime = new QCheckBox(this);
-    _addTime->setText(tr("Add Time"));
-    _addTime->setGeometry(_addInitials->geometry().x(),_addDate->geometry().y()+_addDate->height()+3,_addInitials->width(),_addInitials->height());
-    connect(_addTime, SIGNAL(stateChanged(int)),this,SLOT(_addTimeStateHasChanged(int)));
+
+
 }
 
 void MainWindow::_setupCheckoutCheckbox()
 {
-    _checkout = new QCheckBox(this);
-    _checkout->setText(tr("Just Checked Out"));
-    _checkout->setGeometry(_addInitials->width(),_addInitials->geometry().y(),_addInitials->width(),_addInitials->height());
-    connect(_checkout, SIGNAL(stateChanged(int)),this,SLOT(_checkoutStateHasChanged(int)));
+
 }
 
 void MainWindow::_setupHDDCheckboxes()

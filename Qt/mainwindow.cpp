@@ -30,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _initialsListView(new QListWidget),
     _initials(new QLabel(tr("Initials"),this)),
     _addInitials(new QCheckBox),
+    _addDate(new QCheckBox),
+    _addTime(new QCheckBox),
+    _checkout(new QCheckBox),
     _date(QDate::currentDate().toString("MM/dd/yy")),
     _textbox(new QTextEdit("Report is generated here. Start customizing!",this)),
     _currentlySelectedMalware(new QStringList),
@@ -179,7 +182,7 @@ void MainWindow::_setup()
     _setupSQLiteDatabase();
     _setupMenus();
     _setupInitials();
-//    _setupCheckboxes();
+    _setupCheckboxes();
 //    _setupTextbox();
 //    _setupResetButton();
 //    _setupMalwareButton();
