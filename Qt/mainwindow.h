@@ -86,51 +86,41 @@ private:
 
     /*****INITIALS*******/
     QCheckBox * _addInitials;
-    void _setupAddInitialsCheckbox();
 
     /****DATE AND TIME***/
     QString _date;
     QCheckBox * _addDate;
     QCheckBox * _addTime;
-    void _setupDateAndTimeCheckboxes();
 
     /*****CHECKOUT*******/
     QCheckBox * _checkout;
-    void _setupCheckoutCheckbox();
 
     /*****HDD SCAN*******/
     QCheckBox * _hddscan;
     QCheckBox * _hddpass;
     QCheckBox * _hddfail;
-    void _setupHDDCheckboxes();
 
     /*****SFC SCAN*******/
     QCheckBox * _sfcscan;
     QCheckBox * _sfcpass;
     QCheckBox * _sfcfail;
-    void _setupSFCCheckboxes();
 
     /**UPGRADE-IN-PLACE**/
     QCheckBox * _upgradeInPlace;
-    void _setupUpgradeInPlaceCheckbox();
 
     /***RESET BROWSERS***/
     QCheckBox * _resetBrowsers;
-    void _setupResetBrowsersCheckbox();
 
     /***WINDOWS UPDATES**/
     QCheckBox * _windowsUpdates;
-    void _setupWindowsUpdatesCheckbox();
 
     /***RESTORE POINTS**/
     QCheckBox * _restorePoints;
-    void _setupRestorePointsCheckbox();
 
     /*INSTALLED PROGRAMS*/
     QCheckBox * _installedPrograms;
-    QCheckBox * _win8;
     QCheckBox * _installedAV;
-    void _setupInstalledProgramsCheckbox();
+    QCheckBox * _win8;
 
     /***************************************************************/
 

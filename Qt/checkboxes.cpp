@@ -8,19 +8,6 @@
 
 void MainWindow::_setupCheckboxes()
 {
-    _setupAddInitialsCheckbox();
-    _setupCheckoutCheckbox();
-    _setupHDDCheckboxes();
-    _setupSFCCheckboxes();
-    _setupUpgradeInPlaceCheckbox();
-    _setupResetBrowsersCheckbox();
-    _setupWindowsUpdatesCheckbox();
-    _setupRestorePointsCheckbox();
-    _setupInstalledProgramsCheckbox();
-}
-
-void MainWindow::_setupAddInitialsCheckbox()
-{
     QVBoxLayout * initialsDateTimeLayout = new QVBoxLayout;
     QVBoxLayout * mainServicesLayout = new QVBoxLayout;
     QVBoxLayout * installedAndUpdatedLayout = new QVBoxLayout;
@@ -108,49 +95,6 @@ void MainWindow::_setupAddInitialsCheckbox()
     checkboxesLayout->addLayout(installedAndUpdatedLayout);
 
     _centralWidgetLayout->addLayout(checkboxesLayout);
-}
-
-void MainWindow::_setupDateAndTimeCheckboxes()
-{
-
-
-
-}
-
-void MainWindow::_setupCheckoutCheckbox()
-{
-
-}
-
-void MainWindow::_setupHDDCheckboxes()
-{
-
-}
-
-void MainWindow::_setupSFCCheckboxes()
-{
-
-}
-
-void MainWindow::_setupUpgradeInPlaceCheckbox()
-{
-}
-
-void MainWindow::_setupResetBrowsersCheckbox()
-{
-}
-
-void MainWindow::_setupWindowsUpdatesCheckbox()
-{
-}
-
-void MainWindow::_setupRestorePointsCheckbox()
-{
-}
-
-void MainWindow::_setupInstalledProgramsCheckbox()
-{
-
 }
 
 /**************     SLOTS   ************************/
