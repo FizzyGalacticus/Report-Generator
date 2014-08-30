@@ -43,15 +43,69 @@ void MainWindow::_setupAddInitialsCheckbox()
 
     /****************MAIN SERVICE CHECKBOXES********************************/
     _checkout->setText(tr("Just Checked Out"));
+    _hddscan->setText(tr("HDD Scan"));
+    _hddpass->setText(tr("Passed"));
+    _hddfail->setText(tr("Failed"));
+    _sfcscan->setText(tr("SFC Scan"));
+    _sfcpass->setText(tr("Passed"));
+    _sfcfail->setText(tr("Failed"));
+    _upgradeInPlace->setText(tr("Upgrade-In-Place"));
+    _resetBrowsers->setText(tr("Reset Browsers"));
+    _windowsUpdates->setText(tr("Windows Updates"));
+    _restorePoints->setText(tr("Reset Restore Points"));
+
+    _hddpass->setCheckable(false);
+    _hddpass->setVisible(false);
+    _hddfail->setCheckable(false);
+    _hddfail->setVisible(false);
+    _sfcpass->setCheckable(false);
+    _sfcpass->setVisible(false);
+    _sfcfail->setCheckable(false);
+    _sfcfail->setVisible(false);
 
     connect(_checkout, SIGNAL(stateChanged(int)),this,SLOT(_checkoutStateHasChanged(int)));
+    connect(_hddscan,SIGNAL(stateChanged(int)),this,SLOT(_hddscanStateHasChanged(int)));
+    connect(_hddpass,SIGNAL(stateChanged(int)),this,SLOT(_hddpassStateHasChanged(int)));
+    connect(_hddfail,SIGNAL(stateChanged(int)),this,SLOT(_hddfailStateHasChanged(int)));
+    connect(_sfcscan,SIGNAL(stateChanged(int)),this,SLOT(_sfcscanStateHasChanged(int)));
+    connect(_sfcpass,SIGNAL(stateChanged(int)),this,SLOT(_sfcpassStateHasChanged(int)));
+    connect(_sfcfail,SIGNAL(stateChanged(int)),this,SLOT(_sfcfailStateHasChanged(int)));
+    connect(_upgradeInPlace, SIGNAL(stateChanged(int)),this,SLOT(_upgradeInPlaceStateHasChanged(int)));
+    connect(_resetBrowsers, SIGNAL(stateChanged(int)),this,SLOT(_resetBrowsersStateHasChanged(int)));
+    connect(_windowsUpdates, SIGNAL(stateChanged(int)),this,SLOT(_windowsUpdatesStateHasChanged(int)));
+    connect(_restorePoints, SIGNAL(stateChanged(int)),this,SLOT(_restorePointsStateHasChanged(int)));
 
     mainServicesLayout->addWidget(_checkout);
+    mainServicesLayout->addWidget(_hddscan);
+    mainServicesLayout->addWidget(_hddpass);
+    mainServicesLayout->addWidget(_hddfail);
+    mainServicesLayout->addWidget(_sfcscan);
+    mainServicesLayout->addWidget(_sfcpass);
+    mainServicesLayout->addWidget(_sfcfail);
+    mainServicesLayout->addWidget(_upgradeInPlace);
+    mainServicesLayout->addWidget(_resetBrowsers);
+    mainServicesLayout->addWidget(_windowsUpdates);
+    mainServicesLayout->addWidget(_restorePoints);
 
     checkboxesLayout->addLayout(mainServicesLayout);
 
     /*******************INSTALLED AND UPDATED PROGRAMS CHECKBOXES***********/
+    _installedPrograms->setText(tr("Installed Programs"));
+    _installedAV->setText(tr("Installed AV"));
+    _win8->setText(tr("Windows 8"));
 
+    _installedAV->setVisible(false);
+    _win8->setVisible(false);
+
+    connect(_installedPrograms, SIGNAL(stateChanged(int)),this,SLOT(_installedProgramsStateHasChanged(int)));
+    connect(_installedAV, SIGNAL(stateChanged(int)),this,SLOT(_installedAVStateHasChanged(int)));
+    connect(_win8, SIGNAL(stateChanged(int)),this,SLOT(_win8StateHasChanged(int)));
+
+    installedAndUpdatedLayout->addWidget(_installedPrograms);
+    installedAndUpdatedLayout->addWidget(_installedAV);
+    installedAndUpdatedLayout->addWidget(_win8);
+
+    checkboxesLayout->addLayout(installedAndUpdatedLayout);
 
     _centralWidgetLayout->addLayout(checkboxesLayout);
 }
@@ -70,114 +124,33 @@ void MainWindow::_setupCheckoutCheckbox()
 
 void MainWindow::_setupHDDCheckboxes()
 {
-    //     Main HDD Scan Checkbox
-    _hddscan = new QCheckBox(this);
-    _hddscan->setText(tr("HDD Scan"));
-    const int hddscanY = _checkout->geometry().y() + _checkout->height() + 3;
-    _hddscan->setGeometry(_checkout->geometry().x(),hddscanY,_checkout->width(),_checkout->height());
-    connect(_hddscan,SIGNAL(stateChanged(int)),this,SLOT(_hddscanStateHasChanged(int)));
 
-    //     HDD Scan Pass Checkbox
-    _hddpass = new QCheckBox(this);
-    _hddpass->setText(tr("Passed"));
-    const int hddpassY = _hddscan->geometry().y() + _hddscan->height() + 3;
-    _hddpass->setGeometry(_hddscan->geometry().x()+15,hddpassY,_hddscan->width()-15,_hddscan->height());
-    _hddpass->setCheckable(false);
-    _hddpass->setVisible(false);
-    connect(_hddpass,SIGNAL(stateChanged(int)),this,SLOT(_hddpassStateHasChanged(int)));
-
-    //     HDD Scan Fail Checkbox
-    _hddfail = new QCheckBox(this);
-    _hddfail->setText(tr("Failed"));
-    const int hddfailY = _hddpass->geometry().y() + _hddscan->height() + 3;
-    _hddfail->setGeometry(_hddscan->geometry().x()+15,hddfailY,_hddpass->width()-15,_hddscan->height());
-    _hddfail->setCheckable(false);
-    _hddfail->setVisible(false);
-    connect(_hddfail,SIGNAL(stateChanged(int)),this,SLOT(_hddfailStateHasChanged(int)));
 }
 
 void MainWindow::_setupSFCCheckboxes()
 {
-    //     Main SFC Scan Checkbox
-    _sfcscan = new QCheckBox(this);
-    _sfcscan->setText(tr("SFC Scan"));
-    const int sfcscanY = _hddfail->geometry().y() + _hddfail->height() + 3;
-    _sfcscan->setGeometry(_hddscan->geometry().x(),sfcscanY,_hddfail->width(),_checkout->height());
-    connect(_sfcscan,SIGNAL(stateChanged(int)),this,SLOT(_sfcscanStateHasChanged(int)));
 
-    //     SFC Scan Pass Checkbox
-    _sfcpass = new QCheckBox(this);
-    _sfcpass->setText(tr("Passed"));
-    const int sfcpassY = _sfcscan->geometry().y() + _sfcscan->height() + 3;
-    _sfcpass->setGeometry(_hddscan->geometry().x()+15,sfcpassY,_hddpass->width()-15,_sfcscan->height());
-    _sfcpass->setCheckable(false);
-    _sfcpass->setVisible(false);
-    connect(_sfcpass,SIGNAL(stateChanged(int)),this,SLOT(_sfcpassStateHasChanged(int)));
-
-    //     SFC Scan Fail Checkbox
-    _sfcfail = new QCheckBox(this);
-    _sfcfail->setText(tr("Failed"));
-    const int sfcfailY = _sfcpass->geometry().y() + _sfcscan->height() + 3;
-    _sfcfail->setGeometry(_hddscan->geometry().x()+15,sfcfailY,_hddpass->width()-15,_sfcscan->height());
-    _sfcfail->setCheckable(false);
-    _sfcfail->setVisible(false);
-    connect(_sfcfail,SIGNAL(stateChanged(int)),this,SLOT(_sfcfailStateHasChanged(int)));
 }
 
 void MainWindow::_setupUpgradeInPlaceCheckbox()
 {
-    _upgradeInPlace = new QCheckBox(this);
-    _upgradeInPlace->setText(tr("Upgrade-In-Place"));
-    const int UIPY = _sfcfail->geometry().y()+_sfcscan->height()+3;
-    _upgradeInPlace->setGeometry(_sfcscan->geometry().x(),UIPY,_addInitials->width(),_addInitials->height());
-    connect(_upgradeInPlace, SIGNAL(stateChanged(int)),this,SLOT(_upgradeInPlaceStateHasChanged(int)));
 }
 
 void MainWindow::_setupResetBrowsersCheckbox()
 {
-    _resetBrowsers = new QCheckBox(this);
-    _resetBrowsers->setText(tr("Reset Browsers"));
-    const int resetBrowsersY = _upgradeInPlace->geometry().y()+_addInitials->height()+3;
-    _resetBrowsers->setGeometry(_checkout->geometry().x(),resetBrowsersY,_addInitials->width(),_addInitials->height());
-    connect(_resetBrowsers, SIGNAL(stateChanged(int)),this,SLOT(_resetBrowsersStateHasChanged(int)));
 }
 
 void MainWindow::_setupWindowsUpdatesCheckbox()
 {
-    _windowsUpdates = new QCheckBox(this);
-    _windowsUpdates->setText(tr("Windows Updates"));
-    const int windowsUpdateY = _resetBrowsers->geometry().y()+_addInitials->height()+3;
-    _windowsUpdates->setGeometry(_checkout->geometry().x(),windowsUpdateY,_addInitials->width(),_addInitials->height());
-    connect(_windowsUpdates, SIGNAL(stateChanged(int)),this,SLOT(_windowsUpdatesStateHasChanged(int)));
 }
 
 void MainWindow::_setupRestorePointsCheckbox()
 {
-    _restorePoints = new QCheckBox(this);
-    _restorePoints->setText(tr("Reset Restore Points"));
-    const int restorePointsY = _windowsUpdates->geometry().y()+_addInitials->height()+3;
-    _restorePoints->setGeometry(_checkout->geometry().x(),restorePointsY,_addInitials->width(),_addInitials->height());
-    connect(_restorePoints, SIGNAL(stateChanged(int)),this,SLOT(_restorePointsStateHasChanged(int)));
 }
 
 void MainWindow::_setupInstalledProgramsCheckbox()
 {
-    _installedPrograms = new QCheckBox(this);
-    _installedPrograms->setText(tr("Installed Programs"));
-    _installedPrograms->setGeometry(_checkout->geometry().x()+_checkout->width(),_checkout->geometry().y(),_addInitials->width(),_addInitials->height());
-    connect(_installedPrograms, SIGNAL(stateChanged(int)),this,SLOT(_installedProgramsStateHasChanged(int)));
 
-    _installedAV = new QCheckBox(this);
-    _installedAV->setText(tr("Installed AV"));
-    _installedAV->setGeometry(_installedPrograms->geometry().x()+15,_hddscan->geometry().y(),_addInitials->width()-15,_addInitials->height());
-    connect(_installedAV, SIGNAL(stateChanged(int)),this,SLOT(_installedAVStateHasChanged(int)));
-    _installedAV->setVisible(false);
-
-    _win8 = new QCheckBox(this);
-    _win8->setText(tr("Windows 8"));
-    _win8->setGeometry(_installedPrograms->geometry().x()+15,_hddpass->geometry().y(),_addInitials->width()-15,_addInitials->height());
-    connect(_win8, SIGNAL(stateChanged(int)),this,SLOT(_win8StateHasChanged(int)));
-    _win8->setVisible(false);
 }
 
 /**************     SLOTS   ************************/
