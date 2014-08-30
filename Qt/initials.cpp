@@ -1,6 +1,8 @@
 #ifndef INITIALS_CPP
 #define INITIALS_CPP
 #include "mainwindow.h"
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
 {
@@ -37,12 +39,8 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
 
 void MainWindow::_setupInitials()
 {
-    _initials->setGeometry(0,menuBar()->height(),146,11);
-    _initials->setAlignment(Qt::AlignCenter);
-    _initials->show();
-
-    _initialsListView = new QListWidget(this);
-    _initialsListView->setParent(this);
+    QHBoxLayout * labelLayout = new QHBoxLayout;
+    QHBoxLayout * initialListAndTextBox = new QHBoxLayout;
 
     connect
                 (
@@ -67,8 +65,21 @@ void MainWindow::_setupInitials()
         _initialsListView->item(i)->setTextColor("Black");
     }
     _initialsListView->addItem(tr("Add new..."));
-    _initialsListView->setGeometry(0,_initials->geometry().y()+_initials->geometry().height()+3,146,100);
-    _initialsListView->show();
+
+
+
+    _initials->setAlignment(Qt::AlignCenter);
+    _initials->setMaximumWidth(_initialsListView->width());
+
+    _initialsListView->setMaximumWidth(72);
+
+    initialListAndTextBox->addWidget(_initialsListView);
+    initialListAndTextBox->addWidget(_textbox);
+    labelLayout->addWidget(_initials);
+    labelLayout->addStretch();
+
+    _centralWidgetLayout->addLayout(labelLayout);
+    _centralWidgetLayout->addLayout(initialListAndTextBox);
 }
 
 #endif

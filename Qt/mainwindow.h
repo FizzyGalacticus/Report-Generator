@@ -17,6 +17,7 @@
 #include <QtSql/QSqlDatabase>
 #include <QVector>
 #include <QWidget>
+#include <QVBoxLayout>
 
 namespace Ui {
 class MainWindow;
@@ -61,8 +62,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    //Central Widget
+    //Central Widget & Layout
     QWidget * _centralWidget;
+    QVBoxLayout * _centralWidgetLayout;
 
     /*****MAIN ICON******/
     QIcon _mainWindowIcon;
