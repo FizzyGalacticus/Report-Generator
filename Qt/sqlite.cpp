@@ -25,26 +25,26 @@ void MainWindow::_setupSQLiteDatabase()
 QVector<QString> * MainWindow::getTextFromDatabase(const QString & tableName)
 {
     QVector<QString> * tableEntries = new QVector<QString>;
-    if(_dbquery)
+    if(_db->isOpen() && _dbquery)
     {
         QString query = "SELECT * FROM " + tableName;
         _dbquery->exec(query);
 
         while(_dbquery->next()) tableEntries->push_back(_dbquery->value(0).toString());
     }
-    else qDebug() << tr("_dbquery is NULL!");
+    else qDebug() << tr("_db not open or _dbquery is NULL.");
 
     return tableEntries;
 }
 
 void MainWindow::addTextToDatabase(const QString & text, const QString & tableName)
 {
-    if(_dbquery)
+    if(_db->isOpen() && _dbquery)
     {
         QString query = ("INSERT INTO " + tableName + " VALUES (\"" + text + "\")");
         _dbquery->exec(query);
     }
-    else qDebug() << tr("_dbquery is NULL!");
+    else qDebug() << tr("_db not open or _dbquery is NULL.");
 }
 
 #endif
