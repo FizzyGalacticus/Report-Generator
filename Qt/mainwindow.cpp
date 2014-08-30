@@ -15,12 +15,11 @@
 #include <QFile>
 #include <QSysInfo>
 #include <QTextEdit>
-#include <string>
-using std::string;
 #include <exception>
 #include <QWindow>
 #include <QDialog>
 #include <QSqlQuery>
+#include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -40,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
     this->setWindowIcon(_mainWindowIcon);
     this->setCentralWidget(_centralWidget);
+    _centralWidget->setLayout(new QVBoxLayout);
 
     _setup();
 
