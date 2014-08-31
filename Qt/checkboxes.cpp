@@ -26,8 +26,6 @@ void MainWindow::_setupCheckboxes()
     initialsDateTimeLayout->addWidget(_addDate);
     initialsDateTimeLayout->addWidget(_addTime);
 
-    checkboxesLayout->addLayout(initialsDateTimeLayout);
-
     /****************MAIN SERVICE CHECKBOXES********************************/
     _checkout->setText(tr("Just Checked Out"));
     _hddscan->setText(tr("HDD Scan"));
@@ -74,8 +72,6 @@ void MainWindow::_setupCheckboxes()
     mainServicesLayout->addWidget(_windowsUpdates);
     mainServicesLayout->addWidget(_restorePoints);
 
-    checkboxesLayout->addLayout(mainServicesLayout);
-
     /*******************INSTALLED AND UPDATED PROGRAMS CHECKBOXES***********/
     _installedPrograms->setText(tr("Installed Programs"));
     _installedAV->setText(tr("Installed AV"));
@@ -92,6 +88,8 @@ void MainWindow::_setupCheckboxes()
     installedAndUpdatedLayout->addWidget(_installedAV);
     installedAndUpdatedLayout->addWidget(_win8);
 
+    checkboxesLayout->addLayout(initialsDateTimeLayout);
+    checkboxesLayout->addLayout(mainServicesLayout);
     checkboxesLayout->addLayout(installedAndUpdatedLayout);
 
     _centralWidgetLayout->addLayout(checkboxesLayout);
