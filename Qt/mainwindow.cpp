@@ -98,33 +98,35 @@ void MainWindow::_resetButtonHasBeenClicked()
     qDebug() << tr("Report has been reset!");
 }
 
-void MainWindow::_setupResetButton()
-{
-    _resetButton = new QPushButton(tr("Reset"),this);
-    _resetButton->setGeometry(0,height()-30,50,30);
-    connect(_resetButton,SIGNAL(clicked()),this,SLOT(_resetButtonHasBeenClicked()));
-    _resetButton->show();
-}
-
 void MainWindow::_setup()
 {
     _setupSQLiteDatabase();
     _setupMenus();
     _setupInitials();
     _setupCheckboxes();
-//    _setupTextbox();
-//    _setupResetButton();
-//    _setupMalwareButton();
+    _setupButtons();
 
     _centralWidget->setLayout(_centralWidgetLayout);
 }
 
-void MainWindow::_setupMalwareButton()
+void MainWindow::_setupButtons()
 {
+    QHBoxLayout * buttons = new QHBoxLayout;
+
+    _resetButton = new QPushButton(tr("Reset"),this);
     _malwareButton = new QPushButton(tr("Malware"),this);
-    _malwareButton->setGeometry(width()-100,height()-30,100,30);
+
+    _resetButton->setMaximumSize(50,30);
+    _malwareButton->setMaximumSize(50,30);
+
+    connect(_resetButton,SIGNAL(clicked()),this,SLOT(_resetButtonHasBeenClicked()));
     connect(_malwareButton,SIGNAL(clicked()),this,SLOT(_malwareButtonHasBeenClicked()));
-    _malwareButton->show();
+
+    buttons->addWidget(_resetButton);
+    buttons->addStretch();
+    buttons->addWidget(_malwareButton);
+
+    _centralWidgetLayout->addLayout(buttons);
 }
 
 #endif

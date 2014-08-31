@@ -130,7 +130,6 @@ private:
 
     /****RESET BUTTON****/
     QPushButton * _resetButton;
-    void _setupResetButton();
 
     /**********************MALWARE WINDOW***************************/
     QDialog * _malwareWindow;
@@ -144,7 +143,9 @@ private:
     QLineEdit * _removedWithAvastInput;
     void _setupMalwareWindow();
     void _setupMalwareListView();
-    void _setupMalwareButton();
+
+    /*************************BUTTONS*******************************/
+    void _setupButtons();
 
     /***************************MENUES******************************/
     QMenu * _fileMenu;
