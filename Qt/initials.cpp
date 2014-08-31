@@ -41,6 +41,7 @@ void MainWindow::_setupInitials()
 {
     QHBoxLayout * labelLayout = new QHBoxLayout;
     QHBoxLayout * initialListAndTextBox = new QHBoxLayout;
+    QVector<QString> * myList = getTextFromDatabase("initials");
 
     connect
                 (
@@ -49,8 +50,7 @@ void MainWindow::_setupInitials()
                     this,
                     SLOT(_initialsListItemHasBeenClicked(QListWidgetItem*))
                 );
-
-    QVector<QString> * myList = getTextFromDatabase("initials");
+    connect(_textbox, SIGNAL(textChanged()),this,SLOT(_textInTextboxHasChanged()));
 
     if( myList->empty())
     {
@@ -66,15 +66,12 @@ void MainWindow::_setupInitials()
     }
     _initialsListView->addItem(tr("Add new..."));
 
-
-
-    _initials->setAlignment(Qt::AlignCenter);
-    _initials->setMaximumWidth(_initialsListView->width());
-
     _initialsListView->setMaximumWidth(72);
+    _initials->setMaximumWidth(_initialsListView->width());
 
     initialListAndTextBox->addWidget(_initialsListView);
     initialListAndTextBox->addWidget(_textbox);
+    labelLayout->setAlignment(Qt::AlignCenter);
     labelLayout->addWidget(_initials);
     labelLayout->addStretch();
 

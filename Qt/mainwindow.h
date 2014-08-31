@@ -126,7 +126,6 @@ private:
 
     /*****TEXT BOX*******/
     QTextEdit * _textbox;
-    void _setupTextbox();
     void _generateReport();
 
     /****RESET BUTTON****/
