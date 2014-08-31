@@ -26,7 +26,17 @@ void MainWindow::_setupCheckboxes()
     initialsDateTimeLayout->addWidget(_addDate);
     initialsDateTimeLayout->addWidget(_addTime);
 
+    for(int i = 0; i < initialsDateTimeLayout->count(); i++)
+        initialsDateTimeLayout->itemAt(i)->widget()->setMaximumHeight(15);
+
+    initialsDateTimeLayout->addStretch();
+
     /****************MAIN SERVICE CHECKBOXES********************************/
+    QHBoxLayout * hddpassSpacer = new QHBoxLayout;
+    QHBoxLayout * hddfailSpacer = new QHBoxLayout;
+    QHBoxLayout * sfcpassSpacer = new QHBoxLayout;
+    QHBoxLayout * sfcFailSpacer = new QHBoxLayout;
+
     _checkout->setText(tr("Just Checked Out"));
     _hddscan->setText(tr("HDD Scan"));
     _hddpass->setText(tr("Passed"));
@@ -39,6 +49,18 @@ void MainWindow::_setupCheckboxes()
     _windowsUpdates->setText(tr("Windows Updates"));
     _restorePoints->setText(tr("Reset Restore Points"));
 
+    _checkout->setMaximumHeight(14);
+    _hddscan->setMaximumHeight(14);
+    _hddpass->setMaximumHeight(14);
+    _hddfail->setMaximumHeight(14);
+    _sfcscan->setMaximumHeight(14);
+    _sfcpass->setMaximumHeight(14);
+    _sfcfail->setMaximumHeight(14);
+    _upgradeInPlace->setMaximumHeight(14);
+    _resetBrowsers->setMaximumHeight(14);
+    _windowsUpdates->setMaximumHeight(14);
+    _restorePoints->setMaximumHeight(14);
+
     _hddpass->setCheckable(false);
     _hddpass->setVisible(false);
     _hddfail->setCheckable(false);
@@ -47,6 +69,15 @@ void MainWindow::_setupCheckboxes()
     _sfcpass->setVisible(false);
     _sfcfail->setCheckable(false);
     _sfcfail->setVisible(false);
+
+    hddpassSpacer->addSpacerItem(new QSpacerItem(15,14,QSizePolicy::Fixed));
+    hddpassSpacer->addWidget(_hddpass);
+    hddfailSpacer->addSpacerItem(new QSpacerItem(15,14,QSizePolicy::Fixed));
+    hddfailSpacer->addWidget(_hddfail);
+    sfcpassSpacer->addSpacerItem(new QSpacerItem(15,14,QSizePolicy::Fixed));
+    sfcpassSpacer->addWidget(_sfcpass);
+    sfcFailSpacer->addSpacerItem(new QSpacerItem(15,14,QSizePolicy::Fixed));
+    sfcFailSpacer->addWidget(_sfcfail);
 
     connect(_checkout, SIGNAL(stateChanged(int)),this,SLOT(_checkoutStateHasChanged(int)));
     connect(_hddscan,SIGNAL(stateChanged(int)),this,SLOT(_hddscanStateHasChanged(int)));
@@ -62,20 +93,33 @@ void MainWindow::_setupCheckboxes()
 
     mainServicesLayout->addWidget(_checkout);
     mainServicesLayout->addWidget(_hddscan);
-    mainServicesLayout->addWidget(_hddpass);
-    mainServicesLayout->addWidget(_hddfail);
+    mainServicesLayout->addLayout(hddpassSpacer);
+    mainServicesLayout->addLayout(hddfailSpacer);
     mainServicesLayout->addWidget(_sfcscan);
-    mainServicesLayout->addWidget(_sfcpass);
-    mainServicesLayout->addWidget(_sfcfail);
+    mainServicesLayout->addLayout(sfcpassSpacer);
+    mainServicesLayout->addLayout(sfcFailSpacer);
     mainServicesLayout->addWidget(_upgradeInPlace);
     mainServicesLayout->addWidget(_resetBrowsers);
     mainServicesLayout->addWidget(_windowsUpdates);
     mainServicesLayout->addWidget(_restorePoints);
+    mainServicesLayout->addStretch();
 
     /*******************INSTALLED AND UPDATED PROGRAMS CHECKBOXES***********/
+    QHBoxLayout * avSpacerLayout = new QHBoxLayout;
+    QHBoxLayout * win8SpacerLayout = new QHBoxLayout;
+
+    avSpacerLayout->addSpacerItem(new QSpacerItem(15,14,QSizePolicy::Fixed));
+    avSpacerLayout->addWidget(_installedAV);
+    win8SpacerLayout->addSpacerItem(new QSpacerItem(15,14,QSizePolicy::Fixed));
+    win8SpacerLayout->addWidget(_win8);
+
     _installedPrograms->setText(tr("Installed Programs"));
     _installedAV->setText(tr("Installed AV"));
     _win8->setText(tr("Windows 8"));
+
+    _installedPrograms->setMaximumHeight(15);
+    _installedAV->setMaximumHeight(15);
+    _win8->setMaximumHeight(15);
 
     _installedAV->setVisible(false);
     _win8->setVisible(false);
@@ -85,8 +129,9 @@ void MainWindow::_setupCheckboxes()
     connect(_win8, SIGNAL(stateChanged(int)),this,SLOT(_win8StateHasChanged(int)));
 
     installedAndUpdatedLayout->addWidget(_installedPrograms);
-    installedAndUpdatedLayout->addWidget(_installedAV);
-    installedAndUpdatedLayout->addWidget(_win8);
+    installedAndUpdatedLayout->addLayout(avSpacerLayout);
+    installedAndUpdatedLayout->addLayout(win8SpacerLayout);
+    installedAndUpdatedLayout->addStretch();
 
     checkboxesLayout->addLayout(initialsDateTimeLayout);
     checkboxesLayout->addLayout(mainServicesLayout);
