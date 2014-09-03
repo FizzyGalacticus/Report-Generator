@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _currentlySelectedMalware(new QStringList),
     _removedWithMalwarebytes(-1),
     _removedWithAvast(-1),
-    _db(NULL),
+    _db(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "CWI"))),
     _dbquery(NULL)
 {
     ui->setupUi(this);

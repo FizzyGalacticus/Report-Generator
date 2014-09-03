@@ -36,9 +36,6 @@ void MainWindow::addTextToDatabase(const QString & text, const QString & tableNa
 
 bool MainWindow::_openDatabase()
 {
-    delete _db;
-    _db = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
-
     _db->setHostName("CWI");
     _db->setDatabaseName("CWIDB");
     bool ok = _db->open();
@@ -47,6 +44,7 @@ bool MainWindow::_openDatabase()
     {
         qDebug() << tr("Database opened!");
 
+        delete _dbquery;
         _dbquery = new QSqlQuery(*_db);
         _dbquery->exec("CREATE TABLE initials(TITLE TEXT UNIQUE)");
         _dbquery->exec("CREATE TABLE removedprograms(TITLE TEXT UNIQUE)");
