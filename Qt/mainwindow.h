@@ -165,6 +165,7 @@ private:
     void _setupSQLiteDatabase();
     QVector<QString> * getTextFromDatabase(const QString &);
     void addTextToDatabase(const QString &, const QString &);
+    bool _openDatabase();
 };
 
 #endif // MAINWINDOW_H

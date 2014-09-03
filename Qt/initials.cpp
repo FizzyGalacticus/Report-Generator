@@ -54,7 +54,13 @@ void MainWindow::_setupInitials()
 
     if( myList->empty())
     {
-        QString userInitials = getUserInputString(this,tr("Initials"),tr("Initials:"));
+        QString userInitials;
+
+        while(true)
+        {
+            userInitials = getUserInputString(this,tr("Initials"),tr("Initials:"));
+            if(userInitials.size()) break;
+        }
         myList->push_back(userInitials);
         addTextToDatabase(userInitials,"initials");
     }
