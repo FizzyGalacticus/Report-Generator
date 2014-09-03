@@ -162,7 +162,6 @@ private:
     /*************************SQL DATABASE**************************/
     QSqlDatabase * _db;
     QSqlQuery * _dbquery;
-    void _setupSQLiteDatabase();
     QVector<QString> * getTextFromDatabase(const QString &);
     void addTextToDatabase(const QString &, const QString &);
     bool _openDatabase();

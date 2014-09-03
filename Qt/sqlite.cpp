@@ -5,21 +5,6 @@
 #include <QSqlError>
 #include <QDebug>
 
-void MainWindow::_setupSQLiteDatabase()
-{
-    if(_openDatabase())
-    {
-        qDebug() << tr("Database opened!");
-
-        _dbquery = new QSqlQuery(*_db);
-        _dbquery->exec("CREATE TABLE initials(TITLE TEXT UNIQUE)");
-        _dbquery->exec("CREATE TABLE removedprograms(TITLE TEXT UNIQUE)");
-
-        _db->close();
-    }
-    else qDebug() << tr("Database failed to open.");
-}
-
 QVector<QString> * MainWindow::getTextFromDatabase(const QString & tableName)
 {
     QVector<QString> * tableEntries = new QVector<QString>;
@@ -51,9 +36,24 @@ void MainWindow::addTextToDatabase(const QString & text, const QString & tableNa
 
 bool MainWindow::_openDatabase()
 {
+    delete _db;
+    _db = new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"));
+
     _db->setHostName("CWI");
     _db->setDatabaseName("CWIDB");
-    return _db->open();
+    bool ok = _db->open();
+
+    if(ok)
+    {
+        qDebug() << tr("Database opened!");
+
+        _dbquery = new QSqlQuery(*_db);
+        _dbquery->exec("CREATE TABLE initials(TITLE TEXT UNIQUE)");
+        _dbquery->exec("CREATE TABLE removedprograms(TITLE TEXT UNIQUE)");
+    }
+    else qDebug() << tr("Database failed to open.");
+
+    return ok;
 }
 
 #endif

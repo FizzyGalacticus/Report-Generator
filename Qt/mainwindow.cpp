@@ -51,8 +51,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _currentlySelectedMalware(new QStringList),
     _removedWithMalwarebytes(-1),
     _removedWithAvast(-1),
-    _db(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"))),
-    _dbquery(new QSqlQuery(NULL))
+    _db(NULL),
+    _dbquery(NULL)
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -100,7 +100,6 @@ void MainWindow::_resetButtonHasBeenClicked()
 
 void MainWindow::_setup()
 {
-    _setupSQLiteDatabase();
     _setupMenus();
     _setupInitials();
     _setupCheckboxes();
