@@ -16,6 +16,7 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
         QString userInitials = getUserInputString(this,tr("Initials"),tr("Initials:"));
         if(userInitials.size())
         {
+            userInitials = userInitials.toUpper();
             addTextToDatabase(userInitials,"initials");
             _initialsListView->item(_initialsListView->count()-1)->setText(userInitials);
 
@@ -61,6 +62,7 @@ void MainWindow::_setupInitials()
             userInitials = getUserInputString(this,tr("Initials"),tr("Initials:"));
             if(userInitials.size()) break;
         }
+        userInitials = userInitials.toUpper();
         myList->push_back(userInitials);
         addTextToDatabase(userInitials,"initials");
     }
