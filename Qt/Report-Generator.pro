@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     textbox.cpp \
     malwarewindow.cpp \
     menues.cpp \
-    sqlite.cpp
+    sqlite.cpp \
+    saveReport.cpp
 
 HEADERS  += mainwindow.h
 
