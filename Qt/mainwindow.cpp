@@ -52,7 +52,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _removedWithMalwarebytes(-1),
     _removedWithAvast(-1),
     _db(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "CWI"))),
-    _dbquery(NULL)
+    _dbquery(NULL),
+    _saveReportButton(new QPushButton("Save Report"))
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -117,11 +118,15 @@ void MainWindow::_setupButtons()
 
     _resetButton->setMaximumSize(50,30);
     _malwareButton->setMaximumSize(50,30);
+    _saveReportButton->setMaximumSize(80,30);
 
     connect(_resetButton,SIGNAL(clicked()),this,SLOT(_resetButtonHasBeenClicked()));
     connect(_malwareButton,SIGNAL(clicked()),this,SLOT(_malwareButtonHasBeenClicked()));
+    connect(_saveReportButton,SIGNAL(clicked()),this,SLOT(_saveReportButtonHasBeenClicked()));
 
     buttons->addWidget(_resetButton);
+    buttons->addStretch();
+    buttons->addWidget(_saveReportButton);
     buttons->addStretch();
     buttons->addWidget(_malwareButton);
 

@@ -55,9 +55,10 @@ private slots:
     void _malwareButtonHasBeenClicked();                        //Malware Button
     void _malwareListViewItemHasBeenDoubleClicked(QListWidgetItem *);//Malware List Item
     void _malwareWindowAcceptButtonHasBeenClicked();            //Malware Accept
-    void _about();                                               //About Menu
-    void _aboutQt();                                             //About Qt Menu
-    void _aboutAuthor();                                         //About Author Menu
+    void _saveReportButtonHasBeenClicked();                     //Save Report
+    void _about();                                              //About Menu
+    void _aboutQt();                                            //About Qt Menu
+    void _aboutAuthor();                                        //About Author Menu
 
 private:
     Ui::MainWindow *ui;
@@ -165,6 +166,10 @@ private:
     QVector<QString> * getTextFromDatabase(const QString &);
     void addTextToDatabase(const QString &, const QString &);
     bool _openDatabase();
+
+    /**************************SAVE REPORT**************************/
+    QPushButton * _saveReportButton;
+    bool _saveReport(const QString &);
 };
 
 #endif // MAINWINDOW_H
