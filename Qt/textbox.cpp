@@ -2,8 +2,6 @@
 #define TEXTBOX_CPP
 #include "mainwindow.h"
 #include <QString>
-#include <string>
-using std::string;
 
 void MainWindow::_textInTextboxHasChanged()
 {
@@ -16,18 +14,18 @@ void MainWindow::_textInTextboxHasChanged()
 
 void MainWindow::_generateReport()
 {
-    string report = "";
+    QString report = "";
 
     if(_addInitials->isChecked() && _currentUser.length())
-        report += _currentUser.toStdString() + " - ";
+        report += _currentUser + " - ";
 
     if(_addDate->isChecked() && _addTime->isChecked())
-        report += _date.toStdString() + " " +
-                QTime::currentTime().toString("hh:mm AP").toStdString() + " - ";
+        report += _date + " " +
+                QTime::currentTime().toString("hh:mm AP") + " - ";
     else if(_addDate->isChecked())
-        report += _date.toStdString() + " - ";
+        report += _date + " - ";
     else if(_addTime->isChecked())
-        report += QTime::currentTime().toString("hh:mm AP").toStdString() + " - ";
+        report += QTime::currentTime().toString("hh:mm AP") + " - ";
 
     if(_checkout->isChecked())
         report += "Pulled system from shelf.\n";
@@ -46,20 +44,20 @@ void MainWindow::_generateReport()
         report += "Removed the following program(s): ";
         for(int i = 0; i < _currentlySelectedMalware->count(); i++)
         {
-            if(i == _currentlySelectedMalware->count()-1 && _currentlySelectedMalware->count() != 1) report += ("and " + _currentlySelectedMalware->at(i).toStdString() + ".\n");
-            else if(_currentlySelectedMalware->count() == 1) report += (_currentlySelectedMalware->at(0).toStdString() + '\n');
-            else report += _currentlySelectedMalware->at(i).toStdString() + ", ";
+            if(i == _currentlySelectedMalware->count()-1 && _currentlySelectedMalware->count() != 1) report += ("and " + _currentlySelectedMalware->at(i) + ".\n");
+            else if(_currentlySelectedMalware->count() == 1) report += (_currentlySelectedMalware->at(0) + '\n');
+            else report += _currentlySelectedMalware->at(i) + ", ";
         }
     }
 
     if(_removedWithMalwarebytes >= 0)
         report += "Ran a scan with Malwarebytes' Anti-Malware and removed " +
-                QString::number(_removedWithMalwarebytes).toStdString() +
+                QString::number(_removedWithMalwarebytes) +
                 " found infected object(s).\n";
 
     if(_removedWithAvast >= 0)
         report += "Ran a boot-time scan with Avast! Free Anti-Virus and removed " +
-                QString::number(_removedWithAvast).toStdString() +
+                QString::number(_removedWithAvast) +
                 " found infected object(s).\n";
 
     if(_sfcscan && _sfcscan->isChecked())
@@ -95,7 +93,7 @@ void MainWindow::_generateReport()
     if(_restorePoints->isChecked())
         report += "Deleted old restore points potentially harboring infections and created a new 'CWI' restore point.\n";
 
-    if(_textbox) _textbox->setText(report.c_str());
+    if(_textbox) _textbox->setText(report);
 }
 
 #endif

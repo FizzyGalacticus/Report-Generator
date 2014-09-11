@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent) :
     if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << tr("Windows 7!") << '\n';
 #endif
 
-    qDebug() << _date.toStdString().c_str() << QTime::currentTime().toString("hh:mm:ss").toStdString().c_str() << '\n';
+    qDebug() << _date << QTime::currentTime().toString("hh:mm:ss") << '\n';
 }
 
 MainWindow::~MainWindow()

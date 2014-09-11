@@ -9,7 +9,7 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
     if(item != _initialsListView->item(_initialsListView->count()-1))
     {
             _currentUser = item->text();
-            qDebug() << _currentUser.toStdString().c_str() << tr("Clicked!") << '\n';
+            qDebug() << _currentUser << tr("Clicked!") << '\n';
     }
     else
     {
