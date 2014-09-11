@@ -163,8 +163,8 @@ private:
     /*************************SQL DATABASE**************************/
     QSqlDatabase * _db;
     QSqlQuery * _dbquery;
-    QVector<QString> * getTextFromDatabase(const QString &);
-    void addTextToDatabase(const QString &, const QString &);
+    QVector<QString> * _getTextFromDatabase(const QString &);
+    void _addTextToDatabase(const QString &, const QString &);
     bool _openDatabase();
 
     /**************************SAVE REPORT**************************/

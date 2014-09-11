@@ -17,7 +17,7 @@ void MainWindow::_initialsListItemHasBeenClicked(QListWidgetItem * item)
         if(userInitials.size())
         {
             userInitials = userInitials.toUpper();
-            addTextToDatabase(userInitials,"initials");
+            _addTextToDatabase(userInitials,"initials");
             _initialsListView->item(_initialsListView->count()-1)->setText(userInitials);
 
             _initialsListView->sortItems();
@@ -42,7 +42,7 @@ void MainWindow::_setupInitials()
 {
     QHBoxLayout * labelLayout = new QHBoxLayout;
     QHBoxLayout * initialListAndTextBox = new QHBoxLayout;
-    QVector<QString> * myList = getTextFromDatabase("initials");
+    QVector<QString> * myList = _getTextFromDatabase("initials");
 
     connect
                 (
@@ -64,7 +64,7 @@ void MainWindow::_setupInitials()
         }
         userInitials = userInitials.toUpper();
         myList->push_back(userInitials);
-        addTextToDatabase(userInitials,"initials");
+        _addTextToDatabase(userInitials,"initials");
     }
 
     for(int i = 0; i < myList->size(); i++)

@@ -15,6 +15,8 @@ void MainWindow::_saveReportButtonHasBeenClicked()
 
 bool MainWindow::_saveReport(const QString & filename)
 {
+    if(!filename.size()) return false;
+
     QFile * outputFile = new QFile((filename + ".txt"));
 
     if(outputFile->exists())

@@ -5,7 +5,7 @@
 #include <QSqlError>
 #include <QDebug>
 
-QVector<QString> * MainWindow::getTextFromDatabase(const QString & tableName)
+QVector<QString> * MainWindow::_getTextFromDatabase(const QString & tableName)
 {
     QVector<QString> * tableEntries = new QVector<QString>;
     if(_openDatabase() && _dbquery)
@@ -22,7 +22,7 @@ QVector<QString> * MainWindow::getTextFromDatabase(const QString & tableName)
     return tableEntries;
 }
 
-void MainWindow::addTextToDatabase(const QString & text, const QString & tableName)
+void MainWindow::_addTextToDatabase(const QString & text, const QString & tableName)
 {
     if(_openDatabase() && _dbquery)
     {

@@ -2,6 +2,8 @@
 #define TEXTBOX_CPP
 #include "mainwindow.h"
 #include <QString>
+#include <string>
+using std::string;
 
 void MainWindow::_textInTextboxHasChanged()
 {
