@@ -18,6 +18,7 @@
 #include <QVector>
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QKeyEvent>
 
 namespace Ui {
 class MainWindow;
@@ -59,6 +60,9 @@ private slots:
     void _about();                                              //About Menu
     void _aboutQt();                                            //About Qt Menu
     void _aboutAuthor();                                        //About Author Menu
+
+protected:
+    void keyPressEvent(QKeyEvent *);
 
 private:
     Ui::MainWindow *ui;
@@ -165,6 +169,7 @@ private:
     QSqlQuery * _dbquery;
     QVector<QString> * _getTextFromDatabase(const QString &);
     void _addTextToDatabase(const QString &, const QString &);
+    void _removeTextFromDatabase(const QString &, const QString &);
     bool _openDatabase();
 
     /**************************SAVE REPORT**************************/

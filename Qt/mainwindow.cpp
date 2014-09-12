@@ -133,4 +133,19 @@ void MainWindow::_setupButtons()
     _centralWidgetLayout->addLayout(buttons);
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_D)
+    {
+        if(_malwareWindow)
+        {
+            _removeTextFromDatabase(_malwareListView->currentItem()->text(),"removedprograms");
+        }
+        else
+        {
+            _removeTextFromDatabase(_initialsListView->currentItem()->text(),"initials");
+        }
+    }
+}
+
 #endif

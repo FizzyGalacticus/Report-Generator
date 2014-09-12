@@ -34,6 +34,11 @@ void MainWindow::_addTextToDatabase(const QString & text, const QString & tableN
     else qDebug() << tr("_db not open or _dbquery is NULL.");
 }
 
+void MainWindow::_removeTextFromDatabase(const QString & text, const QString & tableName)
+{
+    qDebug() << "Removing" << text << "from" << tableName << "!";
+}
+
 bool MainWindow::_openDatabase()
 {
     _db->setHostName("CWI");
