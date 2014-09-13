@@ -137,7 +137,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_D)
     {
-        if(_malwareWindow)
+        if(this->isHidden())
         {
             _removeTextFromDatabase(_malwareListView->currentItem()->text(),"removedprograms");
         }
