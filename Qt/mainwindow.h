@@ -170,6 +170,9 @@ private:
     /**************************SAVE REPORT**************************/
     QPushButton * _saveReportButton;
     bool _saveReport(const QString &);
+
+    /**************************NINITE WINDOW************************/
+    const QIcon * _niniteIcon;
 };
 
 #endif // MAINWINDOW_H

@@ -53,7 +53,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _removedWithAvast(-1),
     _db(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "CWI"))),
     _dbquery(NULL),
-    _saveReportButton(new QPushButton("Save Report"))
+    _saveReportButton(new QPushButton("Save Report")),
+    _niniteIcon(new QIcon(":/Resources/Icons/ninite.png"))
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
