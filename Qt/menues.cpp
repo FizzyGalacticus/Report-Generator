@@ -1,4 +1,3 @@
-
 #ifndef _MENUES_CPP
 #define _MENUES_CPP
 #include "mainwindow.h"
@@ -13,6 +12,8 @@ void MainWindow::_createMenus()
     _helpMenu->addAction(_aboutAct);
     _helpMenu->addAction(_aboutQtAct);
     _helpMenu->addAction(_aboutAuthorAct);
+
+    _installMenu = menuBar()->addMenu(tr("&Install"));
 }
 
 void MainWindow::_createActions()

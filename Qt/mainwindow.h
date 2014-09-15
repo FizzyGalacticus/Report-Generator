@@ -151,6 +151,7 @@ private:
     /***************************MENUES******************************/
     QMenu * _fileMenu;
     QMenu * _helpMenu;
+    QMenu * _installMenu;
     QAction *_openAct;
     QAction *_exitAct;
     QAction *_aboutAct;
