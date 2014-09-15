@@ -18,6 +18,7 @@
 #include <QVector>
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QProcess>
 
 namespace Ui {
 class MainWindow;
@@ -60,6 +61,8 @@ private slots:
     void _aboutQt();                                            //About Qt Menu
     void _aboutAuthor();                                        //About Author Menu
     void _installNinite();                                      //Open Ninite Installer Dialog
+    void _runNiniteInstallerButtonHasBeenClicked();             //Run Ninite Installer
+    void _niniteInstallerIsFinished(int,QProcess::ExitStatus);  //Installer has finished running
 
 private:
     Ui::MainWindow *ui;
@@ -177,6 +180,7 @@ private:
     /**************************NINITE WINDOW************************/
     const QImage * _niniteIcon;
     QCheckBox * _installAV;
+    QProcess * _niniteProcess;
 };
 
 #endif // MAINWINDOW_H

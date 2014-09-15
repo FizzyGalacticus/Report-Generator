@@ -55,7 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _dbquery(NULL),
     _saveReportButton(new QPushButton("Save Report")),
     _niniteIcon(new QImage(":/Resources/Icons/ninite.png")),
-    _installAV(new QCheckBox("Install AV?"))
+    _installAV(new QCheckBox("Install AV?")),
+    _niniteProcess(NULL)
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -63,13 +64,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setCentralWidget(_centralWidget);
 
     _setup();
-
-    //QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
-    //QProcess::startDetached("Ninite-NoAV.exe",QStringList("/silent"));
-
-#ifdef __WINDOWS__
-    if(QSysInfo::windowsVersion()==QSysInfo::WV_WINDOWS7) qDebug() << tr("Windows 7!") << '\n';
-#endif
 
     qDebug() << _date << QTime::currentTime().toString("hh:mm:ss") << '\n';
 }

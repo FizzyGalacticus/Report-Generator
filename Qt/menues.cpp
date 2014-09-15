@@ -5,6 +5,10 @@
 #include <QDialog>
 #include <QPushButton>
 #include <QCheckBox>
+#include <QFile>
+#include <QProcess>
+#include <QDesktopServices>
+#include <QUrl>
 
 void MainWindow::_createMenus()
 {
@@ -78,6 +82,7 @@ void MainWindow::_installNinite()
     QPushButton * runNiniteButton = new QPushButton("Run Ninite!");
 
     niniteIconLabel->setPixmap(QPixmap::fromImage(_niniteIcon->scaled(64,64)));
+    connect(runNiniteButton, SIGNAL(clicked()), this, SLOT(_runNiniteInstallerButtonHasBeenClicked()));
 
     installerLayout->addWidget(niniteIconLabel);
     installerLayout->addWidget(runNiniteButton);
@@ -85,6 +90,66 @@ void MainWindow::_installNinite()
 
     niniteInstallerDialog->setLayout(installerLayout);
     niniteInstallerDialog->exec();
+}
+
+void MainWindow::_runNiniteInstallerButtonHasBeenClicked()
+{
+#ifdef __WIN32 || defined __WIN32__ || defined __WINNT || defined __WINNT__
+    const QSysInfo::WinVersion windowsVersion = QSysInfo::windowsVersion();
+    delete _niniteProcess;
+    _niniteProcess = new QProcess(this);
+
+    connect(_niniteProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(_niniteInstallerIsFinished(int,QProcess::ExitStatus)));
+
+    if(windowsVersion == QSysInfo::WV_WINDOWS7 || windowsVersion == QSysInfo::WV_VISTA || windowsVersion == QSysInfo::WV_XP)
+    {
+        qDebug() << "Running Windows 7, Vista, or XP!";
+
+        if(_installAV->isChecked())
+        {
+            qDebug() << "Running Ninite and installing AV!";
+            QFile::copy("://Resources/Ninite/Ninite-AV.exe", "Ninite-AV.exe");
+            _niniteProcess->startDetached("Ninite-AV.exe"/*,QStringList("/silent")*/);
+            //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-AV.exe"));
+        }
+        else
+        {
+            qDebug() << "Running Ninite without installing AV!";
+            QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
+            _niniteProcess->startDetached("Ninite-NoAV.exe"/*,QStringList("/silent")*/);
+            //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-NoAV.exe"));
+        }
+    }
+    else if(windowsVersion == QSysInfo::WV_WINDOWS8 || windowsVersion == QSysInfo::WV_WINDOWS8_1)
+    {
+        qDebug() << "Running Windows 8!";
+
+        if(_installAV->isChecked())
+        {
+            qDebug() << "Running Ninite and installing AV!";
+            QFile::copy("://Resources/Ninite/Ninite-Win8-AV.exe", "Ninite-Win8-AV.exe");
+            _niniteProcess->startDetached("Ninite-Win8-AV.exe"/*,QStringList("/silent")*/);
+            //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-Win8-AV.exe"));
+        }
+        else
+        {
+            qDebug() << "Running Ninite without installing AV!";
+            QFile::copy("://Resources/Ninite/Ninite-Win8-NoAV.exe", "Ninite-Win8-NoAV.exe");
+            _niniteProcess->startDetached("Ninite-Win8-NoAV.exe"/*,QStringList("/silent")*/);
+            //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-Win8-NoAV.exe"));
+        }
+    }
+
+#else
+    qDebug() << "Not running on Windows platform!";
+#endif
+}
+
+void MainWindow::_niniteInstallerIsFinished(int exitCode,QProcess::ExitStatus exitStatus)
+{
+    qDebug() << "Exit Code:" << exitCode;
+
+    QFile::remove("Ninite*.exe");
 }
 
 void MainWindow::_setupMenus()

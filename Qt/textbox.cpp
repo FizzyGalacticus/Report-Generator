@@ -94,6 +94,8 @@ void MainWindow::_generateReport()
         report += "Deleted old restore points potentially harboring infections and created a new 'CWI' restore point.\n";
 
     if(_textbox) _textbox->setText(report);
+
+    if(_niniteProcess) qDebug() << _niniteProcess->isOpen();
 }
 
 #endif
