@@ -59,6 +59,7 @@ private slots:
     void _about();                                              //About Menu
     void _aboutQt();                                            //About Qt Menu
     void _aboutAuthor();                                        //About Author Menu
+    void _installNinite();                                      //Open Ninite Installer Dialog
 
 private:
     Ui::MainWindow *ui;
@@ -174,7 +175,8 @@ private:
     bool _saveReport(const QString &);
 
     /**************************NINITE WINDOW************************/
-    const QIcon * _niniteIcon;
+    const QImage * _niniteIcon;
+    QCheckBox * _installAV;
 };
 
 #endif // MAINWINDOW_H

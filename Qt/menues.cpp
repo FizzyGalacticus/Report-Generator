@@ -2,6 +2,9 @@
 #define _MENUES_CPP
 #include "mainwindow.h"
 #include <QMessageBox>
+#include <QDialog>
+#include <QPushButton>
+#include <QCheckBox>
 
 void MainWindow::_createMenus()
 {
@@ -37,8 +40,9 @@ void MainWindow::_createActions()
     connect(_aboutAuthorAct, SIGNAL(triggered()),this, SLOT(_aboutAuthor()));
 
     _niniteAct = new QAction(tr("&Ninite"),this);
-    _niniteAct->setIcon(*_niniteIcon);
+    _niniteAct->setIcon(QIcon(QPixmap::fromImage(*_niniteIcon)));
     _niniteAct->setStatusTip(tr("Install applications using Ninite installer"));
+    connect(_niniteAct, SIGNAL(triggered()), this, SLOT(_installNinite()));
 }
 
 void MainWindow::_about()
@@ -61,6 +65,26 @@ void MainWindow::_aboutAuthor()
                 tr("Authors Menu"),
                 tr("<b>Author: </b> Dustin Dodson")
             );
+}
+
+void MainWindow::_installNinite()
+{
+    qDebug() << "Opening Ninite installer dialog!";
+
+    QDialog * niniteInstallerDialog = new QDialog(this);
+    QHBoxLayout * installerLayout = new QHBoxLayout;
+
+    QLabel * niniteIconLabel = new QLabel();
+    QPushButton * runNiniteButton = new QPushButton("Run Ninite!");
+
+    niniteIconLabel->setPixmap(QPixmap::fromImage(_niniteIcon->scaled(64,64)));
+
+    installerLayout->addWidget(niniteIconLabel);
+    installerLayout->addWidget(runNiniteButton);
+    installerLayout->addWidget(_installAV);
+
+    niniteInstallerDialog->setLayout(installerLayout);
+    niniteInstallerDialog->exec();
 }
 
 void MainWindow::_setupMenus()

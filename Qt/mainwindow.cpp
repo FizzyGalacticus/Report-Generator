@@ -54,7 +54,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _db(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE", "CWI"))),
     _dbquery(NULL),
     _saveReportButton(new QPushButton("Save Report")),
-    _niniteIcon(new QIcon(":/Resources/Icons/ninite.png"))
+    _niniteIcon(new QImage(":/Resources/Icons/ninite.png")),
+    _installAV(new QCheckBox("Install AV?"))
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
