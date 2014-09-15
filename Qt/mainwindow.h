@@ -152,11 +152,12 @@ private:
     QMenu * _fileMenu;
     QMenu * _helpMenu;
     QMenu * _installMenu;
-    QAction *_openAct;
-    QAction *_exitAct;
-    QAction *_aboutAct;
-    QAction *_aboutQtAct;
-    QAction *_aboutAuthorAct;
+    QAction * _niniteAct;
+    QAction * _openAct;
+    QAction * _exitAct;
+    QAction * _aboutAct;
+    QAction * _aboutQtAct;
+    QAction * _aboutAuthorAct;
     void _createMenus();
     void _createActions();
     void _setupMenus();

@@ -14,6 +14,7 @@ void MainWindow::_createMenus()
     _helpMenu->addAction(_aboutAuthorAct);
 
     _installMenu = menuBar()->addMenu(tr("&Install"));
+    _installMenu->addAction(_niniteAct);
 }
 
 void MainWindow::_createActions()
@@ -34,6 +35,10 @@ void MainWindow::_createActions()
     _aboutAuthorAct = new QAction(tr("About &Author"), this);
     _aboutAuthorAct->setStatusTip(tr("Show information about Report-Generator's author"));
     connect(_aboutAuthorAct, SIGNAL(triggered()),this, SLOT(_aboutAuthor()));
+
+    _niniteAct = new QAction(tr("&Ninite"),this);
+    _niniteAct->setIcon(*_niniteIcon);
+    _niniteAct->setStatusTip(tr("Install applications using Ninite installer"));
 }
 
 void MainWindow::_about()
