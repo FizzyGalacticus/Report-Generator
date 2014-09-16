@@ -56,7 +56,8 @@ MainWindow::MainWindow(QWidget *parent) :
     _saveReportButton(new QPushButton("Save Report")),
     _niniteIcon(new QImage(":/Resources/Icons/ninite.png")),
     _installAV(new QCheckBox("Install AV?")),
-    _niniteProcess(NULL)
+    _niniteProcess(NULL),
+    _niniteInstallerFile(new QFile("Ninite-NoAV.exe"))
 {
     ui->setupUi(this);
     this->setWindowTitle("ComputerWerks Inc. - Report Generator");
@@ -72,6 +73,18 @@ MainWindow::~MainWindow()
 {
     delete ui;
     _db->close();
+
+
+    if(_niniteInstallerFile->exists())
+    {
+        qDebug() << _niniteInstallerFile->fileName() << "exists!";
+        _niniteInstallerFile->close();
+        if(!_niniteInstallerFile->remove())
+        {
+            qDebug() << "...but couldn't be removed for some stupid reason!";
+            qDebug() << "Error:" << _niniteInstallerFile->errorString();
+        }
+    }
 }
 
 void MainWindow::_resetButtonHasBeenClicked()

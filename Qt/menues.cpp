@@ -109,14 +109,18 @@ void MainWindow::_runNiniteInstallerButtonHasBeenClicked()
         {
             qDebug() << "Running Ninite and installing AV!";
             QFile::copy("://Resources/Ninite/Ninite-AV.exe", "Ninite-AV.exe");
-            _niniteProcess->startDetached("Ninite-AV.exe"/*,QStringList("/silent")*/);
+            _niniteInstallerFile->setFileName("Ninite-AV.exe");
+            //_niniteProcess->startDetached("Ninite-AV.exe"/*,QStringList("/silent")*/);
+            _niniteProcess->startDetached(_niniteInstallerFile->fileName());
             //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-AV.exe"));
         }
         else
         {
             qDebug() << "Running Ninite without installing AV!";
             QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
-            _niniteProcess->startDetached("Ninite-NoAV.exe"/*,QStringList("/silent")*/);
+            _niniteInstallerFile->setFileName("Ninite-NoAV.exe");
+            //_niniteProcess->startDetached("Ninite-NoAV.exe"/*,QStringList("/silent")*/);
+            _niniteProcess->startDetached(_niniteInstallerFile->fileName());
             //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-NoAV.exe"));
         }
     }
@@ -128,14 +132,17 @@ void MainWindow::_runNiniteInstallerButtonHasBeenClicked()
         {
             qDebug() << "Running Ninite and installing AV!";
             QFile::copy("://Resources/Ninite/Ninite-Win8-AV.exe", "Ninite-Win8-AV.exe");
-            _niniteProcess->startDetached("Ninite-Win8-AV.exe"/*,QStringList("/silent")*/);
+            _niniteInstallerFile->setFileName("Ninite-Win8-AV.exe");
+            //_niniteProcess->startDetached("Ninite-Win8-AV.exe"/*,QStringList("/silent")*/);
+            _niniteProcess->startDetached(_niniteInstallerFile->fileName());
             //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-Win8-AV.exe"));
         }
         else
         {
             qDebug() << "Running Ninite without installing AV!";
             QFile::copy("://Resources/Ninite/Ninite-Win8-NoAV.exe", "Ninite-Win8-NoAV.exe");
-            _niniteProcess->startDetached("Ninite-Win8-NoAV.exe"/*,QStringList("/silent")*/);
+            //_niniteProcess->startDetached("Ninite-Win8-NoAV.exe"/*,QStringList("/silent")*/);
+            _niniteProcess->startDetached(_niniteInstallerFile->fileName());
             //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-Win8-NoAV.exe"));
         }
     }
@@ -149,7 +156,15 @@ void MainWindow::_niniteInstallerIsFinished(int exitCode,QProcess::ExitStatus ex
 {
     qDebug() << "Exit Code:" << exitCode;
 
-    QFile::remove("Ninite*.exe");
+    if(_niniteInstallerFile->exists())
+    {
+        qDebug() << _niniteInstallerFile->fileName() << "exists!";
+        if(!_niniteInstallerFile->remove())
+        {
+            qDebug() << "...but couldn't be removed for some stupid reason!";
+            qDebug() << "Error:" << _niniteInstallerFile->errorString();
+        }
+    }
 }
 
 void MainWindow::_setupMenus()
