@@ -53,6 +53,7 @@ private slots:
     void _installedAVStateHasChanged(int);                      //Installed AV
     void _win8StateHasChanged(int);                             //Windows 8 Machine
     void _textInTextboxHasChanged();                            //Text change
+    void _refreshButtonHasBeenClicked();                        //Refresh Button
     void _resetButtonHasBeenClicked();                          //Reset button
     void _malwareButtonHasBeenClicked();                        //Malware Button
     void _malwareListViewItemHasBeenDoubleClicked(QListWidgetItem *);//Malware List Item
@@ -134,7 +135,8 @@ private:
     QTextEdit * _textbox;
     void _generateReport();
 
-    /****RESET BUTTON****/
+    /****RESET & REFRESH BUTTONS****/
+    QPushButton * _refreshButton;
     QPushButton * _resetButton;
 
     /**********************MALWARE WINDOW***************************/

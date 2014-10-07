@@ -87,6 +87,11 @@ MainWindow::~MainWindow()
     }
 }
 
+void MainWindow::_refreshButtonHasBeenClicked()
+{
+    _generateReport();
+}
+
 void MainWindow::_resetButtonHasBeenClicked()
 {
     _addInitials->setChecked(false);
@@ -122,17 +127,21 @@ void MainWindow::_setupButtons()
 {
     QHBoxLayout * buttons = new QHBoxLayout;
 
+    _refreshButton = new QPushButton(tr("Refresh"),this);
     _resetButton = new QPushButton(tr("Reset"),this);
     _malwareButton = new QPushButton(tr("Malware"),this);
 
+    _refreshButton->setMaximumSize(50,30);
     _resetButton->setMaximumSize(50,30);
     _malwareButton->setMaximumSize(50,30);
     _saveReportButton->setMaximumSize(80,30);
 
+    connect(_refreshButton, SIGNAL(clicked()),this,SLOT(_refreshButtonHasBeenClicked()));
     connect(_resetButton,SIGNAL(clicked()),this,SLOT(_resetButtonHasBeenClicked()));
     connect(_malwareButton,SIGNAL(clicked()),this,SLOT(_malwareButtonHasBeenClicked()));
     connect(_saveReportButton,SIGNAL(clicked()),this,SLOT(_saveReportButtonHasBeenClicked()));
 
+    buttons->addWidget(_refreshButton);
     buttons->addWidget(_resetButton);
     buttons->addStretch();
     buttons->addWidget(_saveReportButton);
