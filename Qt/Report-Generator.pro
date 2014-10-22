@@ -4,9 +4,6 @@
 #
 #-------------------------------------------------
 
-QMAKE_LFLAGS += -static -static-libgcc
-CONFIG += static
-
 QT       += core gui
 QT	 += sql
 
