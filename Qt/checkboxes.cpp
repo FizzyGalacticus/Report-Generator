@@ -10,7 +10,7 @@ void MainWindow::_setupCheckboxes()
 {
     QVBoxLayout * initialsDateTimeLayout = new QVBoxLayout;
     QVBoxLayout * mainServicesLayout = new QVBoxLayout;
-    QVBoxLayout * installedAndUpdatedLayout = new QVBoxLayout;
+    QVBoxLayout * installedUpdatedAndCompleted = new QVBoxLayout;
     QHBoxLayout * checkboxesLayout = new QHBoxLayout;
 
     /****************INITIALS, TIME, AND DATE CHECKBOXES*********************/
@@ -116,10 +116,12 @@ void MainWindow::_setupCheckboxes()
     _installedPrograms->setText(tr("Installed Programs"));
     _installedAV->setText(tr("Installed AV"));
     _win8->setText(tr("Windows 8"));
+    _workCompleted->setText(tr("Wrapped Up"));
 
     _installedPrograms->setMaximumHeight(15);
     _installedAV->setMaximumHeight(15);
     _win8->setMaximumHeight(15);
+    _workCompleted->setMaximumHeight(15);
 
     _installedAV->setVisible(false);
     _win8->setVisible(false);
@@ -127,15 +129,17 @@ void MainWindow::_setupCheckboxes()
     connect(_installedPrograms, SIGNAL(stateChanged(int)),this,SLOT(_installedProgramsStateHasChanged(int)));
     connect(_installedAV, SIGNAL(stateChanged(int)),this,SLOT(_installedAVStateHasChanged(int)));
     connect(_win8, SIGNAL(stateChanged(int)),this,SLOT(_win8StateHasChanged(int)));
+    connect(_workCompleted, SIGNAL(stateChanged(int)), this, SLOT(_completedStateHasChanged(int)));
 
-    installedAndUpdatedLayout->addWidget(_installedPrograms);
-    installedAndUpdatedLayout->addLayout(avSpacerLayout);
-    installedAndUpdatedLayout->addLayout(win8SpacerLayout);
-    installedAndUpdatedLayout->addStretch();
+    installedUpdatedAndCompleted->addWidget(_installedPrograms);
+    installedUpdatedAndCompleted->addLayout(avSpacerLayout);
+    installedUpdatedAndCompleted->addLayout(win8SpacerLayout);
+    installedUpdatedAndCompleted->addStretch();
+    installedUpdatedAndCompleted->addWidget(_workCompleted);
 
     checkboxesLayout->addLayout(initialsDateTimeLayout);
     checkboxesLayout->addLayout(mainServicesLayout);
-    checkboxesLayout->addLayout(installedAndUpdatedLayout);
+    checkboxesLayout->addLayout(installedUpdatedAndCompleted);
 
     _centralWidgetLayout->addLayout(checkboxesLayout);
 }
@@ -311,6 +315,14 @@ void MainWindow::_win8StateHasChanged(int state)
 {
     if(state) qDebug() << tr("System is running Windows 8!");
     else qDebug() << tr("System is not actually running Windows 8!");
+
+    _generateReport();
+}
+
+void MainWindow::_completedStateHasChanged(int state)
+{
+    if(state) qDebug() << tr("Finally done!");
+    else qDebug() << tr("Not done yet! Hehehe.");
 
     _generateReport();
 }

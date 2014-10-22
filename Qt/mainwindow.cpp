@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _installedPrograms(new QCheckBox),
     _installedAV(new QCheckBox),
     _win8(new QCheckBox),
+    _workCompleted(new QCheckBox),
     _textbox(new QTextEdit("Report is generated here. Start customizing!",this)),
     _currentlySelectedMalware(new QStringList),
     _removedWithMalwarebytes(-1),

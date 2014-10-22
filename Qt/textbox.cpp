@@ -93,6 +93,9 @@ void MainWindow::_generateReport()
     if(_restorePoints->isChecked())
         report += "Deleted old restore points potentially harboring infections and created a new 'CWI' restore point.\n";
 
+    if(_workCompleted->isChecked())
+        report += ("\nSystem is fully functional and operating optimally.\nThank you for your business!\n-" + (_currentUser.length()?_currentUser:""));
+
     if(_textbox) _textbox->setText(report);
 
     if(_niniteProcess) qDebug() << _niniteProcess->isOpen();

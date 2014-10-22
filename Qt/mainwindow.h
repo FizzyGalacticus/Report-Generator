@@ -52,6 +52,7 @@ private slots:
     void _installedProgramsStateHasChanged(int);                //Installed Programs
     void _installedAVStateHasChanged(int);                      //Installed AV
     void _win8StateHasChanged(int);                             //Windows 8 Machine
+    void _completedStateHasChanged(int);                        //Work is done
     void _textInTextboxHasChanged();                            //Text change
     void _refreshButtonHasBeenClicked();                        //Refresh Button
     void _resetButtonHasBeenClicked();                          //Reset button
@@ -128,6 +129,9 @@ private:
     QCheckBox * _installedPrograms;
     QCheckBox * _installedAV;
     QCheckBox * _win8;
+
+    /********EVERYTHING IS DONE********/
+    QCheckBox * _workCompleted;
 
     /***************************************************************/
 
