@@ -176,7 +176,12 @@ void MainWindow::_addTimeStateHasChanged(int state)
 void MainWindow::_checkoutStateHasChanged(int state)
 {
     if(state)
+    {
         qDebug() << tr("Just checked out!");
+        _addInitials->setChecked(true);
+        _addDate->setChecked(true);
+        _addTime->setChecked(true);
+    }
     else qDebug() << tr("Actually, I didn't just check out!");
 
     _generateReport();
