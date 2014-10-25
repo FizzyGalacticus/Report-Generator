@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QCheckBox>
 #include <QFile>
+#include <QDir>
 #include <QProcess>
 #include <QDesktopServices>
 #include <QUrl>
@@ -104,25 +105,26 @@ void MainWindow::_runNiniteInstallerButtonHasBeenClicked()
     if(windowsVersion == QSysInfo::WV_WINDOWS7 || windowsVersion == QSysInfo::WV_VISTA || windowsVersion == QSysInfo::WV_XP)
     {
         qDebug() << "Running Windows 7, Vista, or XP!";
+        QString niniteInstallerLocation = QDir::tempPath();
+        _niniteInstallerFile->setAutoRemove(true);
 
         if(_installAV->isChecked())
         {
             qDebug() << "Running Ninite and installing AV!";
-            QFile::copy("://Resources/Ninite/Ninite-AV.exe", "Ninite-AV.exe");
-            _niniteInstallerFile->setFileName("Ninite-AV.exe");
-            //_niniteProcess->startDetached("Ninite-AV.exe"/*,QStringList("/silent")*/);
+            niniteInstallerLocation += "Ninite-AV.exe";
+            QFile::copy("://Resources/Ninite/Ninite-AV.exe",niniteInstallerLocation);
+            _niniteInstallerFile->setFileName(niniteInstallerLocation);
             _niniteProcess->startDetached(_niniteInstallerFile->fileName());
-            //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-AV.exe"));
         }
         else
         {
             qDebug() << "Running Ninite without installing AV!";
-            QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", "Ninite-NoAV.exe");
-            _niniteInstallerFile->setFileName("Ninite-NoAV.exe");
-            //_niniteProcess->startDetached("Ninite-NoAV.exe"/*,QStringList("/silent")*/);
+            niniteInstallerLocation += "Ninite-NoAV.exe";
+            QFile::copy("://Resources/Ninite/Ninite-NoAV.exe", niniteInstallerLocation);
+            _niniteInstallerFile->setFileName(niniteInstallerLocation);
             _niniteProcess->startDetached(_niniteInstallerFile->fileName());
-            //QDesktopServices::openUrl(QUrl("://Resources/Ninite/Ninite-NoAV.exe"));
         }
+        qDebug() << "Filename:" << niniteInstallerLocation;
     }
     else if(windowsVersion == QSysInfo::WV_WINDOWS8 || windowsVersion == QSysInfo::WV_WINDOWS8_1)
     {
@@ -159,6 +161,7 @@ void MainWindow::_niniteInstallerIsFinished(int exitCode,QProcess::ExitStatus ex
     if(_niniteInstallerFile->exists())
     {
         qDebug() << _niniteInstallerFile->fileName() << "exists!";
+        if(_niniteProcess->isOpen()) _niniteProcess->close();
         if(!_niniteInstallerFile->remove())
         {
             qDebug() << "...but couldn't be removed for some stupid reason!";

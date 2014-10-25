@@ -19,7 +19,7 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QProcess>
-#include <QFile>
+#include <QTemporaryFile>
 
 namespace Ui {
 class MainWindow;
@@ -188,7 +188,7 @@ private:
     const QImage * _niniteIcon;
     QCheckBox * _installAV;
     QProcess * _niniteProcess;
-    QFile * _niniteInstallerFile;
+    QTemporaryFile * _niniteInstallerFile;
 };
 
 #endif // MAINWINDOW_H
