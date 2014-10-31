@@ -108,6 +108,7 @@ void MainWindow::_resetButtonHasBeenClicked()
     _windowsUpdates->setChecked(false);
     _restorePoints->setChecked(false);
     _installedPrograms->setChecked(false);
+    _workCompleted->setChecked(false);
     _currentlySelectedMalware->clear();
     _removedWithMalwarebytes = -1;
     _removedWithAvast = -1;
