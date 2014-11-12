@@ -20,10 +20,10 @@ void MainWindow::_generateReport()
         report += _currentUser + " - ";
 
     if(_addDate->isChecked() && _addTime->isChecked())
-        report += _date + " " +
+        report += QDate::currentDate().toString("MM/dd/yy") + " " +
                 QTime::currentTime().toString("hh:mm AP") + " - ";
     else if(_addDate->isChecked())
-        report += _date + " - ";
+        report += QDate::currentDate().toString("MM/dd/yy") + " - ";
     else if(_addTime->isChecked())
         report += QTime::currentTime().toString("hh:mm AP") + " - ";
 

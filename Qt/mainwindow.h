@@ -33,6 +33,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+    void keyPressEvent(QKeyEvent *);
+
 private slots:
     void _initialsListItemHasBeenClicked(QListWidgetItem *);    //Initials
     void _addInitialsStateHasChanged(int);                      //Add Initials
@@ -96,7 +99,6 @@ private:
     QCheckBox * _addInitials;
 
     /****DATE AND TIME***/
-    QString _date;
     QCheckBox * _addDate;
     QCheckBox * _addTime;
 

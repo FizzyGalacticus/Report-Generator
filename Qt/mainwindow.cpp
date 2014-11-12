@@ -19,6 +19,7 @@
 #include <QWindow>
 #include <QDialog>
 #include <QSqlQuery>
+#include <QKeyEvent>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,7 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _initialsListView(new QListWidget),
     _initials(new QLabel(tr("Initials"),this)),
     _addInitials(new QCheckBox),
-    _date(QDate::currentDate().toString("MM/dd/yy")),
     _addDate(new QCheckBox),
     _addTime(new QCheckBox),
     _checkout(new QCheckBox),
@@ -66,8 +66,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setCentralWidget(_centralWidget);
 
     _setup();
-
-    qDebug() << _date << QTime::currentTime().toString("hh:mm:ss") << '\n';
 }
 
 MainWindow::~MainWindow()
@@ -153,6 +151,12 @@ void MainWindow::_setupButtons()
     buttons->addWidget(_malwareButton);
 
     _centralWidgetLayout->addLayout(buttons);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Delete)
+        qDebug() << "Delete pressed!";
 }
 
 #endif
