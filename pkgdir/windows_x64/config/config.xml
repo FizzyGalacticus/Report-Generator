@@ -5,7 +5,7 @@
      <Title>CWI Report Generator Installer</Title>
      <Publisher>Dustin L. Dodson</Publisher>
      <StartMenuDir>CWI Report Generator</StartMenuDir>
-     <TargetDir>/Media/Boobiemachine/Install/Ubuntu/CWI Report Generator</TargetDir>
-     <RunProgram></RunProgram>
-     <Icon>../../Qt/Resources/CWILogo.ico</Icon>
+     <TargetDir>C:/Program Files/CWI Report Generator</TargetDir>
+	 <AllowSpaceInPath>true</AllowSpaceInPath>
+	 <ProductUrl>https://github.com/FizzyGalacticus/Report-Generator</ProductUrl>
  </Installer>
