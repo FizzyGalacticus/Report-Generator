@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <Installer>
+     <Name>CWI Report Generator</Name>
+     <Version>2.0</Version>
+     <Title>CWI Report Generator Installer</Title>
+     <Publisher>Dustin L. Dodson</Publisher>
+     <StartMenuDir>CWI Report Generator</StartMenuDir>
+     <TargetDir>/Media/Boobiemachine/Install/Ubuntu/CWI Report Generator</TargetDir>
+     <RunProgram></RunProgram>
+     <Icon>../../Qt/Resources/CWILogo.ico</Icon>
+ </Installer>

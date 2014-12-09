@@ -30,3 +30,7 @@ lastdate
 build*
 *.user
 *.user*
+
+#Precompiled libraries
+pkgdir/windows_x64/packages/com.cwirg.root/data/*
+pkgdir/linux_x64/packages/com.cwirg.root/data/*

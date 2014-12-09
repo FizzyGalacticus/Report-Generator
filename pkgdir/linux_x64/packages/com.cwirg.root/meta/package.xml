@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Package>
+	<DisplayName>CWI Report Generator</DisplayName>
+	<Name>com.cwirg.root</Name>
+	<Description>The program</Description>
+	<Version>2.0</Version>
+	<ReleaseDate>2014-12-08</ReleaseDate>
+	<ForcedInstallation>true</ForcedInstallation>
+</Package>
