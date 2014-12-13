@@ -6,4 +6,5 @@
 	<Version>2.0</Version>
 	<ReleaseDate>2014-12-08</ReleaseDate>
 	<ForcedInstallation>true</ForcedInstallation>
+	<Script>installscript.qs</Script>
 </Package>
